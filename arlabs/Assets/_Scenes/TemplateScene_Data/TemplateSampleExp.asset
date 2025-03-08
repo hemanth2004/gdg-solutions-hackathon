@@ -17,7 +17,6 @@ MonoBehaviour:
   _experimentName: Ohm's Law and Resistance
   _class: 12
   _requiredApparatus:
-  - {fileID: 4788383638255602670, guid: 534f50e8d9932b14c9c2d18a414c6289, type: 3}
+  - {fileID: 5058707476894779933, guid: 534f50e8d9932b14c9c2d18a414c6289, type: 3}
   _instantiatedApparatus: []
-  _experimentCompletionEvent: {fileID: 11400000, guid: 8b407312884f0374e835d2abd2f51ed1,
-    type: 2}
+  _experimentCompletionEvent: {fileID: 11400000, guid: 8b407312884f0374e835d2abd2f51ed1, type: 2}
