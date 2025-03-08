@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbf16b16648760408deedba87d9f77d, type: 3}
+  m_Name: Verification Of Ohm's Law - Master
+  m_EditorClassIdentifier: 
+  _subject: 1
+  _topic: 1
+  _experimentName: Verification of Ohm's Law
+  _class: 12
+  _requiredApparatus:
+  - {fileID: 0}
+  _instantiatedApparatus: []
+  _experimentCompletionEvent: {fileID: 11400000, guid: 747ac06ebdb91d245a5326de19db7d2b,
+    type: 2}

@@ -5,10 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+  - enabled: 0
+    path: Assets/_Scenes/URP_Sample.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9227e98e4b6e046c5b175924d7b5d070, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 15c5aaf9e1baf874d95c511affa2354a, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 45e9be517a59df74ba38330933d12965, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 940e587b8c265e6489cd68443fbfee83, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 3ffc52c70e4cd5e48bd610bfea77c315, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: fe226ea87a33dae4383aed4b0b40da67, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5c7f5f76b02eab74bb38600c6ad8d80f, type: 2}
   m_UseUCBPForAssetBundles: 0
