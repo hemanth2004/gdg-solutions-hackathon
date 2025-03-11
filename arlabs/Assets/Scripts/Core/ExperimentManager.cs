@@ -32,6 +32,9 @@ namespace ARLabs.Core
         private StateMachine<ExperimentManager> _stateMachine;
         public ARPlaneManager planeManager => _planeManager;
 
+        [Header("Preferences")]
+        [SerializeField] private float _apparatusProximityDistance = 10f;
+
         public string curState;
         private void Start()
         {
@@ -137,6 +140,49 @@ namespace ARLabs.Core
             _stateMachine.GoToState<RepositionState>();
         }
         #endregion
+
+
+
+
+        private Apparatus _closestCache = null;
+        private Vector3 _closestCachePosition;
+
+        /// <summary>
+        /// Returns the closest apparatus within proximity distance of the given position
+        /// </summary>
+        public Apparatus GetApparatusInProximity(Vector3 position, Apparatus sourceApparatus = null)
+        {
+            // Check if cached result is still valid
+            if (_closestCache != null &&
+                Vector3.Distance(position, _closestCachePosition) < _apparatusProximityDistance)
+            {
+                return _closestCache;
+            }
+
+            // Find closest apparatus
+            Apparatus closestApparatus = null;
+            float closestDistance = float.MaxValue;
+
+            foreach (Apparatus apparatus in _instantiatedApparatus)
+            {
+                // Skip if this is the source apparatus
+                if (sourceApparatus != null && apparatus == sourceApparatus)
+                    continue;
+
+                float distance = Vector3.Distance(position, apparatus.transform.position);
+                if (distance < _apparatusProximityDistance && distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestApparatus = apparatus;
+                }
+            }
+
+            // Update cache
+            _closestCache = closestApparatus;
+            _closestCachePosition = position;
+
+            return closestApparatus;
+        }
 
 
     }

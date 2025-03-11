@@ -13676,6 +13676,7 @@ MonoBehaviour:
   _experimentMasterSO: {fileID: 11400000, guid: 27a15b43e16b93b45b6a9a510a5b3377, type: 2}
   _instantiatedApparatus: []
   _planeManager: {fileID: 1659859600}
+  _apparatusProximityDistance: 0.25
   curState: 
 --- !u!4 &723255983
 Transform:
@@ -13710,6 +13711,7 @@ MonoBehaviour:
   apparatusListParent: {fileID: 196160683}
   apparatusFieldListParent: {fileID: 1748276238}
   apparatusMenuWindow: {fileID: 267134821}
+  repositionWindow: {fileID: 1051724764}
   placingWindow: {fileID: 1726580901}
   highlightWindow: {fileID: 1027448587}
   higlightWindowName: {fileID: 1863877992}
@@ -13719,7 +13721,7 @@ MonoBehaviour:
   BoolFieldPrefab: {fileID: 5579099048706088916, guid: 346f755b4b916d949a0c2d7cfd4db572, type: 3}
   DropdownFieldPrefab: {fileID: 3861778375350819097, guid: 4956686c19703d64fa8659c0ef1195b5, type: 3}
   SliderFieldPrefab: {fileID: 8157877111125614780, guid: 945d060d17416f3448c3702233e40f95, type: 3}
-  ButtonFieldPrefab: {fileID: 0}
+  ButtonFieldPrefab: {fileID: 6640079169975918565, guid: 2b0dd91bbd190cf4184e8ce54bc2c9a1, type: 3}
 --- !u!1 &724782640
 GameObject:
   m_ObjectHideFlags: 0

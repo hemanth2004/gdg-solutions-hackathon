@@ -18,6 +18,6 @@ MonoBehaviour:
   _class: 6
   _requiredApparatus:
   - {fileID: 5058707476894779933, guid: 534f50e8d9932b14c9c2d18a414c6289, type: 3}
+  - {fileID: 112048055194126167, guid: bfedfb66eed8ab24891ddc3858c612ee, type: 3}
   _instantiatedApparatus: []
-  _experimentCompletionEvent: {fileID: 11400000, guid: 4b7956afa8c93d647af1ea4e526cc7d3,
-    type: 2}
+  _experimentCompletionEvent: {fileID: 11400000, guid: 4b7956afa8c93d647af1ea4e526cc7d3, type: 2}

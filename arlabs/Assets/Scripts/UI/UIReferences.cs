@@ -26,6 +26,7 @@ namespace ARLabs.Core
         public Transform apparatusListParent;
         public Transform apparatusFieldListParent;
         public LeanToggle apparatusMenuWindow;
+        public LeanToggle repositionWindow;
         [Header("Common")]
         public LeanToggle placingWindow;
         public LeanToggle highlightWindow;

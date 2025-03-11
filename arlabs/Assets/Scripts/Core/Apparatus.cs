@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using AYellowpaper.SerializedCollections;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using ARLabs.UI;
+using System.Linq;
 
 namespace ARLabs.Core
 {
@@ -27,20 +29,22 @@ namespace ARLabs.Core
         [SerializeField] private GameObject _indicatorMesh;
         [SerializeField] private GameObject _apparatusMesh;
         [SerializeField] private FieldsList _fields = new();
+        [SerializeField] private ApparatusPhysicsInfo _physicsInfo = new();
 
         [SerializeField] protected bool _isRepositioning = false;
         [SerializeField] protected bool _isPlacing = false;
-        [SerializeField] protected bool _isInteracting = false;
+        [SerializeField] protected bool _isGrabbing = false;
 
         private ARRaycastManager _raycastManager;   // Cached when placing apparatus
         private List<ARRaycastHit> _hits = new List<ARRaycastHit>();
         private Vector3 _previousApparatusPosition;
         private Outline _outline;
 
+        public ApparatusPhysicsInfo PhysicsInfo => _physicsInfo;
         public bool IsPlacing => _isPlacing;
         public bool CanBeSelected => _canBeSelected;
         public bool CanBeInteracted => _canBeInteracted;
-        public bool IsInteracting => _isInteracting;
+        public bool IsGrabbing => _isGrabbing;
 
         public string Head => _name;
         public string Description => _desc;
@@ -65,6 +69,21 @@ namespace ARLabs.Core
             _outline.OutlineWidth = 7;
             _outline.OutlineMode = Outline.Mode.OutlineAll;
             _outline.enabled = false;
+
+            _fields.ButtonFields.Add("Delete", new ButtonFieldInfo()
+            {
+                Label = "Delete Apparatus",
+                buttonHead = "Delete",
+                OnChange = (object a) => ApparatusManager.Instance.DeleteSelectedApparatus()
+            });
+
+            _fields.ButtonFields.Add("Detach", new ButtonFieldInfo()
+            {
+                hideField = true,
+                Label = "Detach",
+                buttonHead = "Detach",
+                OnChange = (object a) => DetachFromParent()
+            });
         }
 
         private void Update()
@@ -84,12 +103,177 @@ namespace ARLabs.Core
                 RepositionBehaviour();
             }
 
-            if (_isInteracting)
+            if (_isGrabbing)
             {
-                InteractionBehaviour();
+                GrabBehaviour();
+            }
+
+
+            _physicsInfo.UpdatePhysicsInfo(transform.position, Time.deltaTime);
+        }
+
+
+        #region INTERACTING
+
+        public virtual void InteractWhileGrabbed(Apparatus apparatus)
+        {
+
+        }
+
+        public virtual void InteractAfterGrabRelease(Apparatus apparatus)
+        {
+            bool success = AttachTo(apparatus);
+            if (!success)
+            {
+                transform.position = _preGrabPosition;
+            }
+            else
+            {
+                _fields.ButtonFields["Detach"].hideField = false;
             }
         }
 
+        #endregion
+
+
+        #region ATTACHING
+        // All attachments follow a tree structure
+        // one apparatus has one parent, but multiple children
+
+        [SerializedDictionary("Apparatus", "AttachPoint")]
+        public SerializedDictionary<Apparatus, Transform> _possibleAttachments = new();
+
+        [SerializeField]
+        private Apparatus _parentAttachment;
+        [SerializedDictionary("Apparatus", "AttachPoint")]
+        private SerializedDictionary<Apparatus, Transform> _childAttachments = new();
+        //---
+
+        // Attach this to another apparatus (sets the parent)
+        public virtual bool AttachTo(Apparatus apparatus)
+        {
+            var attachPoint = apparatus.AllowAttachmentFrom(this);
+            if (attachPoint != null)
+            {
+                transform.SetParent(attachPoint);
+                transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.identity;
+                _parentAttachment = apparatus;
+                apparatus._childAttachments.Add(this, attachPoint);
+                return true;
+            }
+            return false;
+        }
+
+        // Allow attachment from another apparatus to become a child
+        public virtual Transform AllowAttachmentFrom(Apparatus apparatus)
+        {
+            bool childAlreadyExists = _childAttachments.Keys.Any(x => x.Head == apparatus.Head);
+            if (childAlreadyExists)
+            {
+                return null;
+            }
+
+            foreach (var attachment in _possibleAttachments)
+            {
+                if (attachment.Key.Head == apparatus.Head)
+                {
+                    Debug.Log("Attachment found: " + apparatus.Head);
+                    return attachment.Value;
+                }
+            }
+            return null;
+        }
+
+        // Detaches this from its parent
+        public virtual void DetachFromParent()
+        {
+            if (_parentAttachment != null)
+            {
+                _parentAttachment.DetachAttachment(this);
+                _parentAttachment = null;
+                transform.SetParent(null);
+                ApparatusManager.Instance.DetachAndRepositionApparatus(this);
+                _fields.ButtonFields["Detach"].hideField = true;
+            }
+        }
+
+        // Detaches an attachment from this apparatus
+        public virtual void DetachAttachment(Apparatus apparatus)
+        {
+            var keyToRemove = _childAttachments.Keys.FirstOrDefault(x => x.Head == apparatus.Head);
+            if (keyToRemove != null)
+            {
+                _childAttachments.Remove(keyToRemove);
+            }
+        }
+
+        #endregion
+
+
+        #region GRABBING
+        Vector3 _preGrabPosition;
+        // Long press grab
+        protected virtual void GrabBehaviour()
+        {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            Vector2 rayOrigin = Input.mousePosition;
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = ApparatusManager.Instance.desktopPlaceDistance;
+            Vector3 worldPosition = ApparatusManager.Instance.mainCamera.ScreenToWorldPoint(mousePosition);
+
+            transform.position = worldPosition;
+#else
+            if (_raycastManager.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), _hits, TrackableType.Planes))
+            {
+                Pose hitPose = _hits[0].pose;
+                transform.position = hitPose.position;
+            }
+#endif
+            Apparatus closestApparatus = ExperimentManager.Instance.GetApparatusInProximity(transform.position, this);
+            if (closestApparatus != null)
+            {
+                InteractWhileGrabbed(closestApparatus);
+            }
+        }
+
+        // Start long press grab
+        public virtual void StartGrab()
+        {
+            // Check if apparatus is free to be grabbed
+            if (_parentAttachment != null)
+            {
+                Debug.Log(Head + " is attached to another apparatus and cannot be moved");
+                return;
+            }
+
+            _preGrabPosition = transform.position;
+            _isGrabbing = true;
+
+            // Track initial velocity for physics calculations
+            _physicsInfo.ResetMovementTracking();
+        }
+
+        // End long press grab
+        public virtual void EndGrab()
+        {
+            Apparatus closestApparatus = ExperimentManager.Instance.GetApparatusInProximity(transform.position, this);
+            if (closestApparatus != null)
+            {
+                InteractAfterGrabRelease(closestApparatus);
+            }
+            else
+            {
+                // No apparatus nearby, just place it
+                transform.position = _preGrabPosition;
+            }
+
+            _isGrabbing = false;
+        }
+        #endregion
+
+
+        #region PLACING
         // What do when we are placing
         protected virtual void PlaceBehaviour()
         {
@@ -111,6 +295,32 @@ namespace ARLabs.Core
 #endif
         }
 
+        // Places the apparatus on the ar plane
+        public virtual void StartPlacing(ARRaycastManager raycastManager)
+        {
+            _raycastManager = raycastManager;
+
+            _isPlacing = true;
+            _indicatorMesh.SetActive(true);
+            _apparatusMesh.SetActive(false);
+
+            ExperimentManager.Instance.GoToPlacingState();
+            UIReferences.Instance.placingWindowName.text = Head;
+        }
+
+        // Finalizes the placement
+        public virtual void FinalizePlace()
+        {
+            _isPlacing = false;
+            _indicatorMesh.SetActive(false);
+            _apparatusMesh.SetActive(true);
+            ExperimentManager.Instance.GoToIdleState();
+            UIReferences.Instance.placingWindowName.text = "";
+        }
+        #endregion
+
+
+        #region REPOSITIONING
         // What do when we are repositioning
         protected virtual void RepositionBehaviour()
         {
@@ -132,69 +342,14 @@ namespace ARLabs.Core
 #endif
         }
 
-        Vector3 _preInteractionPosition;
-        // Long press interaction
-        protected virtual void InteractionBehaviour()
-        {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-            Vector2 rayOrigin = Input.mousePosition;
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition.z = ApparatusManager.Instance.desktopPlaceDistance;
-            Vector3 worldPosition = ApparatusManager.Instance.mainCamera.ScreenToWorldPoint(mousePosition);
-
-            if(!Input.GetKey(KeyCode.LeftControl))
-                transform.position = worldPosition;
-#else
-            if (_raycastManager.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), _hits, TrackableType.Planes))
-            {
-                Pose hitPose = _hits[0].pose;
-                transform.position = hitPose.position;
-            }
-#endif
-        }
-
-        // Start long press interaction
-        public virtual void StartInteraction()
-        {
-            _preInteractionPosition = transform.position;
-            _isInteracting = true;
-        }
-
-        // End long press interaction
-        public virtual void EndInteraction()
-        {
-            transform.position = _preInteractionPosition;
-            _isInteracting = false;
-        }
-
-        // Places the apparatus on the ar plane
-        public virtual void StartPlacing(ARRaycastManager raycastManager)
-        {
-            _raycastManager = raycastManager;
-
-            _isPlacing = true;
-            _indicatorMesh.SetActive(true);
-            _apparatusMesh.SetActive(false);
-
-            ExperimentManager.Instance.GoToPlacingState();
-            UIReferences.Instance.placingWindowName.text = Head;
-        }
-
-
-
-        // Finalizes the placement
-        public virtual void FinalizePlace()
-        {
-            _isPlacing = false;
-            _indicatorMesh.SetActive(false);
-            _apparatusMesh.SetActive(true);
-            ExperimentManager.Instance.GoToIdleState();
-            UIReferences.Instance.placingWindowName.text = "";
-        }
-
         // What to do upon start repositioning
         public virtual void RepositionStart()
         {
+            if (_parentAttachment)
+            {
+                return;
+            }
+
             _isRepositioning = true;
             _previousApparatusPosition = transform.position;
             ExperimentManager.Instance.GoToRepositionState();
@@ -213,7 +368,10 @@ namespace ARLabs.Core
             ExperimentManager.Instance.GoToIdleState();
             UIReferences.Instance.repositionWindowName.text = "";
         }
+        #endregion
 
+
+        #region SELECTION
         // What to do on selection
         public virtual void Select()
         {
@@ -244,6 +402,9 @@ namespace ARLabs.Core
             Transform fieldsParent = UIReferences.Instance.apparatusFieldListParent;
             foreach (var fi in Fields.ButtonFields)
             {
+                if (fi.Value.hideField)
+                    continue;
+
                 Instantiate(
                     UIReferences.Instance.ButtonFieldPrefab,
                     fieldsParent
@@ -251,6 +412,9 @@ namespace ARLabs.Core
             }
             foreach (var fi in Fields.SliderFields)
             {
+                if (fi.Value.hideField)
+                    continue;
+
                 Instantiate(
                     UIReferences.Instance.SliderFieldPrefab,
                     fieldsParent
@@ -258,6 +422,8 @@ namespace ARLabs.Core
             }
             foreach (var fi in Fields.BoolFields)
             {
+                if (fi.Value.hideField)
+                    continue;
                 Instantiate(
                     UIReferences.Instance.BoolFieldPrefab,
                     fieldsParent
@@ -265,6 +431,8 @@ namespace ARLabs.Core
             }
             foreach (var fi in Fields.DropdownFields)
             {
+                if (fi.Value.hideField)
+                    continue;
                 Instantiate(
                     UIReferences.Instance.DropdownFieldPrefab,
                     fieldsParent
@@ -272,6 +440,8 @@ namespace ARLabs.Core
             }
             foreach (var fi in Fields.TextFields)
             {
+                if (fi.Value.hideField)
+                    continue;
                 Instantiate(
                     UIReferences.Instance.TextFieldPrefab,
                     fieldsParent
@@ -298,6 +468,7 @@ namespace ARLabs.Core
                 Destroy(field.gameObject);
             }
         }
+        #endregion
 
         // What to do when deleting
         public virtual void Delete()
@@ -306,5 +477,51 @@ namespace ARLabs.Core
         }
     }
 
+    [System.Serializable]
+    public struct ApparatusPhysicsInfo
+    {
+        [SerializeField]
+        private float _mass;
+
+        private Vector3 _position;
+        private Vector3 _previousFramePosition;
+        private Vector3 _velocity;
+        private Vector3 _grabOffset;
+
+        public float Mass => _mass;
+        public Vector3 Position => _position;
+        public Vector3 Velocity => _velocity;
+        public Vector3 GrabOffset
+        {
+            get => _grabOffset;
+            set => _grabOffset = value;
+        }
+
+        public Vector3 Momentum => _velocity * _mass;
+
+        /// <summary>
+        /// Updates the physics information based on the new position
+        /// </summary>
+        /// <param name="newPosition">Current position of the apparatus</param>
+        /// <param name="deltaTime">Time elapsed since last frame</param>
+        public void UpdatePhysicsInfo(Vector3 newPosition, float deltaTime)
+        {
+            if (deltaTime <= 0)
+            {
+                Debug.LogWarning("Invalid deltaTime in UpdatePhysicsInfo");
+                return;
+            }
+
+            _previousFramePosition = _position;
+            _position = newPosition;
+
+            _velocity = (_position - _previousFramePosition) / deltaTime;
+        }
+
+        public void ResetMovementTracking()
+        {
+            // Implementation of ResetMovementTracking method
+        }
+    }
 }
 

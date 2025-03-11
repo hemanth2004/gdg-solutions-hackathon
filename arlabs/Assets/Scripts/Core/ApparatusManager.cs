@@ -22,12 +22,12 @@ namespace ARLabs.Core
         [SerializeField] private LayerMask _whatIsApparatus = ~0;
         [SerializeField] private float apparatusRotateAmt; // Amt to rotate the apparatus by
         private ARRaycastManager _raycastManager;
-        [SerializeField] private Apparatus _selectedApparatus;   // The current selected/interacting apparatus
+        [SerializeField] private Apparatus _selectedApparatus;   // The current selected/grabbing apparatus
         [SerializeField] private Apparatus _placingApparatus;    // The apparatus we are creating
 
         public float desktopPlaceDistance = 10f; // The distance (from camera) at which the apparatus is placed while on desktop env
 
-        [Header("Interaction Settings")]
+        [Header("Grab Settings")]
         [SerializeField] private InteractLoad _interactLoadUI;
         [SerializeField] private float tapTimeThreshold = 0.5f;
         [SerializeField] private float interactTimeThreshold = 1f;
@@ -62,7 +62,7 @@ namespace ARLabs.Core
                     {
                         pressStartTime = Time.time;
                         isPressed = true;
-                        pressedApparatus = hit.transform.root.GetComponent<Apparatus>();
+                        pressedApparatus = FindEarliestApparatusAncestor(hit.transform);
                     }
                     else
                     {
@@ -100,7 +100,7 @@ namespace ARLabs.Core
                         _selectedApparatus.Deselect();
                     }
                     _selectedApparatus = pressedApparatus;
-                    _selectedApparatus.StartInteraction();
+                    _selectedApparatus.StartGrab();
                     isPressed = false;
                 }
             }
@@ -124,7 +124,7 @@ namespace ARLabs.Core
                 }
                 else if (_selectedApparatus != null)
                 {
-                    _selectedApparatus.EndInteraction();
+                    _selectedApparatus.EndGrab();
                     _selectedApparatus = null;
                 }
 
@@ -222,11 +222,49 @@ namespace ARLabs.Core
         }
         public void RepositionFinalize()
         {
-            _selectedApparatus.RepositionFinalize();
+            FinalizeRepositionAndSelect();
         }
         public void RepositionCancel()
         {
             _selectedApparatus.RepositionCancel();
+        }
+
+        public void DetachAndRepositionApparatus(Apparatus apparatus)
+        {
+            if (_selectedApparatus != null)
+            {
+                _selectedApparatus.Deselect();
+            }
+            _selectedApparatus = apparatus;
+            apparatus.DetachFromParent();
+
+            // Start repositioning
+            RepositionStart();
+            UIReferences.Instance.repositionWindow.TurnOn();
+        }
+
+        // Add this method to handle post-repositioning selection
+        private void FinalizeRepositionAndSelect()
+        {
+            if (_selectedApparatus != null)
+            {
+                _selectedApparatus.RepositionFinalize();
+                _selectedApparatus.Select(); // Re-select to refresh the UI
+            }
+        }
+
+        // util
+        private Apparatus FindEarliestApparatusAncestor(Transform hit)
+        {
+            if (hit == null) return null;
+
+            if (hit.TryGetComponent<Apparatus>(out var apparatus))
+            {
+                return apparatus; // Return the first Apparatus we find
+            }
+
+            // If no Apparatus on this object, check parent
+            return FindEarliestApparatusAncestor(hit.parent);
         }
     }
 }

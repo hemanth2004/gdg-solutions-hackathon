@@ -25,6 +25,7 @@ namespace ARLabs.UI
 
     public interface IFieldInfo
     {
+        bool hideField { get; set; }
         string Label { get; set; }
         [HideInInspector] FieldType FieldType { get; set; }
         Action<object> OnChange { get; set; }
@@ -34,6 +35,7 @@ namespace ARLabs.UI
     [Serializable]
     public class SliderFieldInfo : IFieldInfo
     {
+        public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
         public Action<object> onChange;
@@ -51,7 +53,8 @@ namespace ARLabs.UI
             set => label = value;
         }
 
-        [HideInInspector] public FieldType FieldType
+        [HideInInspector]
+        public FieldType FieldType
         {
             get => FieldType.Slider;
             set { }
@@ -67,6 +70,7 @@ namespace ARLabs.UI
     [Serializable]
     public class DropdownFieldInfo : IFieldInfo
     {
+        public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
         public Action<object> onChange;
@@ -82,7 +86,8 @@ namespace ARLabs.UI
             set => label = value;
         }
 
-        [HideInInspector] public FieldType FieldType
+        [HideInInspector]
+        public FieldType FieldType
         {
             get => FieldType.Dropdown;
             set { }
@@ -98,6 +103,7 @@ namespace ARLabs.UI
     [Serializable]
     public class TextFieldInfo : IFieldInfo
     {
+        public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
         public Action<object> onChange;
@@ -113,7 +119,8 @@ namespace ARLabs.UI
             set => label = value;
         }
 
-        [HideInInspector] public FieldType FieldType
+        [HideInInspector]
+        public FieldType FieldType
         {
             get => FieldType.Text;
             set { }
@@ -129,6 +136,7 @@ namespace ARLabs.UI
     [Serializable]
     public class BoolFieldInfo : IFieldInfo
     {
+        public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
         public Action<object> onChange;
@@ -143,7 +151,8 @@ namespace ARLabs.UI
             set => label = value;
         }
 
-        [HideInInspector] public FieldType FieldType
+        [HideInInspector]
+        public FieldType FieldType
         {
             get => FieldType.Bool;
             set { }
@@ -161,6 +170,7 @@ namespace ARLabs.UI
     [Serializable]
     public class ButtonFieldInfo : IFieldInfo
     {
+        public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
         public Action<object> onChange;
