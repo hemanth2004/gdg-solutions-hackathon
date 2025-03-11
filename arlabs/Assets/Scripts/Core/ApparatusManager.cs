@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using ARLabs.UI;
+using ARLabs;
 
 namespace ARLabs.Core
 {
@@ -21,10 +22,18 @@ namespace ARLabs.Core
         [SerializeField] private LayerMask _whatIsApparatus = ~0;
         [SerializeField] private float apparatusRotateAmt; // Amt to rotate the apparatus by
         private ARRaycastManager _raycastManager;
-        [SerializeField] private Apparatus _selectedApparatus;   // The current selected apparatus
+        [SerializeField] private Apparatus _selectedApparatus;   // The current selected/interacting apparatus
         [SerializeField] private Apparatus _placingApparatus;    // The apparatus we are creating
-        
+
         public float desktopPlaceDistance = 10f; // The distance (from camera) at which the apparatus is placed while on desktop env
+
+        [Header("Interaction Settings")]
+        [SerializeField] private InteractLoad _interactLoadUI;
+        [SerializeField] private float tapTimeThreshold = 0.5f;
+        [SerializeField] private float interactTimeThreshold = 1f;
+        [ShowOnly] public bool isPressed;
+        private float pressStartTime;
+        private Apparatus pressedApparatus;
 
         [HideInInspector] public Camera mainCamera;
 
@@ -43,47 +52,85 @@ namespace ARLabs.Core
 
         private void Update()
         {
+            // On Tap Down
             if (Input.GetMouseButtonDown(0))
             {
                 // Only interact with other apparatus/create new if we are not currently placing one
                 if (_placingApparatus == null && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Debug.Log("CLICKING!!! 🗣️🗣️🗣️🗣️");
-                    // Raycast to mouse position
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, _whatIsApparatus))
+                    if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, _whatIsApparatus))
                     {
-                        Debug.Log("CLICKING APPAARTUSS!!! 🗣️🗣️🗣️🗣️");
-                        // If we have an apparatus selected, deselect it
-                        if (_selectedApparatus != null)
-                        {
-                            _selectedApparatus.Deselect();
-                        }
-
-                        _selectedApparatus = hit.transform.root.GetComponent<Apparatus>(); 
-                        //^^^^ reminder^^^ ‼️‼️🗣️🗣️⬆️⬆️
-
-
-                        if (!_selectedApparatus.CanBeSelected) { _selectedApparatus = null; }
-
-                        // If we click on an Apparatus, make it as selected
-                        if (_selectedApparatus != null)
-                        {
-                            _selectedApparatus.Select();
-                        }
-                        else
-                        {
-                            //Debug.Log("RAYCAST TRUE BUT NOT ON APPARATUS");
-                        }
+                        pressStartTime = Time.time;
+                        isPressed = true;
+                        pressedApparatus = hit.transform.root.GetComponent<Apparatus>();
                     }
                     else
                     {
                         // Deselect selected apparatus if clicked in void
-
-                        //Debug.Log("RAYCAST FALSE");
                         DeselectApparatus();
                         //UIManager.Instance.SelectionMenu.SetActive(false);
                     }
                 }
+            }
+
+            // On Tap Hold
+            if (isPressed && Input.GetMouseButton(0))
+            {
+                float pressDuration = Time.time - pressStartTime;
+
+                if (pressDuration < tapTimeThreshold && pressedApparatus != null
+                    && pressedApparatus != null && pressedApparatus.CanBeSelected)
+                {
+                    _interactLoadUI.SetActive(false);
+                }
+                else if (pressDuration > tapTimeThreshold && pressDuration < interactTimeThreshold
+                    && pressedApparatus != null && pressedApparatus.CanBeSelected)
+                {
+                    _interactLoadUI.SetActive(true);
+                    _interactLoadUI.SetValue(pressDuration / interactTimeThreshold);
+                    _interactLoadUI.SetPosition(mainCamera.WorldToScreenPoint(pressedApparatus.transform.position)
+                        + new Vector3(0f, 100f, 0f)); // offset so that the finger doesn't hide the load icon
+                }
+                else if (pressDuration >= interactTimeThreshold
+                    && pressedApparatus != null && pressedApparatus.CanBeSelected)
+                {
+                    _interactLoadUI.SetActive(false);
+                    if (_selectedApparatus != null)
+                    {
+                        _selectedApparatus.Deselect();
+                    }
+                    _selectedApparatus = pressedApparatus;
+                    _selectedApparatus.StartInteraction();
+                    isPressed = false;
+                }
+            }
+
+
+            // On Tap Up
+            if (Input.GetMouseButtonUp(0) && pressedApparatus != null)
+            {
+                float pressDuration = Time.time - pressStartTime;
+                if (pressDuration < interactTimeThreshold)
+                {
+                    if (_selectedApparatus != null)
+                    {
+                        _selectedApparatus.Deselect();
+                    }
+                    if (pressedApparatus.CanBeSelected)
+                    {
+                        _selectedApparatus = pressedApparatus;
+                        _selectedApparatus.Select();
+                    }
+                }
+                else if (_selectedApparatus != null)
+                {
+                    _selectedApparatus.EndInteraction();
+                    _selectedApparatus = null;
+                }
+
+                _interactLoadUI.SetActive(false);
+                isPressed = false;
+                pressedApparatus = null;
             }
         }
 
@@ -102,7 +149,7 @@ namespace ARLabs.Core
             // instantiated GOs with events was tough
             UIReferences.Instance.apparatusMenuWindow.TurnOff();
             UIReferences.Instance.placingWindow.TurnOn();
-            
+
         }
 
         // Called from UI Button
@@ -152,12 +199,12 @@ namespace ARLabs.Core
         // Called during placement and repositioning
         public void RotateRight(float factor)
         {
-            if(_placingApparatus != null)
+            if (_placingApparatus != null)
             {
                 // Debug.Log("Rotating Apparatus !");
                 _placingApparatus.transform.Rotate(0f, factor * apparatusRotateAmt, 0f);
             }
-            else if(_selectedApparatus != null)
+            else if (_selectedApparatus != null)
             {
                 _selectedApparatus.transform.Rotate(0f, factor * apparatusRotateAmt, 0f);
             }

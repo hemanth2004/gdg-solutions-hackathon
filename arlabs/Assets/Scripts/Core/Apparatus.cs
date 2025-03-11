@@ -23,12 +23,15 @@ namespace ARLabs.Core
         [SerializeField] private int _apparatusID;
         [SerializeField] private Sprite _thumbnail;
         [SerializeField] private bool _canBeSelected = true;
+        [SerializeField] private bool _canBeInteracted = true;
         [SerializeField] private GameObject _indicatorMesh;
         [SerializeField] private GameObject _apparatusMesh;
         [SerializeField] private FieldsList _fields = new();
-       
+
         [SerializeField] protected bool _isRepositioning = false;
         [SerializeField] protected bool _isPlacing = false;
+        [SerializeField] protected bool _isInteracting = false;
+
         private ARRaycastManager _raycastManager;   // Cached when placing apparatus
         private List<ARRaycastHit> _hits = new List<ARRaycastHit>();
         private Vector3 _previousApparatusPosition;
@@ -36,6 +39,8 @@ namespace ARLabs.Core
 
         public bool IsPlacing => _isPlacing;
         public bool CanBeSelected => _canBeSelected;
+        public bool CanBeInteracted => _canBeInteracted;
+        public bool IsInteracting => _isInteracting;
 
         public string Head => _name;
         public string Description => _desc;
@@ -51,7 +56,7 @@ namespace ARLabs.Core
 
         protected virtual void OnStart()
         {
-            if(GetComponent<Outline>() == null)
+            if (GetComponent<Outline>() == null)
                 _outline = gameObject.AddComponent(typeof(Outline)) as Outline;
             else
                 _outline = GetComponent<Outline>();
@@ -77,6 +82,11 @@ namespace ARLabs.Core
             if (_isRepositioning)
             {
                 RepositionBehaviour();
+            }
+
+            if (_isInteracting)
+            {
+                InteractionBehaviour();
             }
         }
 
@@ -122,6 +132,41 @@ namespace ARLabs.Core
 #endif
         }
 
+        Vector3 _preInteractionPosition;
+        // Long press interaction
+        protected virtual void InteractionBehaviour()
+        {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            Vector2 rayOrigin = Input.mousePosition;
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = ApparatusManager.Instance.desktopPlaceDistance;
+            Vector3 worldPosition = ApparatusManager.Instance.mainCamera.ScreenToWorldPoint(mousePosition);
+
+            if(!Input.GetKey(KeyCode.LeftControl))
+                transform.position = worldPosition;
+#else
+            if (_raycastManager.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), _hits, TrackableType.Planes))
+            {
+                Pose hitPose = _hits[0].pose;
+                transform.position = hitPose.position;
+            }
+#endif
+        }
+
+        // Start long press interaction
+        public virtual void StartInteraction()
+        {
+            _preInteractionPosition = transform.position;
+            _isInteracting = true;
+        }
+
+        // End long press interaction
+        public virtual void EndInteraction()
+        {
+            transform.position = _preInteractionPosition;
+            _isInteracting = false;
+        }
+
         // Places the apparatus on the ar plane
         public virtual void StartPlacing(ARRaycastManager raycastManager)
         {
@@ -134,6 +179,8 @@ namespace ARLabs.Core
             ExperimentManager.Instance.GoToPlacingState();
             UIReferences.Instance.placingWindowName.text = Head;
         }
+
+
 
         // Finalizes the placement
         public virtual void FinalizePlace()
@@ -168,7 +215,7 @@ namespace ARLabs.Core
         }
 
         // What to do on selection
-        public virtual void Select() 
+        public virtual void Select()
         {
             _outline.enabled = true;
             UIReferences.Instance.highlightWindow.TurnOn();
@@ -244,12 +291,12 @@ namespace ARLabs.Core
                 // Failsafe as touches are detected past ui elements
             */
 
-            _isRepositioning = false;  
+            _isRepositioning = false;
 
-             foreach(Transform field in UIReferences.Instance.apparatusFieldListParent)
-             {
+            foreach (Transform field in UIReferences.Instance.apparatusFieldListParent)
+            {
                 Destroy(field.gameObject);
-             }
+            }
         }
 
         // What to do when deleting

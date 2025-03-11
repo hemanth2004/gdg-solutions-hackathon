@@ -123,13 +123,14 @@ Animation:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: 42175d23d3aa89c4090d47dc743e67eb, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 42175d23d3aa89c4090d47dc743e67eb, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
+  m_UpdateMode: 0
   m_CullingType: 0
 --- !u!225 &22500000
 CanvasGroup:
@@ -228,13 +229,14 @@ Animation:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100004}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: a8ec30d47f5a4ac4584366ec8edcfd23, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: a8ec30d47f5a4ac4584366ec8edcfd23, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
+  m_UpdateMode: 0
   m_CullingType: 0
 --- !u!225 &22500002
 CanvasGroup:
@@ -333,13 +335,14 @@ Animation:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100006}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: e95d7f5430938b94b842db9561716ae5, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: e95d7f5430938b94b842db9561716ae5, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
+  m_UpdateMode: 0
   m_CullingType: 0
 --- !u!225 &22500004
 CanvasGroup:
