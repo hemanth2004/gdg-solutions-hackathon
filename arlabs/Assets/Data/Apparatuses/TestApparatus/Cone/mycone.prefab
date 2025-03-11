@@ -380,6 +380,7 @@ MonoBehaviour:
   _apparatusID: 1234
   _thumbnail: {fileID: 21300000, guid: c10ded0d0568bba469eb5436386acf8d, type: 3}
   _canBeSelected: 1
+  _canBeInteracted: 1
   _indicatorMesh: {fileID: 6343103607934946036}
   _apparatusMesh: {fileID: 6186432287298445699}
   _fields:
@@ -407,8 +408,15 @@ MonoBehaviour:
           value: 0
     ButtonFields:
       _serializedList: []
+  _physicsInfo:
+    _mass: 0
   _isRepositioning: 0
   _isPlacing: 1
+  _isGrabbing: 0
+  _interactEvents: []
+  _possibleAttachments:
+    _serializedList: []
+  _parentAttachment: {fileID: 0}
   highlightSphere: {fileID: 293269747959052295}
 --- !u!114 &8113614069076477623
 MonoBehaviour:

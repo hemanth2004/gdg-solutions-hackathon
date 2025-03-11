@@ -214,6 +214,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  _interactEvents: []
   _possibleAttachments:
     _serializedList:
     - Key: {fileID: 5058707476894779933, guid: 534f50e8d9932b14c9c2d18a414c6289, type: 3}
@@ -385,6 +386,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  _interactEvents: []
   _possibleAttachments:
     _serializedList: []
   _parentAttachment: {fileID: 0}

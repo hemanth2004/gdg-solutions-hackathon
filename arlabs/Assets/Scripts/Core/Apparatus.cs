@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEditor;
+using UnityEngine.Events;
 using AYellowpaper.SerializedCollections;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
@@ -70,6 +72,8 @@ namespace ARLabs.Core
             _outline.OutlineMode = Outline.Mode.OutlineAll;
             _outline.enabled = false;
 
+
+
             _fields.ButtonFields.Add("Delete", new ButtonFieldInfo()
             {
                 Label = "Delete Apparatus",
@@ -115,6 +119,9 @@ namespace ARLabs.Core
 
         #region INTERACTING
 
+        // A definition of operations that this apparatus can perform to other apparatuses
+        [SerializeField] protected List<ApparatusOperation> _interactEvents = new();
+
         public virtual void InteractWhileGrabbed(Apparatus apparatus)
         {
 
@@ -122,21 +129,41 @@ namespace ARLabs.Core
 
         public virtual void InteractAfterGrabRelease(Apparatus apparatus)
         {
-            bool success = AttachTo(apparatus);
-            if (!success)
+            List<ApparatusOperation> operationsForThisApparatus = new();
+            foreach (var operation in _interactEvents)
             {
-                transform.position = _preGrabPosition;
+                if (operation.targetApparatusType.ToString() == apparatus.GetType().ToString())
+                {
+                    operation.actualTargetApparatus = apparatus;
+                    operationsForThisApparatus.Add(operation);
+                }
             }
-            else
+
+            if (operationsForThisApparatus.Count == 0)
             {
-                _fields.ButtonFields["Detach"].hideField = false;
+                return;
             }
+
+            OperationContext.Instance.StartMenu(operationsForThisApparatus, this);
         }
 
         #endregion
 
 
         #region ATTACHING
+
+        public void AttachApparatusEvent(Apparatus from, Apparatus to)
+        {
+            bool success = from.AttachTo(to);
+            if (!success)
+            {
+                from.transform.position = _preGrabPosition;
+            }
+            else
+            {
+                from.Fields.ButtonFields["Detach"].hideField = false;
+            }
+        }
         // All attachments follow a tree structure
         // one apparatus has one parent, but multiple children
 
