@@ -9,7 +9,7 @@ namespace ARLabs.Core
     {
         NONE = 0,
         Physics,
-        CHEMISTRY,
+        Chemistry,
     }
 
     public enum Topic
@@ -19,7 +19,7 @@ namespace ARLabs.Core
         Magnetism,
         Mechanics,
         SaltAnalysis,
-        OTHER
+        Other
     }
 
     [CreateAssetMenu(fileName = "Experiment Master", menuName = "AR Labs/Experiment Masters/Base Experiment Master")]
@@ -32,7 +32,7 @@ namespace ARLabs.Core
         [SerializeField] private List<Apparatus> _requiredApparatus = new List<Apparatus>();
         [SerializeField] private List<Apparatus> _instantiatedApparatus = new List<Apparatus>();
         [SerializeField] private GameEventSO _experimentCompletionEvent;
-        
+
 
         public List<Apparatus> RequiredApparatus => _requiredApparatus;
         public GameEventSO CompletionEvent => _experimentCompletionEvent;
@@ -40,6 +40,6 @@ namespace ARLabs.Core
         public Topic Topic => _topic;
         public int Class => _class;
         public string ExperimentName => _experimentName;
-        
+
     }
 }

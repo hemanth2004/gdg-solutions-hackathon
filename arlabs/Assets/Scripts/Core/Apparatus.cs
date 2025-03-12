@@ -47,6 +47,7 @@ namespace ARLabs.Core
         public bool CanBeSelected => _canBeSelected;
         public bool CanBeInteracted => _canBeInteracted;
         public bool IsGrabbing => _isGrabbing;
+        public bool SwayWhileGrabbed = true;
 
         public string Head => _name;
         public string Description => _desc;
@@ -74,12 +75,12 @@ namespace ARLabs.Core
 
 
 
-            _fields.ButtonFields.Add("Delete", new ButtonFieldInfo()
-            {
-                Label = "Delete Apparatus",
-                buttonHead = "Delete",
-                OnChange = (object a) => ApparatusManager.Instance.DeleteSelectedApparatus()
-            });
+            // _fields.ButtonFields.Add("Delete", new ButtonFieldInfo()
+            // {
+            //     Label = "Delete Apparatus",
+            //     buttonHead = "Delete",
+            //     OnChange = (object a) => ApparatusManager.Instance.DeleteSelectedApparatus()
+            // });
 
             _fields.ButtonFields.Add("Detach", new ButtonFieldInfo()
             {
@@ -129,7 +130,10 @@ namespace ARLabs.Core
 
         public virtual void InteractAfterGrabRelease(Apparatus apparatus)
         {
+            Debug.Log($"Number of interact events: {_interactEvents.Count}");
+
             List<ApparatusOperation> operationsForThisApparatus = new();
+
             foreach (var operation in _interactEvents)
             {
                 if (operation.targetApparatusType.ToString() == apparatus.GetType().ToString())
@@ -141,9 +145,21 @@ namespace ARLabs.Core
 
             if (operationsForThisApparatus.Count == 0)
             {
+                // No valid operations found, return to pre-grab position
+                transform.position = _preGrabPosition;
                 return;
             }
 
+            // Check if any operation involves movement or attachment
+            bool involvesMovement = operationsForThisApparatus.Any(op => op.name.Contains("Attach") || op.name.Contains("Move"));
+
+            if (!involvesMovement)
+            {
+                // If no movement-related operation, return to pre-grab position
+                transform.position = _preGrabPosition;
+            }
+
+            Debug.Log("Starting menu for " + apparatus.Head);
             OperationContext.Instance.StartMenu(operationsForThisApparatus, this);
         }
 
@@ -174,6 +190,7 @@ namespace ARLabs.Core
         private Apparatus _parentAttachment;
         [SerializedDictionary("Apparatus", "AttachPoint")]
         private SerializedDictionary<Apparatus, Transform> _childAttachments = new();
+        public SerializedDictionary<Apparatus, Transform> ChildAttachments => _childAttachments;
         //---
 
         // Attach this to another apparatus (sets the parent)
@@ -240,23 +257,75 @@ namespace ARLabs.Core
 
         #region GRABBING
         Vector3 _preGrabPosition;
+
         // Long press grab
         protected virtual void GrabBehaviour()
         {
+            Vector3 targetPosition;
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
             Vector2 rayOrigin = Input.mousePosition;
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = ApparatusManager.Instance.desktopPlaceDistance;
-            Vector3 worldPosition = ApparatusManager.Instance.mainCamera.ScreenToWorldPoint(mousePosition);
-
-            transform.position = worldPosition;
+            targetPosition = ApparatusManager.Instance.mainCamera.ScreenToWorldPoint(mousePosition);
 #else
             if (_raycastManager.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), _hits, TrackableType.Planes))
             {
                 Pose hitPose = _hits[0].pose;
-                transform.position = hitPose.position;
+                targetPosition = hitPose.position;
+            }
+            else
+            {
+                return;
             }
 #endif
+
+            if (SwayWhileGrabbed)
+            {
+                // Calculate a smoother velocity
+                Vector3 velocity = Vector3.ClampMagnitude(
+                    (targetPosition - transform.position),
+                    2f  // Max velocity magnitude
+                );
+
+                float swayAmount = 0.05f; // Position sway intensity
+                float swaySpeed = 3f;     // Position sway speed
+                float tiltAmount = 50f;   // Maximum rotation in degrees
+
+                // Create a sway offset based on velocity
+                Vector3 swayOffset = new Vector3(
+                    Mathf.Sin(Time.time * swaySpeed) * velocity.magnitude * swayAmount,
+                    0,
+                    Mathf.Cos(Time.time * swaySpeed) * velocity.magnitude * swayAmount
+                );
+
+                // Calculate tilt based on movement direction
+                Vector3 tiltRotation = new Vector3(
+                    -velocity.z * tiltAmount, // Tilt forward/backward
+                    0,
+                    velocity.x * tiltAmount   // Tilt left/right
+                );
+
+                // Smoothly move to target position
+                transform.position = Vector3.Lerp(
+                    transform.position,
+                    targetPosition + swayOffset,
+                    Time.deltaTime * 15f
+                );
+
+                // Smoothly rotate to tilt
+                transform.rotation = Quaternion.Lerp(
+                    transform.rotation,
+                    Quaternion.Euler(tiltRotation),
+                    Time.deltaTime * 8f
+                );
+            }
+            else
+            {
+                transform.position = targetPosition;
+                transform.rotation = Quaternion.identity;
+            }
+
             Apparatus closestApparatus = ExperimentManager.Instance.GetApparatusInProximity(transform.position, this);
             if (closestApparatus != null)
             {

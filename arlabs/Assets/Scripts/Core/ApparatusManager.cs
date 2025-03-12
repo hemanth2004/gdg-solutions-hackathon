@@ -56,7 +56,9 @@ namespace ARLabs.Core
             if (Input.GetMouseButtonDown(0))
             {
                 // Only interact with other apparatus/create new if we are not currently placing one
-                if (_placingApparatus == null && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                if (_placingApparatus == null
+                    && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()
+                    && !ExperimentManager.Instance.IsRepositioning)
                 {
                     if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, _whatIsApparatus))
                     {

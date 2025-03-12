@@ -141,21 +141,25 @@ namespace ARLabs.Core
         }
         #endregion
 
-
-
+        // Add this property
+        public bool IsRepositioning => _stateMachine.IsInState<RepositionState>();
 
         private Apparatus _closestCache = null;
         private Vector3 _closestCachePosition;
 
         /// <summary>
-        /// Returns the closest apparatus within proximity distance of the given position
+        /// Returns the closest apparatus within proximity distance of the given position,
+        /// excluding the source apparatus and all its child attachments
         /// </summary>
-        public Apparatus GetApparatusInProximity(Vector3 position, Apparatus sourceApparatus = null)
+        public Apparatus GetApparatusInProximity(Vector3 position, Apparatus sourceApparatus)
         {
             // Check if cached result is still valid
             if (_closestCache != null &&
-                Vector3.Distance(position, _closestCachePosition) < _apparatusProximityDistance)
+                Vector3.Distance(position, _closestCachePosition) < _apparatusProximityDistance &&
+                _closestCache != sourceApparatus &&
+                !IsChildOf(sourceApparatus, _closestCache)) // Add check for child relationship
             {
+                Debug.Log("Returning cached apparatus: " + _closestCache.name);
                 return _closestCache;
             }
 
@@ -165,11 +169,12 @@ namespace ARLabs.Core
 
             foreach (Apparatus apparatus in _instantiatedApparatus)
             {
-                // Skip if this is the source apparatus
-                if (sourceApparatus != null && apparatus == sourceApparatus)
-                    continue;
+                // Skip if it's the source apparatus or any of its children
+                if (apparatus == sourceApparatus || IsChildOf(sourceApparatus, apparatus)) continue;
 
                 float distance = Vector3.Distance(position, apparatus.transform.position);
+                Debug.Log($"Checking apparatus: {apparatus.name}, Distance: {distance}");
+
                 if (distance < _apparatusProximityDistance && distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -181,9 +186,36 @@ namespace ARLabs.Core
             _closestCache = closestApparatus;
             _closestCachePosition = position;
 
+            if (closestApparatus != null)
+            {
+                Debug.Log("Closest apparatus found: " + closestApparatus.name);
+            }
+            else
+            {
+                Debug.Log("No apparatus found within proximity.");
+            }
+
             return closestApparatus;
         }
 
+        /// <summary>
+        /// Checks if an apparatus is a child (direct or indirect) of a potential parent apparatus
+        /// </summary>
+        private bool IsChildOf(Apparatus potentialParent, Apparatus apparatus)
+        {
+            // Check direct children
+            if (potentialParent.ChildAttachments.ContainsKey(apparatus))
+                return true;
+
+            // Recursively check children of children
+            foreach (var child in potentialParent.ChildAttachments.Keys)
+            {
+                if (IsChildOf(child, apparatus))
+                    return true;
+            }
+
+            return false;
+        }
 
     }
 }
