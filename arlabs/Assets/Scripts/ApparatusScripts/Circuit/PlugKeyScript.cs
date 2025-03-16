@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlugKeyScript : CircuitApparatus
+public class PlugKeyScript : CircuitApparatusOld
 {
     private bool _plugged = false;
     public bool plugged

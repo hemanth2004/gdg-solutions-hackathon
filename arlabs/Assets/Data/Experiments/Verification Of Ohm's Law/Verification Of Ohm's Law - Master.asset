@@ -17,7 +17,10 @@ MonoBehaviour:
   _experimentName: Verification of Ohm's Law
   _class: 12
   _requiredApparatus:
-  - {fileID: 0}
+  - {fileID: 1564828255168757226, guid: b2b42a0c684f8f842b71efe45dc6bca6, type: 3}
+  - {fileID: 3543602249497259899, guid: 3ce62fb3bb7e36e44b9db6b16db1061e, type: 3}
+  - {fileID: 5801738414781985959, guid: 2c21feaf5eaab8b438d8f11d185eaa43, type: 3}
+  - {fileID: 6422726984163010514, guid: 4ecfc1354d9337144b1e6d4c7e29bd3e, type: 3}
+  - {fileID: 27645202134202445, guid: 5350545fa8c626f4a8807486a9abea86, type: 3}
   _instantiatedApparatus: []
-  _experimentCompletionEvent: {fileID: 11400000, guid: 747ac06ebdb91d245a5326de19db7d2b,
-    type: 2}
+  _experimentCompletionEvent: {fileID: 11400000, guid: 747ac06ebdb91d245a5326de19db7d2b, type: 2}

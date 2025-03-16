@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AmmeterScript : CircuitApparatus
+public class AmmeterScript : CircuitApparatusOld
 {
     private bool _isAnalog = true;
     public bool isAnalog

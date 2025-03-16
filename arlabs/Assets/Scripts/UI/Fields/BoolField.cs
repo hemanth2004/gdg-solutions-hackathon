@@ -16,11 +16,15 @@ namespace ARLabs.UI
 
             labelText.text = boolInfo.Label;
             toggle.On = boolInfo.value;
+
             _initialized = true;
         }
 
         public void OnChange()
         {
+            if (boolInfo.isReadOnly)
+                return;
+
             if (boolInfo.value != toggle.On && _initialized)
             {
                 boolInfo.value = toggle.On;

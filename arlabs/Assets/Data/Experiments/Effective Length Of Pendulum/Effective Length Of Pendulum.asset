@@ -19,7 +19,6 @@ MonoBehaviour:
   _requiredApparatus:
   - {fileID: 5535166642364074237, guid: 0cfedc0bafafe7a4fb785bc76fa90a30, type: 3}
   - {fileID: 8990998237397145769, guid: dfb80904d0ce3a442af0bed10b591b71, type: 3}
-  - {fileID: 5058707476894779933, guid: 534f50e8d9932b14c9c2d18a414c6289, type: 3}
+  - {fileID: 4633936764989978565, guid: a9b2ddc7f9f83fa4c9c837b3199599a2, type: 3}
   _instantiatedApparatus: []
-  _experimentCompletionEvent: {fileID: 11400000, guid: 0a77c107116b8b0468332cdbcf20ee35,
-    type: 2}
+  _experimentCompletionEvent: {fileID: 11400000, guid: 0a77c107116b8b0468332cdbcf20ee35, type: 2}

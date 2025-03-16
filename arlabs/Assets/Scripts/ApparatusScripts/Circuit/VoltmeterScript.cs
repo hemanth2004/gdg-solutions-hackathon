@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class VoltmeterScript : CircuitApparatus
+public class VoltmeterScript : CircuitApparatusOld
 {
 
     private bool _isAnalog = true;
@@ -52,7 +52,7 @@ public class VoltmeterScript : CircuitApparatus
                 Vector3.Lerp(eulerStart, eulerEnd, fillAmount)
               );
 
-        digitalText.text = _measuredVoltage.ToString("0.00");
+        digitalText.text = _measuredVoltage.ToString("0.0");
     }
 
     public void OnChangeDisplayType()

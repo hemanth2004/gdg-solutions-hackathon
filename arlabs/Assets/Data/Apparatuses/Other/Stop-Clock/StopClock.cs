@@ -37,8 +37,8 @@ public class StopClock : Apparatus
     {
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time % 60F);
-        int milliseconds = Mathf.FloorToInt((time * 1000F) % 1000F);
-        return string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
+        int tenths = Mathf.FloorToInt((time * 10F) % 10F);
+        return string.Format("{0:00}:{1:00}.{2:0}", minutes, seconds, tenths);
     }
 
     private void ToggleStartStop(object tem)

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BatteryScript : CircuitApparatus
+public class BatteryScript : CircuitApparatusOld
 {
     private bool _on = false;
     public bool on

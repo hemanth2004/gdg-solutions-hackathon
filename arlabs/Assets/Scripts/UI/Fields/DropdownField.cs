@@ -21,15 +21,17 @@ namespace ARLabs.UI
             {
                 TMP_Dropdown.OptionData newData = new();
                 newData.text = t;
-                options.Add(newData); 
+                options.Add(newData);
             }
             dropdown.AddOptions(options);
 
             dropdown.value = Mathf.Clamp(dropdownInfo.value, 0, options.Count);
             Debug.Log(dropdownInfo.value);
 
-            _initialized = true;
+            // Apply readonly state
             dropdown.interactable = !dropdownInfo.isReadOnly;
+
+            _initialized = true;
         }
 
         public void OnChange()

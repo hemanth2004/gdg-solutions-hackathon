@@ -13,7 +13,7 @@ namespace ARLabs.UI
         public void Initialize(SliderFieldInfo _sliderFieldInfo)
         {
             sliderInfo = _sliderFieldInfo;
-            
+
             labelText.text = sliderInfo.Label;
             slider.minValue = sliderInfo.rangeMin;
             slider.maxValue = sliderInfo.rangeMax;
@@ -23,18 +23,21 @@ namespace ARLabs.UI
             value.gameObject.SetActive(sliderInfo.displayValue);
             value.text = slider.value.ToString("F2");
 
+            // Apply readonly state
+            slider.interactable = !sliderInfo.isReadOnly;
+
             _initialized = true;
         }
 
         public void OnChange()
         {
-            if(sliderInfo.value != slider.value && _initialized)
+            if (sliderInfo.value != slider.value && _initialized)
             {
                 sliderInfo.value = slider.value;
                 value.text = slider.value.ToString("F2");
                 sliderInfo.OnChange?.Invoke(slider.value);
             }
-            
+
         }
     }
 }

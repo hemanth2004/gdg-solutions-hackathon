@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CircuitApparatus : ApparatusOld
+public class CircuitApparatusOld : ApparatusOld
 {
     [SerializeField] private int _minKnobsNeededToTurnOn = 2;
     public bool IsInstrumentOn;

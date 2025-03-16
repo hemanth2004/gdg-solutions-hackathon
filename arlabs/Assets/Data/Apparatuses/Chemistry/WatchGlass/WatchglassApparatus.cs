@@ -55,9 +55,7 @@ public class WatchglassApparatus : Apparatus
         }
         else
         {
-            contentMesh.localScale = new Vector3(0,
-                                                0,
-                                                0);
+            contentMesh.localScale = new Vector3(0, 0, 0);
         }
     }
 }

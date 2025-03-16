@@ -21,6 +21,9 @@ namespace ARLabs.UI
             inputField.text = textInfo.value;
             inputField.placeholder.GetComponent<TMP_Text>().text = textInfo.placeholder;
 
+            // Apply readonly state
+            inputField.interactable = !textInfo.isReadOnly;
+
             _initialized = true;
         }
 

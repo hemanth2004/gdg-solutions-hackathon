@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEditor;
 using UnityEngine;
+using ARLabs.Core;
 
 public partial class CircuitManager : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public partial class CircuitManager : MonoBehaviour
     private List<Knob> _allKnobs = new List<Knob>();
 
     private Knob _batteryPositive, _batteryNegative;
-    private BatteryScript _battery;
-    private PlugKeyScript _plugKey;
+    private BatteryApparatus _battery;
+    private PlugKeyApparatus _plugKey;
 
     public float NetCurrent;
 
@@ -37,8 +38,8 @@ public partial class CircuitManager : MonoBehaviour
 
     public void UpdateReferences()
     {
-        if (_battery == null) _battery = FindObjectOfType<BatteryScript>();
-        if (_plugKey == null) _plugKey = FindObjectOfType<PlugKeyScript>();
+        if (_battery == null) _battery = FindObjectOfType<BatteryApparatus>();
+        if (_plugKey == null) _plugKey = FindObjectOfType<PlugKeyApparatus>();
     }
 
     private void Update()

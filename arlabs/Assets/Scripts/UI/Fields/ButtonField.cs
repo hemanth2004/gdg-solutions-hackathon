@@ -21,7 +21,10 @@ namespace ARLabs.UI
 
         public void OnClick()
         {
-            if(_initialized)
+            if (buttonInfo.isReadOnly)
+                return;
+
+            if (_initialized)
                 buttonInfo.Invoke();
         }
     }
