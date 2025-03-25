@@ -45,6 +45,11 @@ public class VoltmeterApparatus : CircuitApparatus
     {
         base.OnUpdate();
 
+        if (AttachedWire != null)
+            _measuredVoltage = CircuitManager.Instance.NetCurrent * AttachedWire.ResistanceValue;
+        else
+            _measuredVoltage = 0f;
+
         fillAmount = Mathf.Abs(_measuredVoltage) / 10f;
         analogNeedle.localRotation
             = Quaternion.Euler(
@@ -57,7 +62,7 @@ public class VoltmeterApparatus : CircuitApparatus
     private void OnChangeDisplayType(object value)
     {
         isAnalog = (int)value == 0;
-    }   
+    }
 
     private void OnChangeResistiveWireType(object value)
     {

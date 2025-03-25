@@ -74,7 +74,7 @@ MonoBehaviour:
           options:
           - Analog
           - Digital
-          value: 0
+          value: 1
       - Key: wireType
         Value:
           label: Resistive Wire Type
@@ -729,7 +729,7 @@ MonoBehaviour:
   ConnectedWires: []
   NeighbourKnobs:
   - {fileID: 9156751128440662506}
-  IsPositive: 0
+  IsPositive: 1
 --- !u!136 &4994037582266932672
 CapsuleCollider:
   m_ObjectHideFlags: 0

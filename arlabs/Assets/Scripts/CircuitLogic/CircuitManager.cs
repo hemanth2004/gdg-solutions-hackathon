@@ -14,7 +14,7 @@ public partial class CircuitManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; } else { Destroy(this); }
-    } 
+    }
     #endregion
 
     [SerializeField] private bool _debug = false;
@@ -90,14 +90,14 @@ public partial class CircuitManager : MonoBehaviour
         Path path0 = new Path(new List<Knob> { _batteryPositive });
         _pathBuffer.Add(path0);
 
-        for (int p = 0;  p < _pathBuffer.Count; p++)
+        for (int p = 0; p < _pathBuffer.Count; p++)
         {
             if (_debug) Debug.Log($"START PATH {p}");
             Path curPath = _pathBuffer[p];
 
             for (int i = 0; i < curPath.PathList.Count; i++)
             {
-                
+
                 Knob curKnob = curPath.PathList[i];
                 if (_debug)
                 {
@@ -109,13 +109,13 @@ public partial class CircuitManager : MonoBehaviour
                 }
 
                 List<Knob> validNeighbours = new List<Knob>();
-                foreach (Knob k in curKnob.NeighbourKnobs) { if (!curPath.Visited.Contains(k)) {  validNeighbours.Add(k);} }
+                foreach (Knob k in curKnob.NeighbourKnobs) { if (!curPath.Visited.Contains(k)) { validNeighbours.Add(k); } }
                 if (_debug) { PrintElements(curKnob.NeighbourKnobs, "All Neighbours: "); PrintElements(validNeighbours, "Valid Neighbours: "); }
 
                 List<Knob> fullPath = new List<Knob>(curPath.PrevPath);
                 fullPath.AddRange(curPath.PathList);
 
-                if (fullPath[0] == _batteryPositive && fullPath[fullPath.Count - 1] ==  _batteryNegative)
+                if (fullPath[0] == _batteryPositive && fullPath[fullPath.Count - 1] == _batteryNegative)
                 {
                     if (_debug)
                     {
@@ -182,7 +182,7 @@ public partial class CircuitManager : MonoBehaviour
     private void PrintElements(List<Knob> knobList, string listName)
     {
         string log = listName + " ";
-        foreach (Knob knob in knobList) 
+        foreach (Knob knob in knobList)
         {
             log += GetKnobLog(knob);
             log += ", ";

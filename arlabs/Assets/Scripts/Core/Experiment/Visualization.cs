@@ -9,6 +9,8 @@ public class Visualization : MonoBehaviour
 
     public string VisualizationHead;
     public string VisualizationName;
+    [TextArea(3, 10)]
+    public string VisualizationDesc;
 
     public virtual bool CheckIfVisualizationIsPossible()
     {

@@ -13,6 +13,7 @@ namespace ARLabs.AI
 
             // Convert to JSON string before sending
             string jsonMessage = JsonUtility.ToJson(experiment);
+            Debug.Log(jsonMessage);
             APIHandler.Instance.AskBackendWithText("Explain the experiment concisely, no filler words\n" + jsonMessage);
         }
     }

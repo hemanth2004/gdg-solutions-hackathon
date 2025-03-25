@@ -27,42 +27,45 @@ public class ConnectionManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.touchCount == 0)
+        // Remove touch simulation
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonUp(0))
             return;
 
-        Touch currentTouch = Input.GetTouch(0);
+        Debug.Log("Updating connection manager");
+        Vector2 mousePosition = Input.mousePosition;
 
-        // If finger is over UI
-        if (EventSystem.current.IsPointerOverGameObject(currentTouch.fingerId))
+        // If mouse is over UI
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             return; // Don't perform raycasting if over UI
         }
 
-        // If we have a wire then keep updating its position to finger position
+        // If we have a wire then keep updating its position to mouse position
         if (_currentWire != null)
         {
-            UpdateCurrentWirePosition(currentTouch.position);
+            UpdateCurrentWirePosition(mousePosition);
         }
 
-        // If finger is currently over a knob...
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(currentTouch.position), out RaycastHit hit, 100f, _knobsLayer))
+        // If mouse is currently over a knob...
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(mousePosition), out RaycastHit hit, 100f, _knobsLayer))
         {
-            // On pressing the finger, find the starting knob and create wire
-            if (currentTouch.phase == TouchPhase.Began)
+            // On pressing the mouse button, find the starting knob and create wire
+            if (Input.GetMouseButtonDown(0))
             {
                 _startKnob = hit.transform.GetComponent<Knob>();
                 // Create a wire only if there isn't a current floating wire
                 if (_currentWire == null)
                 {
+                    Debug.Log("Creating wire from knob");
                     _currentWire = CreateWireFromKnob(_startKnob);
                 }
             }
 
-            // If we have a starting knob, look for ending knob on finger release
+            // If we have a starting knob, look for ending knob on mouse release
             if (_startKnob != null)
             {
-                // If finger is released over a knob...
-                if (currentTouch.phase == TouchPhase.Canceled || currentTouch.phase == TouchPhase.Ended)
+                // If mouse button is released over a knob...
+                if (Input.GetMouseButtonUp(0))
                 {
                     // ...set it as the ending knob
                     _endKnob = hit.transform.GetComponent<Knob>();
@@ -75,30 +78,28 @@ public class ConnectionManager : MonoBehaviour
                 }
             }
         }
-        // If we didn't find a knob and we have a floating wire, then destroy it on releasing finger
+        // If we didn't find a knob and we have a floating wire, then destroy it on releasing mouse
         else if (_currentWire != null)
         {
-            if (currentTouch.phase == TouchPhase.Canceled || currentTouch.phase == TouchPhase.Ended)
+            if (Input.GetMouseButtonUp(0))
             {
                 DestroyCurrentConnection();
             }
         }
 
-        // ---------- SAMPLE TO TEST WIRE DETECTION ----------------
         // If we're not in the middle of attaching wires
         if (_currentWire == null)
         {
-            // TODO: MAKE UI AND STUFF (INTEGRATE WITH APP LIFECYCLE)
-            // Then remove the wire we touch on
-            RemoveWireOnTouch(currentTouch);
+            // Then remove the wire we click on
+            RemoveWireOnClick(mousePosition);
         }
     }
 
-    private void RemoveWireOnTouch(Touch currentTouch)
+    private void RemoveWireOnClick(Vector2 mousePosition)
     {
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(currentTouch.position), out RaycastHit wireHit, 100f, _wiresLayer))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(mousePosition), out RaycastHit wireHit, 100f, _wiresLayer))
         {
-            if (currentTouch.phase == TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0))
             {
                 WireController wire = wireHit.transform.parent.GetComponent<WireController>();
                 wire.StartKnob.NeighbourKnobs.Remove(wire.EndKnob);
@@ -122,6 +123,7 @@ public class ConnectionManager : MonoBehaviour
         // Otherwise, add it to the connection list
         else
         {
+            Debug.Log("Finalizing connection");
             _currentWire.UpdateWire();
             _currentWire.PlaceCollider();
             _currentWire.Placed = true;
@@ -143,8 +145,8 @@ public class ConnectionManager : MonoBehaviour
         return wire;
     }
 
-    // Moves the current wire with finger
-    private void UpdateCurrentWirePosition(Vector2 touchPosition)
+    // Moves the current wire with mouse
+    private void UpdateCurrentWirePosition(Vector2 mousePosition)
     {
         // If we have placed the wire, then remove references and return
         if (_currentWire.Placed)
@@ -153,9 +155,9 @@ public class ConnectionManager : MonoBehaviour
             _currentWire = null;
             return;
         }
-        
-        // Otherwise, make it follow the finger
-        _currentWire.FingerPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, Camera.main.nearClipPlane * 5f));
+
+        // Otherwise, make it follow the mouse
+        _currentWire.FingerPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane * 5f));
     }
 
     // Destroys wire and resets values

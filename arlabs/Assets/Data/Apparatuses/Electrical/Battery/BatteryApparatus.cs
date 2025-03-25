@@ -41,6 +41,6 @@ public class BatteryApparatus : CircuitApparatus
 
     private void OnChangeVoltage(object value)
     {
-        Voltage = (int)value;
+        Voltage = (float)value;
     }
 }

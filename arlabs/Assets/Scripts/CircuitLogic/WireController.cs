@@ -31,10 +31,17 @@ public class WireController : MonoBehaviour
     [SerializeField] private bool _visualiseElectrons = true;
     [SerializeField] private bool _visualisePotential = true;
 
+    [SerializeField] private float _electronSpeed = 1f; // Add this field for electron animation speed
+    private Material _electronMaterial; // Cache the material
+
     private void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
         _allWireSections = new List<Vector3>();
+
+        // Cache the electron material
+        if (_electronLineRenderer != null)
+            _electronMaterial = _electronLineRenderer.material;
     }
 
     private void Update()
@@ -71,7 +78,7 @@ public class WireController : MonoBehaviour
         }
     }
 
-    private void SetCollider(Vector3 start, Vector3 end, BoxCollider collider=null)
+    private void SetCollider(Vector3 start, Vector3 end, BoxCollider collider = null)
     {
         if (collider == null)
         {
@@ -99,7 +106,7 @@ public class WireController : MonoBehaviour
         Vector3 D = EndKnob != null ? EndKnob.transform.position : FingerPosition;
 
         float ADdistance = Vector3.Distance(A, D);
-        
+
         //Start Bend Control point
         Vector3 B = A + StartKnob.transform.forward * ADdistance * _bendFactor;
 
@@ -242,12 +249,12 @@ public class WireController : MonoBehaviour
     {
         if (!CircuitManager.Instance.HasPower) return;
 
-        BatteryScript battery = FindObjectOfType<BatteryScript>();
+        BatteryApparatus battery = FindObjectOfType<BatteryApparatus>();
 
         var path = CircuitManager.Instance.GetValidKnobPaths()[0];
         Color highVColor = Color.Lerp(CircuitManager.Instance.LowVoltageColor, CircuitManager.Instance.HighVoltageColor, MinMaxVoltage.y / battery.Voltage);
         Color lowVColor = Color.Lerp(CircuitManager.Instance.LowVoltageColor, CircuitManager.Instance.HighVoltageColor, MinMaxVoltage.x / battery.Voltage);
-        
+
         if (path.IndexOf(StartKnob) < path.IndexOf(EndKnob))
         {
             _lineRenderer.startColor = highVColor;
@@ -269,7 +276,7 @@ public class WireController : MonoBehaviour
         _electronLineRenderer.positionCount = _lineRenderer.positionCount;
         Vector3[] positions = new Vector3[_lineRenderer.positionCount];
         _lineRenderer.GetPositions(positions);
-        for(int i = 0; i < positions.Length; i++)
+        for (int i = 0; i < positions.Length; i++)
         {
             positions[i] += visualizationOffset;
         }
@@ -277,9 +284,15 @@ public class WireController : MonoBehaviour
         _electronLineRenderer.gameObject.SetActive(true);
 
         var path = CircuitManager.Instance.GetValidKnobPaths()[0];
-        float curSpeed = _electronLineRenderer.material.GetFloat("_Speed");
-        if (path.IndexOf(StartKnob) < path.IndexOf(EndKnob))
-            _electronLineRenderer.material.SetFloat("_Speed", curSpeed * -1f);
+
+        // Update the texture offset based on direction
+        if (_electronMaterial != null)
+        {
+            Vector2 offset = _electronMaterial.mainTextureOffset;
+            float direction = (path.IndexOf(StartKnob) < path.IndexOf(EndKnob)) ? -1f : 1f;
+            offset.x += _electronSpeed * direction * Time.deltaTime;
+            _electronMaterial.mainTextureOffset = offset;
+        }
 
         _visualiseElectrons = true;
     }

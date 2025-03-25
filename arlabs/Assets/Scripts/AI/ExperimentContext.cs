@@ -1,6 +1,8 @@
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using ARLabs.Core;
+using System.Linq;
 
 namespace ARLabs.AI
 {
@@ -17,7 +19,7 @@ namespace ARLabs.AI
         public string procedure;
         public string[] requiredApparatus;
         public string[] instantiatedApparatus;
-        public string[] visualizations;
+        public Visualization[] visualizations;
 
         public static ExperimentContext GetExperimentContext()
         {
@@ -49,12 +51,12 @@ namespace ARLabs.AI
             experiment.instantiatedApparatus = instantiatedApparatusNames.ToArray();
 
             // Get the possible visualizations
-            List<string> visualizationsPossibleNames = new();
+            List<Visualization> visualizationsPossible = new();
             foreach (var visualization in expManager.ExperimentMasterSO.Visualizations)
             {
-                visualizationsPossibleNames.Add(visualization.VisualizationName);
+                visualizationsPossible.Add(new Visualization(visualization.VisualizationName, visualization.VisualizationDesc));
             }
-            experiment.visualizations = visualizationsPossibleNames.ToArray();
+            experiment.visualizations = visualizationsPossible.ToArray();
 
             // Get the possible actions
             // ...
@@ -62,5 +64,19 @@ namespace ARLabs.AI
 
             return experiment;
         }
+
+        [System.Serializable]
+        public struct Visualization
+        {
+            public string name;
+            public string desc;
+
+            public Visualization(string name, string desc)
+            {
+                this.name = name;
+                this.desc = desc;
+            }
+        }
+
     }
 }

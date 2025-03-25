@@ -466,6 +466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisualizationHead: Forces On The Bob
   VisualizationName: bob_forces
+  VisualizationDesc: Visualizing gravity and it's components on the bob as vectors.
+    Pendulum must be oscillating to show.
   scale: 0.05
   gravityLine: {fileID: 1288290078610157366}
   tensionLine: {fileID: 7620222638284681807}

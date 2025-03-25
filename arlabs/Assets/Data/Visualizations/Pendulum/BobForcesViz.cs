@@ -79,7 +79,5 @@ public class BobForcesViz : Visualization
     public override void EndVisualization()
     {
         base.EndVisualization();
-
-
     }
 }

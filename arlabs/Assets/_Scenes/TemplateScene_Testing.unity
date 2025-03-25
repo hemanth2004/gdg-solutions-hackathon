@@ -15596,7 +15596,6 @@ GameObject:
   - component: {fileID: 723255982}
   - component: {fileID: 723255981}
   - component: {fileID: 723255985}
-  - component: {fileID: 723255986}
   - component: {fileID: 723255987}
   m_Layer: 6
   m_Name: ExperimentManager
@@ -15686,23 +15685,6 @@ MonoBehaviour:
   DropdownFieldPrefab: {fileID: 3861778375350819097, guid: 4956686c19703d64fa8659c0ef1195b5, type: 3}
   SliderFieldPrefab: {fileID: 8157877111125614780, guid: 945d060d17416f3448c3702233e40f95, type: 3}
   ButtonFieldPrefab: {fileID: 6640079169975918565, guid: 2b0dd91bbd190cf4184e8ce54bc2c9a1, type: 3}
---- !u!114 &723255986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723255980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f66c1dd71e09c4897caa8b0c603689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _debug: 0
-  NetCurrent: 0
-  HighVoltageColor: {r: 1, g: 0, b: 0, a: 1}
-  LowVoltageColor: {r: 0, g: 1, b: 0, a: 1}
-  HasPower: 0
 --- !u!114 &723255987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20146,10 +20128,10 @@ MonoBehaviour:
   apparatusRotateAmt: 10
   _selectedApparatus: {fileID: 0}
   _placingApparatus: {fileID: 0}
-  desktopPlaceDistance: 3
+  desktopPlaceDistance: 1.5
   _interactLoadUI: {fileID: 1543344916}
-  tapTimeThreshold: 0.2
-  interactTimeThreshold: 1
+  tapTimeThreshold: 3
+  interactTimeThreshold: 4
   isPressed: 0
   mainCamera: {fileID: 0}
 --- !u!4 &893711064
@@ -29572,6 +29554,76 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+--- !u!1 &1348393573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1348393576}
+  - component: {fileID: 1348393575}
+  - component: {fileID: 1348393574}
+  m_Layer: 0
+  m_Name: CircuitsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1348393574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348393573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dd465d8e6675748ac6d267155422e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _knobsLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  _wiresLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  _wirePrefab: {fileID: 2096195795807353222, guid: 049ce1f49e69552408145757346373b5, type: 3}
+  _allConnectedWires: []
+--- !u!114 &1348393575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348393573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f66c1dd71e09c4897caa8b0c603689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debug: 0
+  NetCurrent: 0
+  HighVoltageColor: {r: 1, g: 1, b: 1, a: 1}
+  LowVoltageColor: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
+  HasPower: 0
+--- !u!4 &1348393576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348393573}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1351355624
 GameObject:
   m_ObjectHideFlags: 0
@@ -45441,6 +45493,7 @@ SceneRoots:
   - {fileID: 928305542}
   - {fileID: 1969645784}
   - {fileID: 2109313676}
+  - {fileID: 1348393576}
   - {fileID: 723255983}
   - {fileID: 893711064}
   - {fileID: 178105043}
