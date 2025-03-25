@@ -28,6 +28,10 @@ namespace ARLabs.Core
         [SerializeField] private Subject _subject;
         [SerializeField] private Topic _topic;
         [SerializeField] private string _experimentName;
+        [TextArea(5, 10)]
+        [SerializeField] private string _theory;
+        [TextArea(5, 10)]
+        [SerializeField] private string _procedure;
         [SerializeField, Range(6, 12)] private int _class = 11;
         [SerializeField] private List<Apparatus> _requiredApparatus = new List<Apparatus>();
         [SerializeField] private List<Apparatus> _instantiatedApparatus = new List<Apparatus>();
@@ -40,6 +44,8 @@ namespace ARLabs.Core
         public Topic Topic => _topic;
         public int Class => _class;
         public string ExperimentName => _experimentName;
+        public string Theory => _theory;
+        public string Procedure => _procedure;
 
     }
 }

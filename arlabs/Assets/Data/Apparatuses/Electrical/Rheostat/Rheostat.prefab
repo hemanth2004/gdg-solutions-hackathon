@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3134542151651684417}
   - component: {fileID: 8518528947329119221}
   - component: {fileID: 6975601053440317843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EndCapR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4371948562852817018}
   - component: {fileID: 1093666939228187614}
   - component: {fileID: 4141670200828663991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 551339722016298810}
   - component: {fileID: 3177455358319022288}
   - component: {fileID: 8347222515116892705}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: terminalNodeC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1439839986413633208}
   - component: {fileID: 5926725833103457451}
   - component: {fileID: 3623032595934888893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: terminalnodeA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 7010851933498627570}
   - component: {fileID: 772141802228353950}
   - component: {fileID: 8295121317608935223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slider__1_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 3985215083102890849}
   - component: {fileID: 623822038049070867}
   - component: {fileID: 7048751172845299168}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: terminalnodeb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 387774447036102133}
   - component: {fileID: 4504666284780830822}
   - component: {fileID: 24154620709715293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SteelRingR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 6142381048876908711}
   - component: {fileID: 4450794684021870927}
   - component: {fileID: 2932373146865368862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SteelRingL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 2610256087740371016}
   - component: {fileID: 668820279294020045}
   - component: {fileID: 8233659508385470754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 7858308629581229414}
   - component: {fileID: 8140237112436768227}
   - component: {fileID: 9025210793458485242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,7 +1209,7 @@ GameObject:
   - component: {fileID: 804335813365098586}
   - component: {fileID: 6534811958287369361}
   - component: {fileID: 2361825285846125935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SteelBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 5831449871772996300}
   - component: {fileID: 7078350580393965532}
   - component: {fileID: 2278725746382670195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RheostatMainMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1405,7 +1405,7 @@ GameObject:
   - component: {fileID: 5575767877838629225}
   - component: {fileID: 5727366933016666394}
   - component: {fileID: 3582885592878453129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EndCapL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1490,7 +1490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2574031447249997780}
   - component: {fileID: 6422726984163010514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rheostat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

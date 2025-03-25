@@ -14,7 +14,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _subject: 1
   _topic: 3
-  _experimentName: Effective Length Of Pendulum
+  _experimentName: To Find Effective Length Of Seconds Pendulum Using Graph
+  _theory: "<size=120%><b>Theory</b></size>\r\n\r\nA simple pendulum consists of
+    a small bob suspended from a fixed support by a string of length (<b>L</b>) that
+    allows it to oscillate freely. When displaced and released, the pendulum undergoes
+    Simple Harmonic Motion (<b>SHM</b>), where the restoring force acting on the
+    bob is proportional to its displacement and directed towards the equilibrium
+    position.\r\n\r\nThe time period (<b>T</b>) of oscillation for small amplitudes
+    is given by:\r\n\r\n<indent=20%><size=110%><b>T = 2\u03C0\u221A(L/g)</b></size></indent>\r\n\r\nwhere: 
+    \r\n- <b>T</b> = Time period of one complete oscillation (seconds)  \r\n- <b>L</b>
+    = Length of the pendulum (meters)  \r\n- <b>g</b> = Acceleration due to gravity
+    (9.8 m/s\xB2)  \r\n"
+  _procedure: "<size=120%><b>Procedure</b></size>\r\n\r\n1. Place the clamp stand
+    and pendulum on a table. Take care that the bob hangs vertically (about 2 cm
+    above the floor) beyond the edge of the table so that it is free to oscillate.\r\n\r\n2.
+    Measure the effective length of the simple pendulum as shown in the figure.\r\n\r\n3.
+    Displace the bob not more than 15 degrees from the vertical position and then
+    gently release it. Make sure that the bob oscillates in a vertical plane about
+    its rest and does not:  \r\n   (i) spin about its own axis  \r\n   (ii) move
+    up and down while oscillating  \r\n   (iii) revolve in an elliptic path around
+    its mean position  \r\n\r\n4. Keep the pendulum oscillating for a few minutes.
+    After a few oscillations, start the stopwatch as the thread attached to the bob
+    crosses the mean position. Consider it as a zero oscillation.\r\n\r\n5. Keep
+    counting the oscillations <b>1,2,3\u2026n</b> every time the bob crosses the
+    mean position. Stop the stopwatch at the count of <b>n</b> oscillations. For
+    better results, <b>n</b> should be chosen such that the time taken to complete
+    <b>n</b> oscillations is 50 s or more. Read the total time taken for <b>n</b>
+    oscillations. Repeat the observation a few times by noting down the time for
+    the same <b>n</b> number of oscillations. Once noted down, take the mean of the
+    readings. Calculate the time for one oscillation, i.e., the time period <b>T
+    (= t/n)</b> of the pendulum.\r\n\r\n6. Change the length of the pendulum by about
+    10 cm. Repeat step 6 again for finding the time (<b>t</b>) for about 20 oscillations
+    or more for the new length and find the mean time period. Take 5 or 6 more observations
+    for different lengths of the pendulum and find the mean time period in each case.\r\n\r\n7.
+    Report observations in tabular form with proper units and significant figures.\r\n\r\n8.
+    Take effective length <b>L</b> along the x-axis and <b>T\xB2</b> (or <b>T</b>)
+    along the y-axis, using the observed values from the table. Choose suitable scales
+    on these axes to represent <b>L</b> and <b>T\xB2</b> (or <b>T</b>). Plot a graph
+    between <b>L</b> and <b>T\xB2</b> as shown in Figure 2 and also between <b>L</b>
+    and <b>T</b> as shown in Figure 1.\r\n"
   _class: 11
   _requiredApparatus:
   - {fileID: 5535166642364074237, guid: 0cfedc0bafafe7a4fb785bc76fa90a30, type: 3}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1609397672065666682}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Matter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2030441010812717166}
   - component: {fileID: 2974944081988344915}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Jar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  SwayWhileGrabbed: 1
   _interactEvents: []
   _possibleAttachments:
     _serializedList: []
@@ -161,7 +162,7 @@ GameObject:
   - component: {fileID: 7755572273672461629}
   - component: {fileID: 1842494675490777801}
   - component: {fileID: 6373262507670825533}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3133,7 +3134,7 @@ GameObject:
   - component: {fileID: 5250438011977256348}
   - component: {fileID: 6205264531295349717}
   - component: {fileID: 9197235390577010334}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3991,7 +3992,7 @@ GameObject:
   - component: {fileID: 2378750339192494426}
   - component: {fileID: 1659496275279889650}
   - component: {fileID: 6032810048047987106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}

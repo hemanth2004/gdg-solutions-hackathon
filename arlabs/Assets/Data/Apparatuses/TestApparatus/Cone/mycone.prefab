@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 311215789530521105}
   - component: {fileID: 4134451379080503266}
   - component: {fileID: 3938354241782500738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3206543915158054853}
   - component: {fileID: 6450702710410564278}
   - component: {fileID: 2338861699923561196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4202872915446792138}
   - component: {fileID: 2923388669921890979}
   - component: {fileID: 3242595462706995769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 4144660861764407681}
   - component: {fileID: 5058707476894779933}
   - component: {fileID: 8113614069076477623}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mycone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,6 +413,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 1
   _isGrabbing: 0
+  SwayWhileGrabbed: 1
   _interactEvents: []
   _possibleAttachments:
     _serializedList: []

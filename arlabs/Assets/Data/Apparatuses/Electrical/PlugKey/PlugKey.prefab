@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4214825028698700270}
   - component: {fileID: 5801738414781985959}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlugKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4084156192335751871}
   - component: {fileID: 7834660999876297143}
   - component: {fileID: 4608128504127352486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: '- (1)'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 835873337978710100}
   - component: {fileID: 4301765550468207779}
   - component: {fileID: 3532941210328628083}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: + (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 6598972982166309535}
   - component: {fileID: 1437017652835335288}
   - component: {fileID: 8416467781879580782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: plugKeyMainMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 269834766216517789}
   - component: {fileID: 4314463772613059476}
   - component: {fileID: 4901821260339239514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 4504968422612999319}
   - component: {fileID: 8550961659126793129}
   - component: {fileID: 7838280214830535928}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 4733729990962382520}
   - component: {fileID: 7079271844235650511}
   - component: {fileID: 6150074049927341846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}

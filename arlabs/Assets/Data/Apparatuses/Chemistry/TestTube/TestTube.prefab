@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6854787590099752590}
   - component: {fileID: 3747198020477928038}
   - component: {fileID: -1479167311815908761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestTube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  SwayWhileGrabbed: 1
   _interactEvents: []
   _possibleAttachments:
     _serializedList:
@@ -146,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6481969311017657300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +184,7 @@ GameObject:
   - component: {fileID: 1534356255211712298}
   - component: {fileID: 4803427872846718419}
   - component: {fileID: 3259855327061302292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2222,7 +2223,7 @@ GameObject:
   - component: {fileID: 681866775889882014}
   - component: {fileID: 7981172419073032075}
   - component: {fileID: 5432234187842464927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4256,7 +4257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1945031264792462057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TTHolder_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4292,7 +4293,7 @@ GameObject:
   - component: {fileID: 1888580874937153182}
   - component: {fileID: 455252418843946787}
   - component: {fileID: 172764146726667143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

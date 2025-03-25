@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6799636737377027342}
   - component: {fileID: 8570160903211292659}
   - component: {fileID: 8682682829053204915}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClampStand (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1530,7 +1530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 896883213996057447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1568,7 +1568,7 @@ GameObject:
   - component: {fileID: 3203119013505555889}
   - component: {fileID: 7749898831307878625}
   - component: {fileID: 2292080399378050505}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2368,7 +2368,7 @@ GameObject:
   - component: {fileID: 9022016569961749576}
   - component: {fileID: 5535166642364074237}
   - component: {fileID: 8801416595832007220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pendulum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2482,7 +2482,6 @@ MonoBehaviour:
   _possibleAttachments:
     _serializedList: []
   _parentAttachment: {fileID: 0}
-  lengthScale: 0.2
   threadLine: {fileID: 5716760516275697663}
   clamp: {fileID: 4261996918888467300}
   bob: {fileID: 6499311515582165610}
@@ -2517,7 +2516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842154525030791529}
   - component: {fileID: 5716760516275697663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2660,7 +2659,7 @@ GameObject:
   - component: {fileID: 1449434988878380986}
   - component: {fileID: 5053165604311572708}
   - component: {fileID: 4223502528159251839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: visualBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4954,7 +4953,7 @@ GameObject:
   - component: {fileID: 2328906044320643877}
   - component: {fileID: 6876445637173309841}
   - component: {fileID: 3223996443039885437}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Clamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5273,7 +5272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5971341799931374556}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5310,7 +5309,7 @@ GameObject:
   - component: {fileID: 3369814191027922366}
   - component: {fileID: 1290005299910736745}
   - component: {fileID: 8835804063212677571}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6826,7 +6825,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6499311515582165610}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6859,7 +6858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5165640003055948022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -52,10 +52,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gold Resistive Wire Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3226222074693622865, guid: 05415431c52d95544a0b800d1f47540b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3531792410680495502, guid: 05415431c52d95544a0b800d1f47540b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4113d4faec9863440ae410d7ec72ff90, type: 2}
+    - target: {fileID: 4229157418770977473, guid: 05415431c52d95544a0b800d1f47540b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3063781306133442787, guid: 05415431c52d95544a0b800d1f47540b, type: 3}
     m_RemovedGameObjects: []

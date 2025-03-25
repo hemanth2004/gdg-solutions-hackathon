@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2235567260467444104}
   - component: {fileID: 5211654081246929982}
   - component: {fileID: 1296884687406822798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 5511549187251933766}
   - component: {fileID: 7155557327504958665}
   - component: {fileID: 7534806717369225535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3792,7 +3792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3529499877532889174}
   - component: {fileID: 3243609727274966557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Watchglass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3884,6 +3884,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  SwayWhileGrabbed: 1
   _interactEvents: []
   _possibleAttachments:
     _serializedList: []
@@ -3906,7 +3907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9118724121570073921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Matter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3943,7 +3944,7 @@ GameObject:
   - component: {fileID: 5412643272162572589}
   - component: {fileID: 3334408622031481742}
   - component: {fileID: 794501577381073829}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}

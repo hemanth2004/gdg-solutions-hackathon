@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6543580014052677919}
   - component: {fileID: 24757250304733090}
   - component: {fileID: 2833799491032966155}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1496,7 +1496,7 @@ GameObject:
   - component: {fileID: 4007546545253843936}
   - component: {fileID: 6449285680601381692}
   - component: {fileID: 5916567210709366325}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestTubeHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,6 +1557,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
+  SwayWhileGrabbed: 1
   _interactEvents: []
   _possibleAttachments:
     _serializedList: []
@@ -1593,7 +1594,7 @@ GameObject:
   - component: {fileID: 1674576617257460943}
   - component: {fileID: 320579607272554383}
   - component: {fileID: 3504554246380805955}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3076,7 +3077,7 @@ GameObject:
   - component: {fileID: 6762043982519420833}
   - component: {fileID: 3479067158359924623}
   - component: {fileID: 3038437852618909579}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4560,7 +4561,7 @@ GameObject:
   - component: {fileID: 7121184245898700174}
   - component: {fileID: 124455167998843671}
   - component: {fileID: 2386791935536418086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

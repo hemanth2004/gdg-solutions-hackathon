@@ -33,6 +33,9 @@ namespace ARLabs.Core
         public TMP_Text higlightWindowName;
         public TMP_Text placingWindowName;
         public TMP_Text repositionWindowName;
+        public TMP_Text notesMetaText;
+        public TMP_Text notesHeaderText;
+        public TMP_Text notesTextContent;
         [Header("Fields")]
         public GameObject TextFieldPrefab;
         public GameObject BoolFieldPrefab;

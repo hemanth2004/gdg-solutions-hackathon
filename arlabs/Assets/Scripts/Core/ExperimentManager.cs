@@ -23,7 +23,9 @@ namespace ARLabs.Core
         [SerializeField] private ExperimentMasterSO _experimentMasterSO;
         [SerializeField] private List<Apparatus> _instantiatedApparatus = new List<Apparatus>();
         [SerializeField] private ARPlaneManager _planeManager;
+        [SerializeField] private string _sessionID;
 
+        public string SessionID => _sessionID;
 
         public List<Apparatus> InstantiatedApparatus => _instantiatedApparatus;
 
@@ -48,11 +50,13 @@ namespace ARLabs.Core
             _stateMachine.AddState(new PlaneDetectionState());
             _stateMachine.AddState(new PlacingState());
             _stateMachine.AddState(new RepositionState());
+            _stateMachine.AddState(new VisualizationState());
 
             _stateMachine.GoToState<IdleState>();
 
             // Startup Methods
             LoadLab();
+            SetNotes();
             SetInfo();
             LoadApparatusMenu();
         }
@@ -61,6 +65,7 @@ namespace ARLabs.Core
         // Methods that are called at the very start
         private void LoadLab()
         {
+            _sessionID = System.Guid.NewGuid().ToString();
             // temp loading mimic
             Destroy(UIReferences.Instance.LoadingScreen, 2f);
         }
@@ -71,6 +76,19 @@ namespace ARLabs.Core
                 + ExperimentMasterSO.Topic.ToString() + " > \n<b>"
                 + ExperimentMasterSO.ExperimentName + "</b>";
 
+        }
+        private void SetNotes()
+        {
+            UIReferences.Instance.notesMetaText.text =
+                ExperimentMasterSO.Subject.ToString() + " > "
+                + "Class " + ExperimentMasterSO.Class + " > "
+                + ExperimentMasterSO.Topic.ToString();
+
+            UIReferences.Instance.notesHeaderText.text = ExperimentMasterSO.ExperimentName;
+
+            UIReferences.Instance.notesTextContent.text =
+                ExperimentMasterSO.Theory + "\n\n" +
+                ExperimentMasterSO.Procedure;
         }
         private void LoadApparatusMenu()
         {

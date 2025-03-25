@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 8767294012196333001}
   - component: {fileID: 7097310672549397815}
   - component: {fileID: 4400475672438356553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: +
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4548750785952834443}
   - component: {fileID: 3688090188134337655}
   - component: {fileID: 7421969714471532145}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 2986766844020287244}
   - component: {fileID: 7845681116103670963}
   - component: {fileID: 1918215368151092462}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: digitalText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 5623604734035519894}
   - component: {fileID: 7930987598542119638}
   - component: {fileID: 8631560870463510871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 2203226651690029794}
   - component: {fileID: 6721342386570448353}
   - component: {fileID: 1166429459134255820}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 2613428459300037323}
   - component: {fileID: 1270737506397258426}
   - component: {fileID: 418623028193114853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 3969217533818350191}
   - component: {fileID: 592723239422662420}
   - component: {fileID: 5409681108930984593}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 7184582087399741533}
   - component: {fileID: 3070496681590218010}
   - component: {fileID: 8347596667189275302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Digital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1600,7 +1600,7 @@ GameObject:
   - component: {fileID: 8993041735045482270}
   - component: {fileID: 5770410319063388912}
   - component: {fileID: 3298637638524367141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AmmeterMainMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1709,7 +1709,7 @@ GameObject:
   - component: {fileID: 4228524092768949760}
   - component: {fileID: 4196507099842932641}
   - component: {fileID: 7532564763327892537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1816,7 +1816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4088516802804821556}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: analogNeedle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1850,7 +1850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 836715320066801147}
   - component: {fileID: 1564828255168757226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ammeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1952,7 +1952,7 @@ GameObject:
   - component: {fileID: 9209269909608190901}
   - component: {fileID: 8065987404736551620}
   - component: {fileID: 3923836290209306449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Analog
   m_TagString: Untagged
   m_Icon: {fileID: 0}

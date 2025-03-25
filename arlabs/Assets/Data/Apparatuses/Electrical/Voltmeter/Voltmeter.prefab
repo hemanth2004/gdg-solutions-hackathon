@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1363503176483311199}
   - component: {fileID: 27645202134202445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Voltmeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2873505899308020472}
   - component: {fileID: 1308658469837567658}
   - component: {fileID: 8667423840571683916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: digitalText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 4074680875008690409}
   - component: {fileID: 8884489354421703855}
   - component: {fileID: 3799662427861120358}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: +
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 4823992458376934645}
   - component: {fileID: 2350994705380744812}
   - component: {fileID: 3149446002738057772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Analog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 6342868346217805504}
   - component: {fileID: 1323392159177761261}
   - component: {fileID: 5843302722562228105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VoltmeterMainMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7638586218336351278}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: analogNeedle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 439016209028104286}
   - component: {fileID: 4452162651019709990}
   - component: {fileID: 860744049695824823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 5393916936067732108}
   - component: {fileID: 3560772123092888757}
   - component: {fileID: 4723748507493157170}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,7 +1049,7 @@ GameObject:
   - component: {fileID: 7632462165195495458}
   - component: {fileID: 3299069271348494139}
   - component: {fileID: 6836628175264498156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 7607416141448660294}
   - component: {fileID: 4947135235959169312}
   - component: {fileID: 5009103886166831218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,7 +1244,7 @@ GameObject:
   - component: {fileID: 736930414340101613}
   - component: {fileID: 2715567991996115897}
   - component: {fileID: 3200906318826736651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1354,7 +1354,7 @@ GameObject:
   - component: {fileID: 2151050125410190452}
   - component: {fileID: 4523201697199964603}
   - component: {fileID: 4908527442915125920}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1464,7 +1464,7 @@ GameObject:
   - component: {fileID: 1134535409982834155}
   - component: {fileID: 7235492850760132082}
   - component: {fileID: 7080857269461786069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Digital
   m_TagString: Untagged
   m_Icon: {fileID: 0}

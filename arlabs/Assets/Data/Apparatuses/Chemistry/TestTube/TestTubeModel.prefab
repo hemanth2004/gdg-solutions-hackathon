@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3920977148585613394}
   - component: {fileID: 8722812861429143248}
   - component: {fileID: 1829146737265829938}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestTubeModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
