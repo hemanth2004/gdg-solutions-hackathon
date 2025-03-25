@@ -1,0 +1,3 @@
+1. Fine tune the model for better accuracy and realiabilty.
+2. Effective dealing with images of the experiment.
+2. Create a backend endpoint using FastAPI.
