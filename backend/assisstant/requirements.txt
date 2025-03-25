@@ -4,3 +4,4 @@ langchain-google-genai
 langgraph
 langchain-google-vertexai
 google-cloud-texttospeech
+google-genai
