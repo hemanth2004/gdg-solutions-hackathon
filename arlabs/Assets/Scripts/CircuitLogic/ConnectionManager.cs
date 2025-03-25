@@ -197,3 +197,24 @@ public class ConnectionManager : MonoBehaviour
         return null;
     }
 }
+
+// 1. Connecting circuit logic with new apparatus
+// 2. Writing scripts that call the backend
+//      - Sending data to assisstant:
+//          - Create experiment data json
+//          - Transcribe audio / Use predefined query
+//          - Take the screenshot
+//          - Get the {user_name + experiment_name} as the thread_id
+//      - Receiving data from assistant:
+//          - We would get a sequence of b64 audio, "vis_name state"
+//          - Play audio, then toggle vis, play audio, toggle vis
+//
+//      - Sending data to Apparatus identifier
+//          - Send frame, apparatus list
+//      - Receiving data from Apparatus identifier
+//          - Get the apparatus name
+//          - Call the placing action TODO: call this action from llm
+//
+// 3. Button for what is experiment about
+// 4. Button for voice command
+// 5. Implement action for placing the apparatus given the apparatus name as string
