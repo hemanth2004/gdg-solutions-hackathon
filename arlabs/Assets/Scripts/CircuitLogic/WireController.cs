@@ -138,7 +138,6 @@ public class WireController : MonoBehaviour
         //Clear the list
         allRopeSections.Clear();
 
-
         float t = 0;
 
         while (t <= 1f)

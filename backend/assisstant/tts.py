@@ -45,5 +45,7 @@ class TTSClient:
 
         with open(output_file, "wb") as out:
             out.write(response.audio_content)
+
+        return response.audio_content
             
 

@@ -14,10 +14,11 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import BaseMessage
 from langgraph.graph.message import add_messages
 from langchain_core.messages import trim_messages
+import json
 
 class ARExperiment(TypedDict):
-    name: str                   # Experiment name
-    visualizations: List[str]   # List of available visualizations
+    name: str                               # Experiment name
+    visualizations: List[Tuple[str, str]]   # List of available visualizations
 
 class State(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]    # List of messages in the conversation to use as context
@@ -106,12 +107,15 @@ class ARAssisstant:
                 )
             )
 
+        vis_as_strings = [f"{viz[0]}:{viz[1]}" for viz in state["experiment"]["visualizations"]]
+        available_vis = ", ".join(vis_as_strings) if vis_as_strings else "none available"
+
         prompt = self.prompt_template.invoke(
             {
                 "messages": trimmed_messages,
                 "language": state["language"],
                 "experiment_name": state["experiment"]["name"],
-                "available_visualizations": ", ".join(state["experiment"]["visualizations"]) if state["experiment"]["visualizations"] else "none available"
+                "available_visualizations": available_vis
             }
         )
         response = self.model.invoke(prompt)
@@ -156,10 +160,14 @@ class ARAssisstant:
         # Process the execution sequence
 
         audio_counter = 0
-        sequence_to_send = []
+        sequence_to_send = {
+            "vis": [],
+            "audio": [],
+        }
+
         for item in execution_sequence:
             if isinstance(item, tuple):
-                sequence_to_send.append(f"{item[0]} {item[1]}")
+                sequence_to_send["vis"].append(f"{item[0]} {item[1]}")
             else:
                 if save_audio:
                     audio_counter += 1
@@ -167,7 +175,10 @@ class ARAssisstant:
                     self.tts.text_to_speech(item, output_file=audio_path)
                 
                 b64_audio = self.tts.text_to_speech(item, return_encoded=True)
-                sequence_to_send.append(b64_audio)
+                sequence_to_send["audio"].append(b64_audio)
+
+        # Convert sequence_to_send to JSON
+        payload = json.dumps({"sequence": sequence_to_send})
 
         # TODO: Send the sequence to UNITY and handle playing audio and toggling visualizations there
 
@@ -189,12 +200,17 @@ class ARAssisstant:
         
         # Generate execution sequence
         execution_sequence = self._split_response_by_visualizations(response)
-        self._execute_sequence(execution_sequence, save_audio=False)
+        self._execute_sequence(execution_sequence, save_audio=True)
+        print(execution_sequence)
     
 
 if __name__ == "__main__":
     assistant = ARAssisstant()
-    ohms_law_exp = ARExperiment(name="Ohm's Law", visualizations=["voltage_gradient", "electron_flow"])
+    ohms_law_exp = ARExperiment(name="Ohm's Law", 
+                                visualizations=[
+                                    ("voltage_gradient", "color graident of voltage along wires"), 
+                                    ("electron_flow", "shows blue particles as electrons flowing along wires")
+                                ])
     
     assistant.set_current_experiment(ohms_law_exp)
 
@@ -208,3 +224,14 @@ if __name__ == "__main__":
         image_path = "with_wires.png"
         assistant.invoke(thread_id, query, language, image_path)
         # print(response)
+
+# Experiment JSON (generated in UNITY):
+# { name, [(vis, description)] }
+
+# FROM UNITY: thread_id, text, language, image_path, Experiment Data
+# then convert ExperimentData to ARExperiment Typed Dict
+# call invoke
+
+# TO UNITY: sequence { audio: [b64], vis: ["name state"]}
+
+# thread_id -> Experiment Data in a database for later

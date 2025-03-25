@@ -48,3 +48,5 @@ if __name__ == "__main__":
         image_path = os.path.join("test_images/apparatus", image_path)
         print(f"Image Path: {image_path}\tIdentified apparatus: {appratus_identifier.identify_apparatus(image_path)}")
 
+# FROM UNITY: apparatus_list, frame
+# TO UNITY: name: str

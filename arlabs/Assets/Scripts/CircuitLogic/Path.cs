@@ -11,11 +11,11 @@ public partial class CircuitManager
         public List<Knob> PrevPath = new List<Knob>();
 
         private List<WireController> _pathWires = new List<WireController>();
-        private List<CircuitApparatusOld> _pathApparatus = new List<CircuitApparatusOld>();
+        private List<CircuitApparatus> _pathApparatus = new List<CircuitApparatus>();
         private List<Knob> _fullPath = new List<Knob>();
 
         public List<WireController> PathWires => _pathWires.Count > 0 ? _pathWires : GetPathWires();
-        public List<CircuitApparatusOld> PathApparatus => _pathApparatus.Count > 0 ? _pathApparatus : GetPathAsApparatus();
+        public List<CircuitApparatus> PathApparatus => _pathApparatus.Count > 0 ? _pathApparatus : GetPathAsApparatus();
         public List<Knob> FullPath => _fullPath.Count > 0 ? _fullPath : GetFullPath();
 
         public Path(List<Knob> pathList)
@@ -59,13 +59,13 @@ public partial class CircuitManager
             return ret;
         }
 
-        public List<CircuitApparatusOld> GetPathAsApparatus()
+        public List<CircuitApparatus> GetPathAsApparatus()
         {
-            List<CircuitApparatusOld> ret = new List<CircuitApparatusOld> ();
+            List<CircuitApparatus> ret = new List<CircuitApparatus> ();
 
             for (int i = 0; i < FullPath.Count; i++)
             {
-                CircuitApparatusOld apparatus = FullPath[i].transform.parent.GetComponent<CircuitApparatusOld>();
+                CircuitApparatus apparatus = FullPath[i].transform.parent.GetComponent<CircuitApparatus>();
                 if (apparatus != null && !ret.Contains(apparatus)) ret.Add(apparatus);
             }
 
