@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 public class UserJourneyManager : MonoBehaviour
 {
-    
+
 
 
     #region States
@@ -22,7 +22,7 @@ public class UserJourneyManager : MonoBehaviour
         DetectingPlanes,
         PlacingApparatus,
         RepositionApparatus,
-        Visualization,
+        VisualizationOld,
         Highlighting
     }
 
@@ -73,7 +73,7 @@ public class UserJourneyManager : MonoBehaviour
                 uiReferences.highlightWindow.On = false;
                 SetPlanesVisibility(true);
             }
-            else if (value == AppStates.Visualization)
+            else if (value == AppStates.VisualizationOld)
             {
                 planeManager.requestedDetectionMode = UnityEngine.XR.ARSubsystems.PlaneDetectionMode.None;
                 PlacementIndicator.SetActive(false);
@@ -200,20 +200,20 @@ public class UserJourneyManager : MonoBehaviour
 
             case AppStates.Highlighting:
 
-                
+
                 if (EventSystem.current.IsPointerOverGameObject())
                     break;
                 if (Input.GetMouseButtonDown(0) && !_currentlyPhysicalInteracting)
-                { 
+                {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                     if (Physics.Raycast(ray, out interactionHit))
                     {
-                        
+
 
                         if (interactionHit.collider.gameObject.name.Substring(0, interactionManager.INTERACTION_PREFIX.Length) == interactionManager.INTERACTION_PREFIX)
                         {
-                            
+
                             string interactionComponent = interactionHit.collider.gameObject.name.Substring(interactionManager.INTERACTION_PREFIX.Length + 1);
                             GameObject targetInteractionGameObject = interactionHit.collider.gameObject;
                             Debug.Log(interactionComponent);
@@ -224,7 +224,7 @@ public class UserJourneyManager : MonoBehaviour
                         }
                     }
                 }
-                else if(Input.GetMouseButtonUp(0) && _currentlyPhysicalInteracting) 
+                else if (Input.GetMouseButtonUp(0) && _currentlyPhysicalInteracting)
                 {
                     Debug.Log("Up");
                     if (interactionHit.collider.gameObject.name.Substring(0, interactionManager.INTERACTION_PREFIX.Length) == interactionManager.INTERACTION_PREFIX)
@@ -236,7 +236,7 @@ public class UserJourneyManager : MonoBehaviour
                         _currentlyPhysicalInteracting = false;
                     }
                 }
-                
+
                 break;
         }
     }
@@ -334,11 +334,11 @@ public class UserJourneyManager : MonoBehaviour
     }
     #endregion
 
-    #region Visualization
+    #region VisualizationOld
     public void OnVisualizationWindow(bool open)
     {
         uiReferences.visualizationWindow.On = open;
-        currentState = open ? AppStates.Visualization : AppStates.Idle;
+        currentState = open ? AppStates.VisualizationOld : AppStates.Idle;
 
         Debug.Log(currentState.ToString());
     }

@@ -54,6 +54,8 @@ MonoBehaviour:
     between <b>L</b> and <b>T\xB2</b> as shown in Figure 2 and also between <b>L</b>
     and <b>T</b> as shown in Figure 1.\r\n"
   _class: 11
+  _visualizations:
+  - {fileID: 9074237700897264533, guid: 1737440a2490c44489bc598b807ecf5e, type: 3}
   _requiredApparatus:
   - {fileID: 5535166642364074237, guid: 0cfedc0bafafe7a4fb785bc76fa90a30, type: 3}
   - {fileID: 8990998237397145769, guid: dfb80904d0ce3a442af0bed10b591b71, type: 3}

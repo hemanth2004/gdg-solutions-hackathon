@@ -16,6 +16,8 @@ namespace ARLabs.AI
         public string theory;
         public string procedure;
         public string[] requiredApparatus;
+        public string[] instantiatedApparatus;
+        public string[] visualizations;
 
         public static ExperimentContext GetExperimentContext()
         {
@@ -30,13 +32,33 @@ namespace ARLabs.AI
             experiment.schoolClass = expManager.ExperimentMasterSO.Class.ToString();
             experiment.sessionID = expManager.SessionID;
 
-
+            // Get the required apparatus names
             List<string> apparatusNames = new();
             foreach (Apparatus apparatus in expManager.ExperimentMasterSO.RequiredApparatus)
             {
                 apparatusNames.Add(apparatus.name);
             }
             experiment.requiredApparatus = apparatusNames.ToArray();
+
+            // Get the currently placed apparatus names
+            List<string> instantiatedApparatusNames = new();
+            foreach (var apparatus in expManager.InstantiatedApparatus)
+            {
+                instantiatedApparatusNames.Add(apparatus.Head);
+            }
+            experiment.instantiatedApparatus = instantiatedApparatusNames.ToArray();
+
+            // Get the possible visualizations
+            List<string> visualizationsPossibleNames = new();
+            foreach (var visualization in expManager.ExperimentMasterSO.Visualizations)
+            {
+                visualizationsPossibleNames.Add(visualization.VisualizationName);
+            }
+            experiment.visualizations = visualizationsPossibleNames.ToArray();
+
+            // Get the possible actions
+            // ...
+            // todo
 
             return experiment;
         }

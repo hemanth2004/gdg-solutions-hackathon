@@ -33,11 +33,13 @@ namespace ARLabs.Core
         [TextArea(5, 10)]
         [SerializeField] private string _procedure;
         [SerializeField, Range(6, 12)] private int _class = 11;
+        [SerializeField] private List<Visualization> _visualizations = new List<Visualization>();
         [SerializeField] private List<Apparatus> _requiredApparatus = new List<Apparatus>();
         [SerializeField] private List<Apparatus> _instantiatedApparatus = new List<Apparatus>();
         [SerializeField] private GameEventSO _experimentCompletionEvent;
 
 
+        public List<Visualization> Visualizations => _visualizations;
         public List<Apparatus> RequiredApparatus => _requiredApparatus;
         public GameEventSO CompletionEvent => _experimentCompletionEvent;
         public Subject Subject => _subject;

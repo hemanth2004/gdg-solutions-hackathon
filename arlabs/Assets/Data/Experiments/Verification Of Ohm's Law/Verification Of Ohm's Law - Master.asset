@@ -35,43 +35,45 @@ MonoBehaviour:
     determining the resistance of the conductor.\r\n"
   _procedure: '<size=120%><b>Procedure</b></size>
 
-    
 
-    1. Initially, the
-    key (<b>K</b>) is closed, and the rheostat is adjusted to get the minimum reading
-    in the ammeter (<b>A</b>) and voltmeter (<b>V</b>).
 
-    
+    1. Initially, the key (<b>K</b>)
+    is closed, and the rheostat is adjusted to get the minimum reading in the ammeter
+    (<b>A</b>) and voltmeter (<b>V</b>).
 
-    2. The current
-    in the circuit is increased gradually by moving the sliding terminal of the rheostat.
-    During the process, the current flowing in the circuit and the corresponding
-    value of potential difference across the resistance wire (<b>R</b>) are recorded.
 
-    
 
-    3.
-    This way, different sets of values of voltage and current are obtained.
+    2. The current in the circuit is
+    increased gradually by moving the sliding terminal of the rheostat. During the
+    process, the current flowing in the circuit and the corresponding value of potential
+    difference across the resistance wire (<b>R</b>) are recorded.
 
-    
+
+
+    3. This
+    way, different sets of values of voltage and current are obtained.
+
+
 
     4.
     For each set of values of <b>V</b> and <b>I</b>, the ratio <b>V/I</b> is calculated.
 
-    
+
 
     5.
     When you calculate the ratio <b>V/I</b> for each case, you will notice that it
     is almost the same. So <b>V/I = R</b>, which is a constant.
 
-    
 
-    6. Plot
-    a graph of the current against the potential difference; it will be a straight
+
+    6. Plot a
+    graph of the current against the potential difference; it will be a straight
     line. This shows that the current is proportional to the potential difference.
 
 '
   _class: 12
+  _visualizations:
+  - {fileID: 9074237700897264533, guid: 1737440a2490c44489bc598b807ecf5e, type: 3}
   _requiredApparatus:
   - {fileID: 1564828255168757226, guid: b2b42a0c684f8f842b71efe45dc6bca6, type: 3}
   - {fileID: 3543602249497259899, guid: 3ce62fb3bb7e36e44b9db6b16db1061e, type: 3}

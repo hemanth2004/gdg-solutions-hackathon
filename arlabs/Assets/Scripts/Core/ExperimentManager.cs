@@ -68,6 +68,8 @@ namespace ARLabs.Core
             _sessionID = System.Guid.NewGuid().ToString();
             // temp loading mimic
             Destroy(UIReferences.Instance.LoadingScreen, 2f);
+
+            GetComponent<VisualizationManager>().Initialize();
         }
         private void SetInfo()
         {

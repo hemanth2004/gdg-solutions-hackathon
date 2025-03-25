@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Visualization : MonoBehaviour
+public class VisualizationOld : MonoBehaviour
 {
     public GameObject electronVisualPrefab;
     private UserJourneyManager journeyManager;
@@ -23,12 +23,12 @@ public class Visualization : MonoBehaviour
 
     private void Awake()
     {
-        journeyManager= GetComponent<UserJourneyManager>();
+        journeyManager = GetComponent<UserJourneyManager>();
     }
 
     private void Start()
     {
-        
+
     }
 
     public void UpdateWireVisuals()

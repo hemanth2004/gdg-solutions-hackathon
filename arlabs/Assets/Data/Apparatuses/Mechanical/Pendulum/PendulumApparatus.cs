@@ -12,12 +12,15 @@ public class PendulumApparatus : Apparatus
     [SerializeField] private float bobRadius = 2f;   // 2cm bob radius
     private float effectiveLength;  // Total length including hook and bob radius
 
-    private float currentAngle;      // Current angle in radians
-    private float angularVelocity;   // Angular velocity in radians/second
-    private float length;            // Length in meters
-    private float gravity;           // Gravity in m/s²
+    [Header("DNI")]
+    public float currentAngle;      // Current angle in radians
+    public float angularVelocity;   // Angular velocity in radians/second
+    public float length;            // Length in meters
+    public float gravity;           // Gravity in m/s²
     private bool isOscillating = true;
-    private float period;
+    public float period;
+
+    public Transform BobTransform => bob;
 
     protected override void OnStart()
     {
