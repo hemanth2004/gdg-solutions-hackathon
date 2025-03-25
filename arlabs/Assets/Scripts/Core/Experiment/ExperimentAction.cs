@@ -4,7 +4,7 @@ namespace ARLabs.Core
 {
     public class ExperimentAction : MonoBehaviour
     {
-        public virtual void Execute()
+        public virtual void Perform()
         {
 
         }
