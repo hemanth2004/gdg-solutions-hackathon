@@ -180,7 +180,7 @@ class ARAssisstant:
         # Convert sequence_to_send to JSON
         payload = json.dumps({"sequence": sequence_to_send})
 
-        # TODO: Send the sequence to UNITY and handle playing audio and toggling visualizations there
+        return payload
 
     def invoke(self, thread_id: str, query: str, language: str, image_path: str):
         config = {"configurable": {"thread_id": thread_id}}
@@ -200,8 +200,8 @@ class ARAssisstant:
         
         # Generate execution sequence
         execution_sequence = self._split_response_by_visualizations(response)
-        self._execute_sequence(execution_sequence, save_audio=True)
-        print(execution_sequence)
+        payload = self._execute_sequence(execution_sequence, save_audio=True)
+        return payload
     
 
 if __name__ == "__main__":
