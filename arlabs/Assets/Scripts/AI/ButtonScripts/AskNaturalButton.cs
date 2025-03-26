@@ -7,47 +7,67 @@ using System.Threading.Tasks;
 
 namespace ARLabs.AI
 {
+    // Handles the ask natural button
     public class AskNaturalButton : MonoBehaviour
     {
-
+        public GoogleSTT googleSTT;
         public bool alsoSaveScreenshot = false;
 
         private string _latestImage = "";
         private string _latestAudio = "";
+        private ExperimentContext _latestExperimentContext;
 
+        // When the button on the AI tray is clicked, 
+        // which opens the menu for voice and image capture
         public void OnClick()
         {
             ExperimentContext experiment = ExperimentContext.GetExperimentContext();
-            experiment.mainPrompt = "Ask a natural question about the experiment";
-
-            // Convert to JSON string before sending
-            string jsonMessage = JsonUtility.ToJson(experiment);
-            APIHandler.Instance.AskBackendWithText("Ask a natural question about the experiment\n" + jsonMessage);
+            _latestExperimentContext = experiment;
         }
 
 
+        // When the record button is held down  
         public void OnBeginRecord()
         {
-
+            // do something idk
         }
 
+        // When the record button is released   
         public void OnEndRecord(AudioClip audioClip)
         {
             string base64Audio = ACToBS64(audioClip);
             _latestAudio = base64Audio;
+
+            FinalizeChatMessage();
         }
 
-        private IEnumerator WaitForEndOfFrameCoroutine(TaskCompletionSource<bool> tcs)
+        // Finalizes the chat message and send to backend
+        public async void FinalizeChatMessage()
         {
-            yield return new WaitForEndOfFrame();
-            tcs.SetResult(true);
+            string transcript = await googleSTT.GetTextFromAudio(_latestAudio);
+
+            AIChatMessage aiChatMessage = new AIChatMessage();
+            aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
+            aiChatMessage.prompt = transcript;
+            aiChatMessage.experimentContext = _latestExperimentContext;
+            aiChatMessage.base64Image = _latestImage;
+
+            // Send only the JSON object
+            string jsonMessage = JsonUtility.ToJson(aiChatMessage);
+            APIHandler.Instance.AskBackend(jsonMessage);
+
+            _latestImage = "";
+            _latestAudio = "";
         }
 
+
+        // Attaches an image to the chat message
         public void OnClickAttachImage()
         {
             CaptureAndStoreImage();
         }
 
+        // Frame capture mechanism
         private async void CaptureAndStoreImage()
         {
             // Wait for the end of the frame using a coroutine
@@ -77,7 +97,7 @@ namespace ARLabs.AI
             _latestImage = base64Image;
         }
 
-
+        // Utility to convert an audio clip to a base64 string
         public string ACToBS64(AudioClip audioClip)
         {
             float[] data = new float[audioClip.samples * audioClip.channels];
@@ -114,6 +134,12 @@ namespace ARLabs.AI
                 byte[] wavBytes = stream.ToArray();
                 return Convert.ToBase64String(wavBytes);
             }
+        }
+
+        private IEnumerator WaitForEndOfFrameCoroutine(TaskCompletionSource<bool> tcs)
+        {
+            yield return new WaitForEndOfFrame();
+            tcs.SetResult(true);
         }
     }
 }

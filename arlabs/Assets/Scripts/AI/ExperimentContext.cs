@@ -7,10 +7,17 @@ using System.Linq;
 namespace ARLabs.AI
 {
     [System.Serializable]
-    public class ExperimentContext : IAIMessage
+    public class AIChatMessage
     {
-        public string mainPrompt { get; set; }
         public string sessionID { get; set; }
+        public string prompt { get; set; }
+        public string base64Image { get; set; }
+        public ExperimentContext experimentContext { get; set; }
+    }
+
+    [System.Serializable]
+    public class ExperimentContext
+    {
         public string schoolClass;
         public string subject;
         public string topic;
@@ -32,7 +39,6 @@ namespace ARLabs.AI
             experiment.subject = expManager.ExperimentMasterSO.Subject.ToString();
             experiment.topic = expManager.ExperimentMasterSO.Topic.ToString();
             experiment.schoolClass = expManager.ExperimentMasterSO.Class.ToString();
-            experiment.sessionID = expManager.SessionID;
 
             // Get the required apparatus names
             List<string> apparatusNames = new();

@@ -20,6 +20,7 @@ namespace ARLabs.UI
             if (visualization.CheckIfVisualizationIsPossible())
             {
                 visualization.BeginVisualization();
+                toggle.TurnOn();
             }
             else
             {
@@ -30,6 +31,7 @@ namespace ARLabs.UI
         public void OnToggleOff()
         {
             visualization.EndVisualization();
+            toggle.TurnOff();
         }
     }
 }

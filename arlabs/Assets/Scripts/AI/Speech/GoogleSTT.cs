@@ -4,6 +4,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 namespace ARLabs.AI
 {
@@ -16,6 +17,11 @@ namespace ARLabs.AI
         private void Start()
         {
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", Path.Combine(Application.streamingAssetsPath, "stt-credentials.json"));
+        }
+
+        public async Task<string> GetTextFromAudio(string base64Audio)
+        {
+            return "test";
         }
     }
 }
