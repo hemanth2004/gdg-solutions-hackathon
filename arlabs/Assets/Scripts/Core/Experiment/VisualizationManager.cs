@@ -27,5 +27,23 @@ namespace ARLabs.Core
                 ui.GetComponent<VisualizationUI>().Initialize();
             }
         }
+
+        public void ToggleVisualization(string visualizationName, bool isVisible)
+        {
+            foreach (Transform vizUI in visualizationsUIContainer)
+            {
+                if (vizUI.GetComponent<VisualizationUI>().visualization.VisualizationName == visualizationName)
+                {
+                    if (isVisible)
+                    {
+                        vizUI.GetComponent<VisualizationUI>().OnToggleOn();
+                    }
+                    else
+                    {
+                        vizUI.GetComponent<VisualizationUI>().OnToggleOff();
+                    }
+                }
+            }
+        }
     }
 }

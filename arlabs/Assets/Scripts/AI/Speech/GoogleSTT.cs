@@ -4,9 +4,6 @@ using System.Collections;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Networking;
-using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace ARLabs.AI
 {
@@ -87,8 +84,7 @@ namespace ARLabs.AI
             _isRecording = true;
         }
 
-        // Call externally
-        public async void StopRecording()
+        public void StopRecording()
         {
             if (!_isRecording) return;
 
@@ -104,6 +100,15 @@ namespace ARLabs.AI
             }
 #endif
 
+            _isRecording = false;
+        }
+
+
+        // Call externally
+        public async Task<string> TranscribeSavedClip()
+        {
+            if (_audioClip == null) return "";
+
             try
             {
                 byte[] pcmData = ExtractRawPCM(_audioClip);
@@ -115,7 +120,41 @@ namespace ARLabs.AI
             }
 
             _isRecording = false;
+
+            return _latestTranscription;
         }
+
+        //        // Call externally
+        //        public async Task<string> StopRecordingAndTranscribe()
+        //        {
+        //            if (!_isRecording) return  "";
+
+        //            Microphone.End(null);
+        //            Debug.Log("Recording stopped.");
+
+        //#if UNITY_EDITOR
+        //            if (_playbackAudio)
+        //            {
+        //                _audioSource.clip = _audioClip;
+        //                _audioSource.Stop();
+        //                _audioSource.Play();
+        //            }
+        //#endif
+
+        //            try
+        //            {
+        //                byte[] pcmData = ExtractRawPCM(_audioClip);
+        //                await TranscribePCM(pcmData);
+        //            }
+        //            catch (System.Exception e)
+        //            {
+        //                Debug.LogError($"Failed to transcribe audio: {e.Message}");
+        //            }
+
+        //            _isRecording = false;
+
+        //            return _latestTranscription;
+        //        }
 
         private byte[] ExtractRawPCM(AudioClip clip)
         {
@@ -151,7 +190,6 @@ namespace ARLabs.AI
             };
 
             RecognizeResponse response = null;
-
             try
             {
                 response = await speechClient.RecognizeAsync(config, audio);
