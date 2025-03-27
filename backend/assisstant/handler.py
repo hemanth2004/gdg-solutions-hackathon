@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 
 def handle_chat_request(request):
+    print("Image b64: ", request.base64Image)
     image_path = base64_to_image_path(request.base64Image, thread_id=request.sessionID)
 
     assisstant = ARAssisstant()

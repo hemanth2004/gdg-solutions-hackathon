@@ -1,3 +1,6 @@
 temp/
 tts-credentials.json
 .env
+
+__pycache__/
+*.py[cod]

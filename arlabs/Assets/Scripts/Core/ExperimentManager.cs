@@ -249,5 +249,46 @@ namespace ARLabs.Core
             return false;
         }
 
+
+        public void StartScreenCapture(CanvasGroup canvasGroup, System.Action<string> onComplete)
+        {
+            StartCoroutine(CaptureAndStoreImage(canvasGroup, onComplete));
+        }
+
+        private IEnumerator CaptureAndStoreImage(CanvasGroup canvasGroup, System.Action<string> onComplete)
+        {
+            // Store original alpha value
+            float originalAlpha = canvasGroup.alpha;
+
+            // Hide UI
+            canvasGroup.alpha = 0;
+
+            // Wait for the end of the frame to ensure UI is hidden
+            yield return new WaitForEndOfFrame();
+
+            // Capture screenshot
+            Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+            screenTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+            screenTexture.Apply();
+
+            // Restore UI
+            canvasGroup.alpha = originalAlpha;
+
+            // Convert to PNG
+            byte[] imageBytes = screenTexture.EncodeToPNG();
+            string base64Image = System.Convert.ToBase64String(imageBytes);
+
+#if UNITY_EDITOR
+    // Optional: save debug screenshot
+    string path = Application.persistentDataPath + "/debug_screenshot.png";
+    System.IO.File.WriteAllBytes(path, imageBytes);
+    Debug.Log("Screenshot saved to: " + path);
+#endif
+
+            DestroyImmediate(screenTexture);
+
+            onComplete?.Invoke(base64Image);
+        }
+
     }
 }

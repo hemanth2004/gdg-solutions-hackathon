@@ -4,17 +4,22 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Threading.Tasks;
-
+using UnityEngine.UI;
 namespace ARLabs.AI
 {
     // Handles the ask natural button
     public class AskNaturalButton : MonoBehaviour
     {
+        public CanvasGroup canvasGroup;
         public bool alsoSaveScreenshot = false;
+        public Lean.Gui.LeanToggle voiceInputWindowToggle;
+        public GameObject loadingIcon, mainText;
+        public TMPro.TMP_Text transcriptDisplay;
 
         private string _latestImage = "";
         private string _latestAudio = "";
         private ExperimentContext _latestExperimentContext;
+
 
         // When the button on the AI tray is clicked, 
         // which opens the menu for voice and image capture
@@ -27,6 +32,10 @@ namespace ARLabs.AI
         // When the record button is held down  
         public void OnBeginRecord()
         {
+            ExperimentManager.Instance.StartScreenCapture(canvasGroup, (base64Image) =>
+            {
+                _latestImage = base64Image;
+            });
             GoogleSTT.Instance.StartRecording();
         }
 
@@ -34,63 +43,47 @@ namespace ARLabs.AI
         public void OnEndRecord()
         {
             GoogleSTT.Instance.StopRecording();
+            loadingIcon.SetActive(true);
             FinalizeChatMessage();
+
         }
 
         // Finalizes the chat message and send to backend
         public async void FinalizeChatMessage()
         {
             string transcript = await GoogleSTT.Instance.TranscribeSavedClip();
+            Debug.Log("Transcript: " + transcript);
+            if (transcript == "")
+            {
+                voiceInputWindowToggle.TurnOff();
+                mainText.SetActive(true);
+                transcriptDisplay.text = "";
+                loadingIcon.SetActive(false);
+                return;
+            }
 
+            mainText.SetActive(false);
+            transcriptDisplay.text = transcript;
             AIChatMessage aiChatMessage = new AIChatMessage();
             aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
             aiChatMessage.prompt = transcript;
             aiChatMessage.experimentContext = _latestExperimentContext;
             aiChatMessage.base64Image = _latestImage;
+            Debug.Log("b64 " + _latestImage);
 
             // Send only the JSON object
             string jsonMessage = JsonUtility.ToJson(aiChatMessage);
-            await APIHandler.Instance.AskBackend(jsonMessage);
+            string response = await APIHandler.Instance.AskBackend(jsonMessage);
+            Debug.Log("Response: " + response);
+            voiceInputWindowToggle.TurnOff();
+            mainText.SetActive(true);
+            transcriptDisplay.text = "";
+            loadingIcon.SetActive(false);
+            ResponseManager.Instance.ProcessResponse(response);
+
 
             _latestImage = "";
             _latestAudio = "";
-        }
-
-
-        // Attaches an image to the chat message
-        public void OnClickAttachImage()
-        {
-            CaptureAndStoreImage();
-        }
-
-        // Frame capture mechanism
-        private async void CaptureAndStoreImage()
-        {
-            // Wait for the end of the frame using a coroutine
-            var tcs = new TaskCompletionSource<bool>();
-            StartCoroutine(WaitForEndOfFrameCoroutine(tcs));
-            await tcs.Task;
-
-            // Capture screenshot
-            Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-            screenTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-            screenTexture.Apply();
-
-            // Convert to PNG
-            byte[] imageBytes = screenTexture.EncodeToPNG();
-            string base64Image = System.Convert.ToBase64String(imageBytes);
-
-#if UNITY_EDITOR
-            if (alsoSaveScreenshot)
-            {
-                string path = Application.persistentDataPath + "/debug_screenshot.png";
-                System.IO.File.WriteAllBytes(path, imageBytes);
-                Debug.Log("Screenshot saved to: " + path);
-            }
-#endif
-            DestroyImmediate(screenTexture);
-
-            _latestImage = base64Image;
         }
 
         // Utility to convert an audio clip to a base64 string
@@ -130,12 +123,6 @@ namespace ARLabs.AI
                 byte[] wavBytes = stream.ToArray();
                 return Convert.ToBase64String(wavBytes);
             }
-        }
-
-        private IEnumerator WaitForEndOfFrameCoroutine(TaskCompletionSource<bool> tcs)
-        {
-            yield return new WaitForEndOfFrame();
-            tcs.SetResult(true);
         }
     }
 }
