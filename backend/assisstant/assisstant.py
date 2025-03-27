@@ -49,6 +49,7 @@ class ARAssisstant:
                     VISUALIZATION GUIDELINES:
                     - Available visualizations: {available_visualizations}
                     - Use the format <visualization_name:on/off> to control visualizations.
+                    - Select visualisation ONLY from the available list.
                     - Only enable visualizations when:
                     1. The student explicitly asks to see a visualization
                     2. A complex concept needs visual explanation
@@ -107,8 +108,9 @@ class ARAssisstant:
                 )
             )
 
-        vis_as_strings = [f"{viz[0]}:{viz[1]}" for viz in state["experiment"]["visualizations"]]
+        vis_as_strings = [f"{viz[0]} - {viz[1]}" for viz in state["experiment"]["visualizations"]]
         available_vis = ", ".join(vis_as_strings) if vis_as_strings else "none available"
+        print("\033[94m" + str(available_vis) + "\033[0m")
 
         prompt = self.prompt_template.invoke(
             {
@@ -197,6 +199,7 @@ class ARAssisstant:
             config=config
         )
         response = output["messages"][-1].content
+        print("\033[92m" + response + "\033[0m")
         
         # Generate execution sequence
         execution_sequence = self._split_response_by_visualizations(response)
@@ -222,7 +225,7 @@ if __name__ == "__main__":
         if query == "q": break
         language = "English"
         image_path = "with_wires.png"
-        assistant.invoke(thread_id, query, language, image_path)
+        print(assistant.invoke(thread_id, query, language, image_path))
         # print(response)
 
 # Experiment JSON (generated in UNITY):
