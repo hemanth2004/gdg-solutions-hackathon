@@ -13,7 +13,9 @@ namespace ARLabs.AI
     // Handles the explain experiment button
     public class ExplainExperimentButton : MonoBehaviour
     {
-        public AudioClip[] testClips;
+        [SerializeField] private string testPrompt;
+        [SerializeField] private bool useTestPrompt;
+        //public AudioClip[] testClips;
         public async void OnClick()
         {
             // AudActionResponse response = new AudActionResponse();
@@ -32,7 +34,14 @@ namespace ARLabs.AI
 
             AIChatMessage aiChatMessage = new AIChatMessage();
             aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
-            aiChatMessage.prompt = "Explain the experiment concisely, no filler words";
+            if (useTestPrompt)
+            {
+                aiChatMessage.prompt = testPrompt;
+            }
+            else
+            {
+                aiChatMessage.prompt = "Explain the experiment concisely, no filler words";
+            }
             aiChatMessage.experimentContext = experimentContext;
 
             // Send only the JSON object

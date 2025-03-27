@@ -49,6 +49,11 @@ namespace ARLabs.Core
         [Header("Preferences")]
         [SerializeField] private float _apparatusProximityDistance = 10f;
 
+        public void SetExperiment(ExperimentMasterSO experiment)
+        {
+            _experimentMasterSO = experiment;
+        }
+
         public string curState;
         private void Start()
         {

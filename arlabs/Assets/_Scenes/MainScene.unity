@@ -3919,8 +3919,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1122532258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.008451641}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: NaN}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4126,8 +4126,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 205150991}
   m_HandleRect: {fileID: 205150990}
   m_Direction: 0
-  m_Value: 0.00000012158223
-  m_Size: 0.62543124
+  m_Value: 0.00000012158226
+  m_Size: 0.6254313
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6507,9 +6507,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -15.091, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &258938982
 MonoBehaviour:
@@ -7240,9 +7240,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -15.091, y: 3}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &289848636
 MonoBehaviour:
@@ -7844,10 +7844,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1832000362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.45447, y: -40}
-  m_SizeDelta: {x: 744.90894, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &313376503
 MonoBehaviour:
@@ -15739,6 +15739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 723255983}
+  - component: {fileID: 723255988}
   - component: {fileID: 723255982}
   - component: {fileID: 723255981}
   - component: {fileID: 723255985}
@@ -15846,6 +15847,22 @@ MonoBehaviour:
   visualizationUIPrefab: {fileID: 8093941792066375101, guid: 39872e23631fcd84d984ca2ad2ba3853, type: 3}
   visualizationsUIContainer: {fileID: 1594084816}
   visualizationsContainer: {fileID: 586052643}
+--- !u!114 &723255988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723255980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b4930a33fdde0448965221761f0b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _experimentManager: {fileID: 723255982}
+  _experiments:
+  - {fileID: 11400000, guid: d5ffdfa0cddd0a14cb161fc0274a9b5c, type: 2}
+  - {fileID: 11400000, guid: e880d85d677ef0e41b8f3d4903830a57, type: 2}
 --- !u!1 &724782640
 GameObject:
   m_ObjectHideFlags: 0
@@ -22899,7 +22916,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737291185}
   m_HandleRect: {fileID: 737291184}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23025,7 +23042,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1130306175}
   m_HandleRect: {fileID: 1130306174}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -29406,7 +29423,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 827578433}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32344,7 +32361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1466023772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36290,9 +36307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290a30245e8148843910f605956dfb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testClips:
-  - {fileID: 8300000, guid: 9272ab6f3ce8901468995066a482e0be, type: 3}
-  - {fileID: 8300000, guid: 03c4e8b367965da40bbf7ac606d0ad6e, type: 3}
+  testPrompt: Can you turn on the electron flow visualization
+  useTestPrompt: 1
 --- !u!1 &1671544545
 GameObject:
   m_ObjectHideFlags: 0
@@ -38406,10 +38422,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1832000362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.45447, y: -180}
-  m_SizeDelta: {x: 744.90894, y: 757.05}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 757.05}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1789638305
 MonoBehaviour:
@@ -39019,9 +39035,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -1.9089355, y: 0}
-  m_SizeDelta: {x: 18.091, y: 3}
+  m_SizeDelta: {x: 18.091, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1821496799
 MonoBehaviour:
@@ -39066,8 +39082,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163410629}
   m_HandleRect: {fileID: 163410628}
   m_Direction: 2
-  m_Value: 1.000011
-  m_Size: 0.99154836
+  m_Value: 1.0000125
+  m_Size: 0.9925401
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39417,7 +39433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000043604246}
+  m_AnchoredPosition: {x: 0, y: -0.000043592765}
   m_SizeDelta: {x: 0, y: 1317.132}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1832000363
@@ -45076,7 +45092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playbackAudio: 0
-  MAX_RECORDING_TIME: 60
+  MAX_RECORDING_TIME: 15
   SAMPLE_RATE: 16000
 --- !u!1 &2113234622
 GameObject:
