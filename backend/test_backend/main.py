@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 app = FastAPI()
 
-class ExperimentRequest(BaseModel):
+class Visualization(BaseModel):
+    name: str
+    desc: str
+
+class ExperimentContext(BaseModel):
     schoolClass: str
     subject: str
     topic: str
@@ -13,10 +17,16 @@ class ExperimentRequest(BaseModel):
     procedure: str
     requiredApparatus: List[str]
     instantiatedApparatus: List[str]
-    visualizations: List[Dict[str, str]]
+    visualizations: List[Visualization]
+
+class ChatRequest(BaseModel):
+    sessionID: str
+    prompt: str
+    base64Image: Optional[str]
+    experimentContext: ExperimentContext
 
 @app.post("/api/chat/")
-async def process_ai_request(request: ExperimentRequest):
+async def process_ai_request(request: ChatRequest):
     print(request)  # This will print the received JSON
     return {"message": "Request received", "data": request.dict()}
 

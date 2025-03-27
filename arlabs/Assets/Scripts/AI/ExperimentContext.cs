@@ -9,10 +9,11 @@ namespace ARLabs.AI
     [System.Serializable]
     public class AIChatMessage
     {
-        public string sessionID { get; set; }
-        public string prompt { get; set; }
-        public string base64Image { get; set; }
-        public ExperimentContext experimentContext { get; set; }
+        public string sessionID;
+        public string prompt;
+        public string base64Image;
+        public ExperimentContext experimentContext;
+        public string language = "English";
     }
 
     [System.Serializable]

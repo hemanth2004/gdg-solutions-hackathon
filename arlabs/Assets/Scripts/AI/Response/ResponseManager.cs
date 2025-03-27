@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using UnityEngine.Networking;
 using NAudio.Wave;
+using System.Collections.Generic;
 
 namespace ARLabs.AI
 {
@@ -18,17 +19,41 @@ namespace ARLabs.AI
         // Process the response from the backend
         public void ProcessResponse(string jsonResponse)
         {
-            AudActionResponse response = JsonUtility.FromJson<AudActionResponse>(jsonResponse);
-            AudioClip[] audioClips = new AudioClip[response.audio.Length];
-            string[] actions = response.action;
-
-            for (int i = 0; i < response.audio.Length; i++)
+            try
             {
-                audioClips[i] = ConvertBase64ToAudioClip(response.audio[i]);
-            }
+                // Remove the outer quotes and unescape the inner quotes
+                if (jsonResponse.StartsWith("\"") && jsonResponse.EndsWith("\""))
+                {
+                    jsonResponse = jsonResponse.Substring(1, jsonResponse.Length - 2);
+                }
+                jsonResponse = jsonResponse.Replace("\\\"", "\"");
 
-            // Start alternate audio and action
-            StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, true, (0, 0)));
+                Debug.Log("Processed JSON: " + jsonResponse);
+
+                AIResponse response = JsonUtility.FromJson<AIResponse>(jsonResponse);
+
+                if (response == null || response.sequence == null)
+                {
+                    Debug.LogError("Failed to parse response: " + jsonResponse);
+                    return;
+                }
+
+                AudioClip[] audioClips = new AudioClip[response.sequence.audio.Count];
+                string[] actions = response.sequence.vis.ToArray();
+
+                for (int i = 0; i < response.sequence.audio.Count; i++)
+                {
+                    audioClips[i] = ConvertBase64ToAudioClip(response.sequence.audio[i]);
+                }
+
+                // Start alternate audio and action
+                StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, true, (0, 0)));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error processing response: {e.Message}");
+                Debug.LogException(e);
+            }
         }
 
         private IEnumerator PlayAudioAndExecuteAction(AudioClip[] audioClips, string[] actions, bool isAudioChance, (int audioIndex, int actionIndex) index)

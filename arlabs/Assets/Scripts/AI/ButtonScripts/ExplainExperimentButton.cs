@@ -4,6 +4,9 @@ using ARLabs.Core;
 using System.IO;
 using System;
 using UnityEditor;
+using System.Collections;
+using System.Threading.Tasks;
+
 
 namespace ARLabs.AI
 {
@@ -11,30 +14,34 @@ namespace ARLabs.AI
     public class ExplainExperimentButton : MonoBehaviour
     {
         public AudioClip[] testClips;
-        public void OnClick()
+        public async void OnClick()
         {
-            AudActionResponse response = new AudActionResponse();
-            List<string> audioClips = new List<string>();
-            foreach (var audioClip in testClips)
-            {
-                audioClips.Add(ACToBS64(audioClip));
-            }
-            response.audio = audioClips.ToArray();
-            response.action = new string[] { "electron_flow on", "electron_flow off" };
+            // AudActionResponse response = new AudActionResponse();
+            // List<string> audioClips = new List<string>();
+            // foreach (var audioClip in testClips)
+            // {
+            //     audioClips.Add(ACToBS64(audioClip));
+            // }
+            // response.audio = audioClips.ToArray();
+            // response.action = new string[] { "electron_flow on", "electron_flow off" };
 
-            ResponseManager.Instance.ProcessResponse(JsonUtility.ToJson(response));
+            // ResponseManager.Instance.ProcessResponse(JsonUtility.ToJson(response));
 
 
-            // ExperimentContext experimentContext = ExperimentContext.GetExperimentContext();
+            ExperimentContext experimentContext = ExperimentContext.GetExperimentContext();
 
-            // AIChatMessage aiChatMessage = new AIChatMessage();
-            // aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
-            // aiChatMessage.prompt = "Explain the experiment concisely, no filler words";
-            // aiChatMessage.experimentContext = experimentContext;
+            AIChatMessage aiChatMessage = new AIChatMessage();
+            aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
+            aiChatMessage.prompt = "Explain the experiment concisely, no filler words";
+            aiChatMessage.experimentContext = experimentContext;
 
-            // // Send only the JSON object
-            // string jsonMessage = JsonUtility.ToJson(aiChatMessage);
-            // APIHandler.Instance.AskBackend(jsonMessage);
+            // Send only the JSON object
+            string jsonMessage = JsonUtility.ToJson(aiChatMessage);
+            Debug.Log("Json message: " + jsonMessage);
+            string response = await APIHandler.Instance.AskBackend(jsonMessage);
+
+            Debug.Log("Response: " + response);
+            ResponseManager.Instance.ProcessResponse(response);
         }
 
         // Utility to convert an audio clip to a base64 string

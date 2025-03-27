@@ -25,7 +25,19 @@ namespace ARLabs.Core
         [SerializeField] private ARPlaneManager _planeManager;
         [SerializeField] private string _sessionID;
 
-        public string SessionID => _sessionID;
+        public string SessionID
+        {
+            get
+            {
+                string expName = "";
+                if (ExperimentMasterSO != null)
+                {
+                    expName = ExperimentMasterSO.ExperimentName;
+                }
+                return SystemInfo.deviceName + "_" + expName.Replace(" ", "_");
+            }
+            set { }
+        }
 
         public List<Apparatus> InstantiatedApparatus => _instantiatedApparatus;
 
