@@ -55,12 +55,18 @@ namespace ARLabs.AI
         // When the record button is released   
         public void OnEndRecord()
         {
-            GoogleSTT.Instance.StopRecording();
-            loadingIcon.SetActive(true);
-            recordButton.interactable = false;
-            recordButton.GetComponent<Image>().raycastTarget = false;
-            FinalizeChatMessage();
+            loadingIcon.SetActive(false);
+            recordButton.interactable = true;
+            recordButton.GetComponent<Image>().raycastTarget = true;
 
+            if (GoogleSTT.Instance.IsRecording)
+            {
+                GoogleSTT.Instance.StopRecording();
+                loadingIcon.SetActive(true);
+                recordButton.interactable = false;
+                recordButton.GetComponent<Image>().raycastTarget = false;
+                FinalizeChatMessage();
+            }
         }
 
         // Finalizes the chat message and send to backend

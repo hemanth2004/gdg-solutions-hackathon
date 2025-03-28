@@ -10,18 +10,18 @@ namespace ARLabs.AI
     public class GoogleSTT : MonoBehaviour
     {
         #region Singleton
-            public static GoogleSTT Instance;
-            private void Awake()
+        public static GoogleSTT Instance;
+        private void Awake()
+        {
+            if (Instance == null)
             {
-                if (Instance == null)
-                {
-                    Instance = this;
-                }
-                else
-                {
-                    Destroy(this);
-                }
+                Instance = this;
             }
+            else
+            {
+                Destroy(this);
+            }
+        }
         #endregion
 
         [SerializeField]
@@ -38,6 +38,8 @@ namespace ARLabs.AI
         private AudioClip _audioClip;
         private bool _isRecording = false;
         private AudioSource _audioSource; // FOR DEBUGGING
+
+        public bool IsRecording => _isRecording;
 
         private void Start()
         {
@@ -202,7 +204,7 @@ namespace ARLabs.AI
 
             _latestTranscription = "";
 
-            if(response != null && response.Results.Count > 0)
+            if (response != null && response.Results.Count > 0)
             {
                 foreach (var result in response.Results)
                 {

@@ -201,7 +201,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 967272535}
   m_HandleRect: {fileID: 967272534}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3973,7 +3973,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 205150991}
   m_HandleRect: {fileID: 205150990}
   m_Direction: 0
-  m_Value: 0.00000012158225
+  m_Value: 0.00000012158226
   m_Size: 0.6254313
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10576,8 +10576,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.45453, y: -153.7404}
-  m_SizeDelta: {x: 754.90906, y: 0}
+  m_AnchoredPosition: {x: 412.4545, y: -153.7404}
+  m_SizeDelta: {x: 754.909, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &492946418
 MonoBehaviour:
@@ -11701,8 +11701,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.45453, y: -128.7404}
-  m_SizeDelta: {x: 754.90906, y: 0}
+  m_AnchoredPosition: {x: 412.4545, y: -128.7404}
+  m_SizeDelta: {x: 754.909, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &528934347
 MonoBehaviour:
@@ -19127,7 +19127,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1803917578}
   m_HandleRect: {fileID: 1803917577}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22805,7 +22805,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737291185}
   m_HandleRect: {fileID: 737291184}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22931,7 +22931,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1130306175}
   m_HandleRect: {fileID: 1130306174}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23544,7 +23544,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1577831767}
   m_HandleRect: {fileID: 1577831766}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -29674,7 +29674,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 827578434}
   m_HandleRect: {fileID: 827578433}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -38171,8 +38171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 414.00003, y: -165}
-  m_SizeDelta: {x: 828.00006, y: 0}
+  m_AnchoredPosition: {x: 414, y: -165}
+  m_SizeDelta: {x: 828, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1748276239
 MonoBehaviour:
@@ -42020,6 +42020,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1932629403}
+        m_TargetAssemblyTypeName: ARLabs.AI.AskNaturalButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onClick:
     m_PersistentCalls:
       m_Calls: []
@@ -45390,7 +45402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f5e65313530b34c8e7124b876d3717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _apiURL: https://gdg-solutions-hackathon.onrender.com
+  _apiURL: localhost:8000
   _apiEndpoint: /api/chat
   _saveScreenshot: 0
 --- !u!4 &2109313676
