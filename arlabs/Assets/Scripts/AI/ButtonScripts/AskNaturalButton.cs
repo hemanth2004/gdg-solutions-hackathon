@@ -12,9 +12,10 @@ namespace ARLabs.AI
     {
         public CanvasGroup canvasGroup;
         public bool alsoSaveScreenshot = false;
+        public UnityEngine.UI.Button recordButton;
         public Lean.Gui.LeanToggle voiceInputWindowToggle;
         public GameObject loadingIcon, mainText;
-        public TMPro.TMP_Text transcriptDisplay;
+        public TMPro.TMP_Text transcriptDisplay, recordTimeText;
 
         private string _latestImage = "";
         private string _latestAudio = "";
@@ -27,6 +28,18 @@ namespace ARLabs.AI
         {
             ExperimentContext experiment = ExperimentContext.GetExperimentContext();
             _latestExperimentContext = experiment;
+            Debug.Log("Experiment context: " + _latestExperimentContext);
+            Debug.Log("Experiment context: " + _latestExperimentContext.name);
+            Debug.Log("Experiment context: " + _latestExperimentContext.subject);
+
+            recordButton.interactable = true;
+            recordButton.GetComponent<Image>().raycastTarget = true;
+            transcriptDisplay.text = "";
+            loadingIcon.SetActive(false);
+            mainText.SetActive(true);
+            voiceInputWindowToggle.TurnOn();
+            recordTimeText.text = "";
+
         }
 
         // When the record button is held down  
@@ -44,6 +57,8 @@ namespace ARLabs.AI
         {
             GoogleSTT.Instance.StopRecording();
             loadingIcon.SetActive(true);
+            recordButton.interactable = false;
+            recordButton.GetComponent<Image>().raycastTarget = false;
             FinalizeChatMessage();
 
         }
@@ -59,6 +74,9 @@ namespace ARLabs.AI
                 mainText.SetActive(true);
                 transcriptDisplay.text = "";
                 loadingIcon.SetActive(false);
+                recordButton.interactable = true;
+                recordButton.GetComponent<Image>().raycastTarget = true;
+                recordTimeText.text = "";
                 return;
             }
 
@@ -73,56 +91,25 @@ namespace ARLabs.AI
 
             // Send only the JSON object
             string jsonMessage = JsonUtility.ToJson(aiChatMessage);
-            string response = await APIHandler.Instance.AskBackend(jsonMessage);
-            Debug.Log("Response: " + response);
+            string response = "";
+            try
+            {
+                response = await APIHandler.Instance.AskBackend(jsonMessage);
+                Debug.Log("Response: " + response);
+                ResponseManager.Instance.ProcessResponse(response);
+                voiceInputWindowToggle.TurnOff();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error: " + e.Message);
+            }
+
             voiceInputWindowToggle.TurnOff();
             mainText.SetActive(true);
             transcriptDisplay.text = "";
             loadingIcon.SetActive(false);
-            ResponseManager.Instance.ProcessResponse(response);
-
-
             _latestImage = "";
             _latestAudio = "";
-        }
-
-        // Utility to convert an audio clip to a base64 string
-        public string ACToBS64(AudioClip audioClip)
-        {
-            float[] data = new float[audioClip.samples * audioClip.channels];
-            audioClip.GetData(data, 0);
-
-            byte[] bytes = new byte[data.Length * 2];
-            int index = 0;
-            foreach (float sample in data)
-            {
-                short convertedSample = (short)(sample * short.MaxValue);
-                BitConverter.GetBytes(convertedSample).CopyTo(bytes, index);
-                index += 2;
-            }
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                using (BinaryWriter writer = new BinaryWriter(stream))
-                {
-                    writer.Write(new char[4] { 'R', 'I', 'F', 'F' });
-                    writer.Write(36 + bytes.Length);
-                    writer.Write(new char[4] { 'W', 'A', 'V', 'E' });
-                    writer.Write(new char[4] { 'f', 'm', 't', ' ' });
-                    writer.Write(16);
-                    writer.Write((ushort)1);
-                    writer.Write((ushort)audioClip.channels);
-                    writer.Write(audioClip.frequency);
-                    writer.Write(audioClip.frequency * audioClip.channels * 2);
-                    writer.Write((ushort)(audioClip.channels * 2));
-                    writer.Write((ushort)16);
-                    writer.Write(new char[4] { 'd', 'a', 't', 'a' });
-                    writer.Write(bytes.Length);
-                    writer.Write(bytes);
-                }
-                byte[] wavBytes = stream.ToArray();
-                return Convert.ToBase64String(wavBytes);
-            }
         }
     }
 }

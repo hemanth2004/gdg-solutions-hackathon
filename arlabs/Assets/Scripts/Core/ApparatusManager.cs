@@ -55,10 +55,18 @@ namespace ARLabs.Core
             // On Tap Down
             if (Input.GetMouseButtonDown(0))
             {
+
+#if UNITY_EDITOR
+                // Check if we're clicking on UI first
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                    return;  // Exit early if clicking on UI
+#elif UNITY_ANDROID || UNITY_IOS
+                if (TouchOverUI.IsPointerOverUIObject())
+                    return;  // Exit early if clicking on UI
+#endif
+
                 // Only interact with other apparatus/create new if we are not currently placing one
-                if (_placingApparatus == null
-                    && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()
-                    && !ExperimentManager.Instance.IsRepositioning)
+                if (_placingApparatus == null && !ExperimentManager.Instance.IsRepositioning)
                 {
                     if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, _whatIsApparatus))
                     {
@@ -68,9 +76,8 @@ namespace ARLabs.Core
                     }
                     else
                     {
-                        // Deselect selected apparatus if clicked in void
+                        // Deselect selected apparatus if clicked in void (but not on UI)
                         DeselectApparatus();
-                        //UIManager.Instance.SelectionMenu.SetActive(false);
                     }
                 }
             }

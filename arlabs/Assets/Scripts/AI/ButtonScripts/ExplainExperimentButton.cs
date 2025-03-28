@@ -54,15 +54,15 @@ namespace ARLabs.AI
         }
 
         // Utility to convert an audio clip to a base64 string
-        public string ACToBS64(AudioClip audioClip)
-        {
-            // Get the original MP3 file path
-            string mp3Path = AssetDatabase.GetAssetPath(audioClip);
+        // public string ACToBS64(AudioClip audioClip)
+        // {
+        //     // Get the original MP3 file path
+        //     string mp3Path = AssetDatabase.GetAssetPath(audioClip);
 
-            // Read the MP3 file directly and convert to base64
-            byte[] mp3Bytes = File.ReadAllBytes(mp3Path);
-            return Convert.ToBase64String(mp3Bytes);
-        }
+        //     // Read the MP3 file directly and convert to base64
+        //     byte[] mp3Bytes = File.ReadAllBytes(mp3Path);
+        //     return Convert.ToBase64String(mp3Bytes);
+        // }
 
     }
 }

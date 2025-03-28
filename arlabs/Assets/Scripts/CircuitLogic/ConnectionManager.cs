@@ -7,6 +7,7 @@ public class ConnectionManager : MonoBehaviour
 {
     public static ConnectionManager Instance;
 
+    [SerializeField] private float _wireDrawOffset;
     [SerializeField] private LayerMask _knobsLayer;
     [SerializeField] private LayerMask _wiresLayer;
     [SerializeField] private GameObject _wirePrefab;
@@ -157,7 +158,7 @@ public class ConnectionManager : MonoBehaviour
         }
 
         // Otherwise, make it follow the mouse
-        _currentWire.FingerPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane * 5f));
+        _currentWire.FingerPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane * _wireDrawOffset));
     }
 
     // Destroys wire and resets values

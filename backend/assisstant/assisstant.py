@@ -173,7 +173,7 @@ class ARAssisstant:
             else:
                 if save_audio:
                     audio_counter += 1
-                    audio_path = f"temp/output_{audio_counter}.mp3"
+                    audio_path = f"audio_store/output_{audio_counter}.mp3"
                     self.tts.text_to_speech(item, output_file=audio_path)
                 
                 b64_audio = self.tts.text_to_speech(item, return_encoded=True)

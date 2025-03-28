@@ -14,11 +14,18 @@ namespace ARLabs.AI
         public static ResponseManager Instance;
         private void Awake() => Instance = this;
 
+        public bool canProcessResponse = true;
         [SerializeField] private AudioSource _audioSource;
 
         // Process the response from the backend
         public void ProcessResponse(string jsonResponse)
         {
+            if (!canProcessResponse)
+            {
+                Debug.Log("Response processing is currently disabled");
+                return;
+            }
+
             try
             {
                 // Remove the outer quotes and unescape the inner quotes
@@ -58,6 +65,13 @@ namespace ARLabs.AI
 
         private IEnumerator PlayAudioAndExecuteAction(AudioClip[] audioClips, string[] actions, bool isAudioChance, (int audioIndex, int actionIndex) index)
         {
+            // Check if processing is allowed at the start of each iteration
+            if (!canProcessResponse)
+            {
+                Debug.Log("Response processing stopped due to canProcessResponse being false");
+                yield break;
+            }
+
             if (isAudioChance && index.audioIndex < audioClips.Length)
             {
                 if (audioClips[index.audioIndex] != null)
@@ -65,6 +79,14 @@ namespace ARLabs.AI
                     _audioSource.clip = audioClips[index.audioIndex];
                     _audioSource.Play();
                     yield return new WaitForSeconds(_audioSource.clip.length);
+
+                    // Check again after audio finishes playing
+                    if (!canProcessResponse)
+                    {
+                        _audioSource.Stop();
+                        yield break;
+                    }
+
                     index.audioIndex++;
                 }
             }
@@ -75,7 +97,7 @@ namespace ARLabs.AI
             }
 
             // Continue if either array still has elements
-            if (index.audioIndex < audioClips.Length || index.actionIndex < actions.Length)
+            if ((index.audioIndex < audioClips.Length || index.actionIndex < actions.Length) && canProcessResponse)
             {
                 // If we've run out of audio clips, just do actions
                 if (index.audioIndex >= audioClips.Length)

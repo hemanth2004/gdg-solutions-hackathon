@@ -2385,7 +2385,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4842154525030791529}
@@ -2488,6 +2488,11 @@ MonoBehaviour:
   visualBall: {fileID: 5971341799931374556}
   hookLength: 0.01
   bobRadius: 0.02
+  currentAngle: 0
+  angularVelocity: 0
+  length: 0
+  gravity: 0
+  period: 0
 --- !u!114 &8801416595832007220
 MonoBehaviour:
   m_ObjectHideFlags: 0

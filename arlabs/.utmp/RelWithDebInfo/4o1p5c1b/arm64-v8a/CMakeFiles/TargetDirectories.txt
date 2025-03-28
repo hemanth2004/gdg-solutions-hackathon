@@ -1,0 +1,8 @@
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/GIthubProjects/gdg-solutions-hackathon/arlabs/.utmp/RelWithDebInfo/4o1p5c1b/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

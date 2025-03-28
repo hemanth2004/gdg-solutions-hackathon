@@ -187,7 +187,7 @@ namespace Recorder
             }
             else
             {
-                RecordingTimeText.text = "00:00";
+                RecordingTimeText.text = "";
 
                 RecordImage.gameObject.SetActive(true);
                 SaveImage.gameObject.SetActive(false);

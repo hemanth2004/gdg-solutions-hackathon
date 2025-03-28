@@ -22,7 +22,6 @@ namespace ARLabs.AI
             Instance = this;
         }
 
-        // Ask the backend for a response to the chat message
         public async Task<string> AskBackend(string aiChatMessage)
         {
             return await SendRequestToBackend(aiChatMessage);
@@ -37,7 +36,12 @@ namespace ARLabs.AI
 
         private async Task<string> SendRequestToBackend(string jsonBody)
         {
-            string url = $"http://{_apiURL}{_apiEndpoint}";
+            string url = $"{_apiURL}{_apiEndpoint}";
+
+#if !UNITY_EDITOR && UNITY_ANDROID
+            // For Android builds, if needed
+            UnityWebRequest.ClearCookieCache();
+#endif
 
             using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
             {
@@ -46,6 +50,9 @@ namespace ARLabs.AI
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.SetRequestHeader("Accept", "application/json");
+
+                // Add this line to allow self-signed certificates and HTTP
+                request.certificateHandler = new AcceptAllCertificatesHandler();
 
                 try
                 {
@@ -76,5 +83,14 @@ namespace ARLabs.AI
             }
         }
 
+    }
+
+    // Add this class to handle certificates
+    public class AcceptAllCertificatesHandler : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true; // Accept all certificates
+        }
     }
 }

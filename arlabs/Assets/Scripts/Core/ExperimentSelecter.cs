@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ARLabs.Core
 {
@@ -10,6 +11,11 @@ namespace ARLabs.Core
         {
             int selectedExperiment = PlayerPrefs.GetInt("selected_experiment", 0);
             _experimentManager.SetExperiment(_experiments[selectedExperiment]);
+        }
+
+        public void OnClickHome()
+        {
+            SceneManager.LoadScene("StartScene");
         }
     }
 }
