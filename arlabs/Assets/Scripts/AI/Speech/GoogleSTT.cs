@@ -105,11 +105,25 @@ namespace ARLabs.AI
             _isRecording = false;
         }
 
+        public void CancelRecording()
+        {
+            if (!_isRecording) return;
+
+            Microphone.End(null);
+            Debug.Log("Recording canceled.");
+
+            _isRecording = false;
+            _audioClip = null; // Discard the recorded data
+        }
 
         // Call externally
         public async Task<string> TranscribeSavedClip()
         {
-            if (_audioClip == null) return "";
+            if (_audioClip == null)
+            {
+                Debug.Log("Audio Clip to Transcribe is null");
+                return "";
+            }
 
             try
             {

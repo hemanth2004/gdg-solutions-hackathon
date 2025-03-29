@@ -48,6 +48,7 @@ namespace ARLabs.AI
                 GoogleSTT.Instance.StopRecording();
                 loadingIcon.SetActive(true);
                 RecordButtonSetActive(false);
+
                 FinalizeChatMessage();
             }
         }

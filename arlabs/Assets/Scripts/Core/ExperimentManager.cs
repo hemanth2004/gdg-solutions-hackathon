@@ -71,7 +71,6 @@ namespace ARLabs.Core
             _stateMachine.AddState(new VisualizationState());
 
             _stateMachine.GoToState<IdleState>();
-            StartCoroutine(RequestPermissions());
             // Startup Methods
             LoadLab();
             SetNotes();
@@ -295,17 +294,5 @@ namespace ARLabs.Core
 
             onComplete?.Invoke(base64Image);
         }
-
-        private IEnumerator RequestPermissions()
-        {
-            if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
-            {
-                Permission.RequestUserPermission(Permission.Camera);
-            }
-
-            yield return null;
-        }
-
-
     }
 }
