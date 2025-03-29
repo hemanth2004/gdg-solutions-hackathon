@@ -56,7 +56,7 @@ MonoBehaviour:
   _desc: Used as an On Off switch in a circuit
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 21300000, guid: cb171e43d7c31484d92844c69a942cfa, type: 3}
+  _thumbnail: {fileID: 21300000, guid: c0277f72fc56dfd4db4390c0c0824ab8, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 2805142667814866654}

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class TouchOverUI : MonoBehaviour
 {
-    private static bool IsPointerOverUIObject()
+    public static bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

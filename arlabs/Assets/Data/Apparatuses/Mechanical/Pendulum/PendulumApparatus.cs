@@ -59,8 +59,8 @@ public class PendulumApparatus : Apparatus
         }
 
         // Update the line renderer
-        threadLine.SetPosition(0, clamp.position - threadLine.transform.position);
-        threadLine.SetPosition(1, bob.position - threadLine.transform.position);
+        threadLine.SetPosition(0, clamp.position);
+        threadLine.SetPosition(1, bob.position);
     }
 
     private void InitializePendulum()
@@ -96,10 +96,6 @@ public class PendulumApparatus : Apparatus
 
         Vector3 newPosition = clamp.position + new Vector3(x, y, 0);
         bob.position = newPosition;
-
-        // Update string position
-        threadLine.SetPosition(0, clamp.position - threadLine.transform.position);
-        threadLine.SetPosition(1, newPosition - threadLine.transform.position);
     }
 
     private void UpdatePendulum(float deltaTime)

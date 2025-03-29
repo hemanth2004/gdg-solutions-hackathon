@@ -1539,7 +1539,7 @@ MonoBehaviour:
   _desc: To custom set the resistance in a circuit
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 21300032, guid: 0fd21678280ad9c47aa2d32baf438c5d, type: 3}
+  _thumbnail: {fileID: 21300000, guid: 7cebf02939e9d7d468163545d2275ac0, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 6438085697444197316}

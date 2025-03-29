@@ -1897,7 +1897,7 @@ MonoBehaviour:
   _desc: An Ammeter measures the current in the circuit
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 0}
+  _thumbnail: {fileID: 21300000, guid: 328cffe81b5ca884f86a68ca8f81eec9, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 3801380147864985308}

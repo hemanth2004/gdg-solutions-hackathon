@@ -57,7 +57,7 @@ MonoBehaviour:
   _desc: A voltmeter is used to measure the electrical potential in the circuit
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 0}
+  _thumbnail: {fileID: 21300000, guid: 204c093bc29b5db4b8ae3c006c56e30f, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 5150841764166638733}

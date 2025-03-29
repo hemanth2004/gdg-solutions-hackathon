@@ -2069,7 +2069,7 @@ MonoBehaviour:
   _desc: A Battery with controllable voltage
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 21300000, guid: d1653dacd2aa84c76880f318174a77c6, type: 3}
+  _thumbnail: {fileID: 21300000, guid: ced895896ad9d574cba48dc83c4db5e8, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 6851688787685181854}

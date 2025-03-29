@@ -201,7 +201,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 967272535}
   m_HandleRect: {fileID: 967272534}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -796,7 +796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35.00006}
+  m_AnchoredPosition: {x: 0, y: -35}
   m_SizeDelta: {x: -60, y: -170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &33152839
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_text: RuntimeHierarchy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39867e5449c844cbaa691f241ee9e41d, type: 2}
-  m_sharedMaterial: {fileID: 5379888329124362082, guid: 57f3fc9aac00dee428ad87e11545a217, type: 2}
+  m_sharedMaterial: {fileID: 2119413175553802479, guid: 39867e5449c844cbaa691f241ee9e41d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2678,7 +2678,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -2697,7 +2697,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &122828881
@@ -3848,8 +3848,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1122532258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.010224906}
-  m_AnchorMax: {x: 1, y: 0.9999999}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: NaN}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3973,8 +3973,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 205150991}
   m_HandleRect: {fileID: 205150990}
   m_Direction: 0
-  m_Value: 0.00000012158226
-  m_Size: 0.6254313
+  m_Value: 0.00000012158229
+  m_Size: 0.62543136
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4717,9 +4717,8 @@ GameObject:
   - component: {fileID: 191491641}
   - component: {fileID: 191491640}
   - component: {fileID: 191491639}
-  - component: {fileID: 191491638}
   - component: {fileID: 191491637}
-  - component: {fileID: 191491636}
+  - component: {fileID: 191491642}
   m_Layer: 5
   m_Name: Record Button
   m_TagString: Untagged
@@ -4748,59 +4747,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 194}
   m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &191491636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191491634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faea64dd2085d47e9ae11feef7237a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onBeginRecord:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1932629403}
-        m_TargetAssemblyTypeName: ARLabs.AI.AskNaturalButton, Assembly-CSharp
-        m_MethodName: OnBeginRecord
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onEndRecord:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1932629403}
-        m_TargetAssemblyTypeName: ARLabs.AI.AskNaturalButton, Assembly-CSharp
-        m_MethodName: OnEndRecord
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  animToScale: 0.48
-  animFromScale: 0.42
-  keyCode: 9
-  audioPlayer: {fileID: 1203460019}
-  ConsoleText: {fileID: 189350735}
-  RecordingTimeText: {fileID: 1258000163}
-  RecordButton: {fileID: 191491639}
-  RecordImage: {fileID: 384970125}
-  SaveImage: {fileID: 1938656092}
-  timeToRecord: 600
-  holdToRecord: 1
 --- !u!114 &191491637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4814,103 +4760,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!82 &191491638
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191491634}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &191491639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4993,6 +4842,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191491634}
   m_CullTransparentMesh: 0
+--- !u!114 &191491642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191491634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde5c05e5c327b145ab12130ada7c3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBeginRecord:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1932629403}
+        m_TargetAssemblyTypeName: ARLabs.AI.AskNaturalButton, Assembly-CSharp
+        m_MethodName: OnBeginRecord
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onEndRecord:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1932629403}
+        m_TargetAssemblyTypeName: ARLabs.AI.AskNaturalButton, Assembly-CSharp
+        m_MethodName: OnEndRecord
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animToScale: 0.48
+  animFromScale: 0.42
+  keyCode: 0
+  RecordingTimeText: {fileID: 1258000163}
+  RecordButton: {fileID: 191491639}
+  RecordImage: {fileID: 384970125}
+  SaveImage: {fileID: 1938656092}
+  timeToRecord: 30
+  holdToRecord: 1
 --- !u!1 &196160682
 GameObject:
   m_ObjectHideFlags: 0
@@ -6265,7 +6165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &246698974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6504,9 +6404,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -15.091, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &258938982
 MonoBehaviour:
@@ -6551,8 +6451,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1821512536}
   m_HandleRect: {fileID: 1821512535}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7319,9 +7219,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -15.091, y: 3}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &289848636
 MonoBehaviour:
@@ -7936,10 +7836,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1832000362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.4545, y: -40}
-  m_SizeDelta: {x: 744.909, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &313376503
 MonoBehaviour:
@@ -13163,7 +13063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3900146, y: 0}
+  m_AnchoredPosition: {x: -2.3901367, y: 0}
   m_SizeDelta: {x: -4.78, y: 260}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &608162306
@@ -14909,7 +14809,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 191491636}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Recorder.Recorder, Assembly-CSharp
         m_MethodName: SaveRecording
         m_Mode: 5
@@ -15282,7 +15182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &700085830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17738,7 +17638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.4769287, y: -72.731964}
+  m_AnchoredPosition: {x: -4.477051, y: -72.731964}
   m_SizeDelta: {x: -124.598, y: 103.204}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &787005609
@@ -19127,7 +19027,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1803917578}
   m_HandleRect: {fileID: 1803917577}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -19661,7 +19561,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2095663304}
   m_Direction: 2
   m_Value: 0.9999998
-  m_Size: 0.32287034
+  m_Size: 0.32287037
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -22805,7 +22705,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737291185}
   m_HandleRect: {fileID: 737291184}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22931,7 +22831,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1130306175}
   m_HandleRect: {fileID: 1130306174}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23544,7 +23444,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1577831767}
   m_HandleRect: {fileID: 1577831766}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -29674,7 +29574,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 827578434}
   m_HandleRect: {fileID: 827578433}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -32688,7 +32588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1466023772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35172,7 +35072,7 @@ MonoBehaviour:
   m_text: RuntimeInspector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39867e5449c844cbaa691f241ee9e41d, type: 2}
-  m_sharedMaterial: {fileID: 5379888329124362082, guid: 57f3fc9aac00dee428ad87e11545a217, type: 2}
+  m_sharedMaterial: {fileID: 2119413175553802479, guid: 39867e5449c844cbaa691f241ee9e41d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -35218,7 +35118,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -35237,7 +35137,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1607037880
@@ -36790,6 +36690,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 695735916}
+        m_TargetAssemblyTypeName: Lean.Gui.LeanToggle, LeanGUI
+        m_MethodName: TurnOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1669498465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36802,7 +36714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290a30245e8148843910f605956dfb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testPrompt: Can you turn on the electron flow visualization
+  testPrompt: Who are you and what is your name and what are you here to do
   useTestPrompt: 1
 --- !u!1 &1671544545
 GameObject:
@@ -38917,10 +38829,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1832000362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.4545, y: -180}
-  m_SizeDelta: {x: 744.909, y: 757.05}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 757.05}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1789638305
 MonoBehaviour:
@@ -39530,9 +39442,9 @@ RectTransform:
   m_Father: {fileID: 1169307737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -1.9089355, y: 0}
-  m_SizeDelta: {x: 18.091, y: 3}
+  m_SizeDelta: {x: 18.091, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1821496799
 MonoBehaviour:
@@ -39577,8 +39489,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163410629}
   m_HandleRect: {fileID: 163410628}
   m_Direction: 2
-  m_Value: 0.99999094
-  m_Size: 0.989775
+  m_Value: 0
+  m_Size: 0.9896218
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39928,7 +39840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00014622882}
+  m_AnchoredPosition: {x: 0, y: 13.669586}
   m_SizeDelta: {x: 0, y: 1317.132}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1832000363
@@ -45402,7 +45314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f5e65313530b34c8e7124b876d3717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _apiURL: localhost:8000
+  _apiURL: https://gdg-solutions-hackathon.onrender.com
   _apiEndpoint: /api/chat
   _saveScreenshot: 0
 --- !u!4 &2109313676

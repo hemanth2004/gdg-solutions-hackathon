@@ -266,7 +266,7 @@ MonoBehaviour:
   _desc: A Metre Scale with variable colours
   _url: 
   _apparatusID: 0
-  _thumbnail: {fileID: 21300000, guid: 9b0a6bc822a2af5479e829d7a6d68a2a, type: 3}
+  _thumbnail: {fileID: 21300000, guid: 849f9bbdde1d7924e874370438a1e910, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 1263741589889529233}

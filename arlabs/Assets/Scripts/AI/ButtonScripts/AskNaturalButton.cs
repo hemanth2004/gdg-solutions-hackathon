@@ -18,7 +18,6 @@ namespace ARLabs.AI
         public TMPro.TMP_Text transcriptDisplay, recordTimeText;
 
         private string _latestImage = "";
-        private string _latestAudio = "";
         private ExperimentContext _latestExperimentContext;
 
 
@@ -28,17 +27,6 @@ namespace ARLabs.AI
         {
             ExperimentContext experiment = ExperimentContext.GetExperimentContext();
             _latestExperimentContext = experiment;
-            Debug.Log("Experiment context: " + _latestExperimentContext);
-            Debug.Log("Experiment context: " + _latestExperimentContext.name);
-            Debug.Log("Experiment context: " + _latestExperimentContext.subject);
-
-            recordButton.interactable = true;
-            recordButton.GetComponent<Image>().raycastTarget = true;
-            transcriptDisplay.text = "";
-            loadingIcon.SetActive(false);
-            mainText.SetActive(true);
-            voiceInputWindowToggle.TurnOn();
-            recordTimeText.text = "";
 
         }
 
@@ -55,16 +43,11 @@ namespace ARLabs.AI
         // When the record button is released   
         public void OnEndRecord()
         {
-            loadingIcon.SetActive(false);
-            recordButton.interactable = true;
-            recordButton.GetComponent<Image>().raycastTarget = true;
-
             if (GoogleSTT.Instance.IsRecording)
             {
                 GoogleSTT.Instance.StopRecording();
                 loadingIcon.SetActive(true);
-                recordButton.interactable = false;
-                recordButton.GetComponent<Image>().raycastTarget = false;
+                RecordButtonSetActive(false);
                 FinalizeChatMessage();
             }
         }
@@ -72,50 +55,61 @@ namespace ARLabs.AI
         // Finalizes the chat message and send to backend
         public async void FinalizeChatMessage()
         {
+            // Transcribe audio
             string transcript = await GoogleSTT.Instance.TranscribeSavedClip();
-            Debug.Log("Transcript: " + transcript);
             if (transcript == "")
             {
-                voiceInputWindowToggle.TurnOff();
-                mainText.SetActive(true);
-                transcriptDisplay.text = "";
-                loadingIcon.SetActive(false);
-                recordButton.interactable = true;
-                recordButton.GetComponent<Image>().raycastTarget = true;
-                recordTimeText.text = "";
+                ResetUI();
                 return;
             }
 
+            // Replace instructions UI with the transcript
             mainText.SetActive(false);
-            transcriptDisplay.text = transcript;
+            transcriptDisplay.text = "\"" + transcript + "\"";
+
+            // Create chat message object
             AIChatMessage aiChatMessage = new AIChatMessage();
             aiChatMessage.sessionID = ExperimentManager.Instance.SessionID;
             aiChatMessage.prompt = transcript;
             aiChatMessage.experimentContext = _latestExperimentContext;
             aiChatMessage.base64Image = _latestImage;
-            Debug.Log("b64 " + _latestImage);
 
             // Send only the JSON object
-            string jsonMessage = JsonUtility.ToJson(aiChatMessage);
-            string response = "";
+            string aiChatMessageJson = JsonUtility.ToJson(aiChatMessage);
             try
             {
-                response = await APIHandler.Instance.AskBackend(jsonMessage);
+                string response = await APIHandler.Instance.AskBackend(aiChatMessageJson);
                 Debug.Log("Response: " + response);
                 ResponseManager.Instance.ProcessResponse(response);
-                voiceInputWindowToggle.TurnOff();
             }
             catch (Exception e)
             {
                 Debug.LogError("Error: " + e.Message);
             }
 
-            voiceInputWindowToggle.TurnOff();
-            mainText.SetActive(true);
-            transcriptDisplay.text = "";
+            ResetUI();
+        }
+
+        public void OnCancel()
+        {
+            GoogleSTT.Instance.CancelRecording();
+            ResetUI();
+        }
+
+        private void ResetUI()
+        {
             loadingIcon.SetActive(false);
+            RecordButtonSetActive(true);
+            transcriptDisplay.text = "";
+            mainText.SetActive(true);
+            voiceInputWindowToggle.TurnOff();
             _latestImage = "";
-            _latestAudio = "";
+        }
+
+        private void RecordButtonSetActive(bool state)
+        {
+            recordButton.interactable = state;
+            recordButton.GetComponent<Image>().raycastTarget = state;
         }
     }
 }

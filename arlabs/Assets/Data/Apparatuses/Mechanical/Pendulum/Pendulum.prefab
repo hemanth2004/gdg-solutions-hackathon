@@ -2385,7 +2385,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4842154525030791529}
@@ -2409,7 +2409,7 @@ MonoBehaviour:
   _desc: Standard Pendulum staged on a clamp stand
   _url: www.pendulum.com
   _apparatusID: 1557
-  _thumbnail: {fileID: 21300050, guid: 0fd21678280ad9c47aa2d32baf438c5d, type: 3}
+  _thumbnail: {fileID: 21300000, guid: 9dc3a51a802fdf342b5680a1a309370f, type: 3}
   _canBeSelected: 1
   _canBeInteracted: 1
   _indicatorMesh: {fileID: 6102567264825918790}
@@ -2647,7 +2647,7 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!1 &2775265748789516725
