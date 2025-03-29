@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.Networking;
 
 namespace ARLabs.AI
 {
@@ -46,9 +47,40 @@ namespace ARLabs.AI
         {
             RequestMicrophonePermission();
 
+#if UNITY_ANDROID
+            StartCoroutine(CopyCredentialsFile());
+#else
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", Path.Combine(Application.streamingAssetsPath, "stt-credentials.json"));
+#endif
 
             _audioSource = GetComponent<AudioSource>();
+        }
+
+
+        private IEnumerator CopyCredentialsFile()
+        {
+            // Construct the source path within StreamingAssets and the target path in persistentDataPath
+            string sourcePath = Path.Combine(Application.streamingAssetsPath, "stt-credentials.json");
+            string targetPath = Path.Combine(Application.persistentDataPath, "stt-credentials.json");
+
+            // On Android, sourcePath is a URL inside the APK so use UnityWebRequest to retrieve the file
+            UnityWebRequest request = UnityWebRequest.Get(sourcePath);
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Failed to load credentials file: " + request.error);
+            }
+            else
+            {
+                // Write the file to persistentDataPath
+                File.WriteAllBytes(targetPath, request.downloadHandler.data);
+                Debug.Log("Credentials file copied to: " + targetPath);
+
+                // Now set the environment variable to point to the copied file
+                System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", targetPath);
+                Debug.Log("Environment variable set to: " + System.Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
+            }
         }
 
         private void RequestMicrophonePermission()
