@@ -4,6 +4,7 @@ using System.Collections;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Android;
 
 namespace ARLabs.AI
 {
@@ -43,22 +44,22 @@ namespace ARLabs.AI
 
         private void Start()
         {
-            StartCoroutine(RequestMicrophonePermission());
+            RequestMicrophonePermission();
 
             System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", Path.Combine(Application.streamingAssetsPath, "stt-credentials.json"));
 
             _audioSource = GetComponent<AudioSource>();
         }
 
-        private IEnumerator RequestMicrophonePermission()
+        private void RequestMicrophonePermission()
         {
 #if UNITY_ANDROID
-            if (!Application.HasUserAuthorization(UserAuthorization.Microphone))
+            if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
             {
-                yield return Application.RequestUserAuthorization(UserAuthorization.Microphone);
+                Permission.RequestUserPermission(Permission.Microphone);
             }
 
-            if (Application.HasUserAuthorization(UserAuthorization.Microphone))
+            if (Permission.HasUserAuthorizedPermission(Permission.Microphone))
             {
                 Debug.Log("Microphone permission granted.");
             }
@@ -67,7 +68,6 @@ namespace ARLabs.AI
                 Debug.LogError("Microphone permission denied!");
             }
 #endif
-            yield return null;
         }
 
         // Call externally
