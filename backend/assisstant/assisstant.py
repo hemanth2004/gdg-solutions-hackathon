@@ -1,4 +1,4 @@
-from image_encoder import encode_image
+from image_encoder import encode_image, optimize_image_for_gemini
 import tts
 
 from typing import Sequence, List, Union, Tuple
@@ -30,7 +30,7 @@ class ARAssisstant:
     def __init__(self):
         self.model = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001")
         self.trimmer = trim_messages(
-            max_tokens=1024,
+            max_tokens=2048,
             strategy="last",
             token_counter=self.model,
             include_system=True,
@@ -48,25 +48,34 @@ class ARAssisstant:
                     
                     VISUALIZATION GUIDELINES:
                     - Available visualizations: {available_visualizations}
-                    - Use the format <visualization_name:on/off> to control visualizations.
+                    - Use the format <visualization_name:on> OR <visuaization_name:off> to control visualizations.
+                    - Use the exact format <visualization_name:on> or <visualization_name:off> to control visualizations.  
+                    - DO NOT use any other formatting, such as XML tags or enclosing elements.  
+                    - The response should only contain <name:on> or <name:off> with no additional text formatting.  
                     - Select visualisation ONLY from the available list.
                     - Only enable visualizations when:
-                    1. The student explicitly asks to see a visualization
-                    2. A complex concept needs visual explanation
-                    3. Demonstrating a specific aspect of the experiment would benefit from visual aid
+                        1. The student explicitly asks to see a visualization
+                        2. A complex concept needs visual explanation
+                        3. Demonstrating a specific aspect of the experiment would benefit from visual aid
+                        4. Explaining a concept and a visualization is available
                     - Always disable visualizations when:
-                    1. Moving to a new topic or experiment step
-                    2. The visual explanation is complete
-                    3. The student asks to turn them off
-                    4. At the end of your response
-                    5. Turning on a different visualisation
+                        1. Moving to a new topic or experiment step
+                        2. The visual explanation is complete
+                        3. The student asks to turn them off
+                        4. At the end of your response
+                        5. Turning on a different visualisation
                     
                     INSTRUCTIONAL APPROACH:
+                    - NEVER ask for confirmation before taking an action—whether enabling/disabling visualizations, explaining a concept, or moving to the next topic.  
+                    - When explaining multiple concepts, handle them in sequence without interruptions.  
+                    - Assume the student wants a complete and structured response—do not break the explanation by asking unnecessary questions or waiting for confirmation
                     - Guide students step by step through the experiment
                     - Analyze what's visible in the student's current view
                     - Provide clear, age-appropriate explanations
                     - Help troubleshoot issues shown in images or described in text
                     - Only answer questions relevant to {experiment_name} or general science concepts
+                    - IMMEDIATELY enable and disable visualizations as needed. Do NOT ask for confirmation.
+                    - Always assume the student wants the full explanation and actions performed.
                     
                     You will receive images showing what the student currently sees. Use this information to provide contextual guidance.
                     """
@@ -96,14 +105,17 @@ class ARAssisstant:
 
         # Add image if it exists
         if "image_path" in state and state["image_path"]:
-            image_url = encode_image(state["image_path"])
+            image_base64, mime_type = encode_image(state["image_path"])
 
             # Add image as part of the message content
             trimmed_messages.append(
                 HumanMessage(
                     content=[
                         {"type": "text", "text": "Here is the image."},
-                        {"type": "image_url", "image_url": image_url},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:{mime_type};base64,{image_base64}"},
+                        },
                     ]
                 )
             )
@@ -120,6 +132,10 @@ class ARAssisstant:
                 "available_visualizations": available_vis
             }
         )
+        
+        print("\033[93m" + f"Tokens in prompt: {self.model.get_num_tokens(str(prompt))}" + "\033[0m")
+        print("\033[93m" + str(prompt) + "\033[0m")
+
         response = self.model.invoke(prompt)
         return {"messages": [response]}
 
@@ -136,6 +152,9 @@ class ARAssisstant:
 
         result = []
         last_index = 0
+    
+        # Remove any incorrect closing tags (e.g., </name:off>)
+        text = re.sub(r"</\w+:(on|off)>", r"<\1:off>", text)
 
         # Iterate over all matches
         for match in re.finditer(pattern, text):
