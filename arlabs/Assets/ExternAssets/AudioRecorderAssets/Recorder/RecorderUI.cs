@@ -34,6 +34,7 @@ namespace Recorder
         [SerializeField]
         private float animFromScale = 1f;
 
+
         /// <summary>
         /// Set a keyboard key for recording
         /// </summary>

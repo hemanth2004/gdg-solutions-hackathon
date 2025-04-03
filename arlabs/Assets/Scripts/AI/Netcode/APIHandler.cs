@@ -50,6 +50,7 @@ namespace ARLabs.AI
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.SetRequestHeader("Accept", "application/json");
+                request.SetRequestHeader("User-Agent", "Mozilla/5.0 (Android) Unity/6000.0.23f1");
 
                 // Add this line to allow self-signed certificates and HTTP
                 request.certificateHandler = new AcceptAllCertificatesHandler();

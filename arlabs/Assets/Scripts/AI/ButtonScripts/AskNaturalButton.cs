@@ -10,6 +10,8 @@ namespace ARLabs.AI
     // Handles the ask natural button
     public class AskNaturalButton : MonoBehaviour
     {
+
+        [SerializeField] private GameObject suggestionsPanel;
         public CanvasGroup canvasGroup;
         public bool alsoSaveScreenshot = false;
         public UnityEngine.UI.Button recordButton;
@@ -33,10 +35,12 @@ namespace ARLabs.AI
         // When the record button is held down  
         public void OnBeginRecord()
         {
+
             ExperimentManager.Instance.StartScreenCapture(canvasGroup, (base64Image) =>
             {
                 _latestImage = base64Image;
             });
+            suggestionsPanel.SetActive(false);
             GoogleSTT.Instance.StartRecording();
         }
 
@@ -97,8 +101,13 @@ namespace ARLabs.AI
             ResetUI();
         }
 
-        private void ResetUI()
+        public void ResetUI()
         {
+            if (GoogleSTT.Instance.IsRecording)
+            {
+                GoogleSTT.Instance.CancelRecording();
+            }
+            suggestionsPanel.SetActive(true);
             loadingIcon.SetActive(false);
             RecordButtonSetActive(true);
             transcriptDisplay.text = "";

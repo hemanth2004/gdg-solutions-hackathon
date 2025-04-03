@@ -6,13 +6,15 @@ using KG.StateMachine;
 
 public class PlaneDetectionState : StateBase<ExperimentManager>
 {
-    public void OnEnter(ExperimentManager entity)
+    public override void OnEnter(ExperimentManager entity)
     {
+        Debug.Log("Starting plane detection");
         entity.planeManager.requestedDetectionMode = UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Horizontal;
         entity.SetPlanesVisibility(true);
     }
-    public void OnExit(ExperimentManager entity)
+    public override void OnExit(ExperimentManager entity)
     {
+        Debug.Log("Stopping plane detection");
         entity.planeManager.requestedDetectionMode = UnityEngine.XR.ARSubsystems.PlaneDetectionMode.None;
         entity.SetPlanesVisibility(false);
     }
