@@ -12,8 +12,8 @@ AR Labs is a mobile AR app that lets students perform virtual science experiment
    - Can **perform actions** and hence exert its control over the experiment. It can toggle on/off visualizations or performan actions like placing an apparatus.
   
 > Built during **GDG Solutions Challenge 2025** <br />
-> **Problem Statement**: Lack of Access to Quality Education in Underserved Communities
-
+> **Problem Statement**: Lack of Access to Quality Education in Underserved Communities <br />
+> [**🎥 Demo Video**](https://drive.google.com/file/d/17Ty9NEnbflPDTq4GBnbKuo6v__rLeNUN/view?usp=sharing)
 ---
 
 ## Table of Contents
