@@ -129,10 +129,10 @@ namespace ARLabs.Core
         // Demonstration Purspose Only
         private void Update()
         {
-            if (_instantiatedApparatus.Count == 3)
-            {
-                _experimentMasterSO.CompletionEvent.Raise();
-            }
+            // if (_instantiatedApparatus.Count == 3)
+            // {
+            //     _experimentMasterSO.CompletionEvent.Raise();
+            // }
             curState = _stateMachine.GetCurrentStateName();
         }
 
