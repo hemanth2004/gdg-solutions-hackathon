@@ -11,6 +11,7 @@ namespace ARLabs.AI
 {
     public class ResponseManager : MonoBehaviour
     {
+
         public static ResponseManager Instance;
         private void Awake() => Instance = this;
 
@@ -90,7 +91,7 @@ namespace ARLabs.AI
             }
             else if (!isAudioChance && index.actionIndex < actions.Length)
             {
-                ExecuteAction(actions[index.actionIndex]);
+                ActionHandler.HandleAction(actions[index.actionIndex]);
                 index.actionIndex++;
             }
 
@@ -113,16 +114,6 @@ namespace ARLabs.AI
                     StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, !isAudioChance, index));
                 }
             }
-        }
-
-        public bool ExecuteAction(string action)
-        {
-            string[] actionParts = action.Split(' ');
-            bool vizCall = actionParts[1] == "on";
-
-            VisualizationManager.Instance.ToggleVisualization(actionParts[0], vizCall);
-
-            return true;
         }
 
         // public AudioClip ConvertBase64ToAudioClip(string base64EncodedMp3String)

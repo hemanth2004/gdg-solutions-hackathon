@@ -24,7 +24,7 @@ namespace ARLabs.Core
         [SerializeField] private string _name;
         [SerializeField] private string _desc;
         [SerializeField] private string _url;
-        [SerializeField] private int _apparatusID;
+        [SerializeField] private ushort _apparatusID;
         [SerializeField] private Sprite _thumbnail;
         [SerializeField] private bool _canBeSelected = true;
         [SerializeField] private bool _canBeInteracted = true;
@@ -52,7 +52,7 @@ namespace ARLabs.Core
         public string Head => _name;
         public string Description => _desc;
         public string Webpage => _url;
-        public int ApparatusID => _apparatusID;
+        public ushort ApparatusID => _apparatusID;
         public Sprite Thumbnail => _thumbnail;
         public FieldsList Fields => _fields;
 
@@ -407,6 +407,7 @@ namespace ARLabs.Core
         // Finalizes the placement
         public virtual void FinalizePlace()
         {
+            _apparatusID = ApparatusManager.Instance.GenerateUniqueUShortId();
             _isPlacing = false;
             _indicatorMesh.SetActive(false);
             _apparatusMesh.SetActive(true);
@@ -569,6 +570,7 @@ namespace ARLabs.Core
         // What to do when deleting
         public virtual void Delete()
         {
+            ApparatusManager.Instance.ReleaseId(_apparatusID);
             Destroy(gameObject);
         }
     }

@@ -34,8 +34,11 @@ namespace ARLabs.Core
         [ShowOnly] public bool isPressed;
         private float pressStartTime;
         private Apparatus pressedApparatus;
+        private HashSet<ushort> usedIds = new HashSet<ushort>();
+
 
         [HideInInspector] public Camera mainCamera;
+
 
         private void Start()
         {
@@ -275,5 +278,23 @@ namespace ARLabs.Core
             // If no Apparatus on this object, check parent
             return FindEarliestApparatusAncestor(hit.parent);
         }
+
+
+        // Util: Generate an apparatusID
+        public ushort GenerateUniqueUShortId()
+        {
+            for (ushort id = 0; id < ushort.MaxValue; id++)
+            {
+                if (!usedIds.Contains(id))
+                {
+                    usedIds.Add(id);
+                    return id;
+                }
+            }
+
+            throw new System.Exception("No available ID left in ushort range.");
+        }
+        // Release used IDs
+        public void ReleaseId(ushort id) { usedIds.Remove(id); }
     }
 }

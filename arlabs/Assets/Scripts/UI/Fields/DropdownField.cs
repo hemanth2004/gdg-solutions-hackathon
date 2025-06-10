@@ -12,6 +12,8 @@ namespace ARLabs.UI
 
         public void Initialize(DropdownFieldInfo _dropdownFieldInfo)
         {
+            dropdownInfo.field = this;
+
             dropdownInfo = _dropdownFieldInfo;
 
             labelText.text = dropdownInfo.Label;
@@ -41,6 +43,12 @@ namespace ARLabs.UI
                 dropdownInfo.value = dropdown.value;
                 dropdownInfo.OnChange?.Invoke(dropdown.value);
             }
+        }
+
+        public void SetValue(int index)
+        {
+            dropdown.value = index;
+            OnChange();
         }
     }
 }

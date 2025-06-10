@@ -12,6 +12,8 @@ namespace ARLabs.UI
 
         public void Initialize(ButtonFieldInfo _buttonFieldInfo)
         {
+            buttonInfo.field = this;
+
             buttonInfo = _buttonFieldInfo;
 
             labelText.text = buttonInfo.Label;
@@ -26,6 +28,11 @@ namespace ARLabs.UI
 
             if (_initialized)
                 buttonInfo.Invoke();
+        }
+
+        public void Call()
+        {
+            OnClick();
         }
     }
 }

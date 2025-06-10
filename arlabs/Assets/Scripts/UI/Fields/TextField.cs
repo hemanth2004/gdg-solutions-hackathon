@@ -15,6 +15,8 @@ namespace ARLabs.UI
 
         public void Initialize(TextFieldInfo _textFieldInfo)
         {
+            textInfo.field = this;
+
             textInfo = _textFieldInfo;
 
             labelText.text = _textFieldInfo.label;
@@ -34,6 +36,12 @@ namespace ARLabs.UI
                 textInfo.value = inputField.text;
                 textInfo.OnChange?.Invoke(textInfo.value);
             }
+        }
+
+        public void SetValue(string _value)
+        {
+            inputField.text = _value;
+            OnChange();
         }
     }
 }

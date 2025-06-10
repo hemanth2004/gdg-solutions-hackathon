@@ -12,6 +12,7 @@ namespace ARLabs.UI
 
         public void Initialize(BoolFieldInfo _boolFieldInfo)
         {
+            boolInfo.field = this;
             boolInfo = _boolFieldInfo;
 
             labelText.text = boolInfo.Label;
@@ -30,6 +31,15 @@ namespace ARLabs.UI
                 boolInfo.value = toggle.On;
                 boolInfo.OnChange?.Invoke(boolInfo.value);
             }
+        }
+
+        public void SetValue(bool _value)
+        {
+            if (boolInfo.isReadOnly)
+                return;
+
+            toggle.On = _value;
+            OnChange();
         }
     }
 }

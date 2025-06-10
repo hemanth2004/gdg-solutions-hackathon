@@ -35,6 +35,9 @@ namespace ARLabs.UI
     [Serializable]
     public class SliderFieldInfo : IFieldInfo
     {
+
+        public SliderField field;
+
         public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
@@ -70,6 +73,8 @@ namespace ARLabs.UI
     [Serializable]
     public class DropdownFieldInfo : IFieldInfo
     {
+        public DropdownField field;
+
         public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
@@ -103,6 +108,8 @@ namespace ARLabs.UI
     [Serializable]
     public class TextFieldInfo : IFieldInfo
     {
+        public TextField field;
+
         public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
@@ -136,6 +143,8 @@ namespace ARLabs.UI
     [Serializable]
     public class BoolFieldInfo : IFieldInfo
     {
+        public BoolField field;
+
         public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
@@ -170,6 +179,8 @@ namespace ARLabs.UI
     [Serializable]
     public class ButtonFieldInfo : IFieldInfo
     {
+        public ButtonField field;
+
         public bool hideField { get; set; }
         public string label;
         [HideInInspector] public FieldType fieldType;
