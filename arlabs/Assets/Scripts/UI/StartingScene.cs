@@ -4,17 +4,11 @@ using TMPro;
 
 public class StartingScene : MonoBehaviour
 {
-    public TMP_Dropdown dropdown;
-
     [SerializeField] private string nextSceneName;
-    public void OnDropdownValueChanged()
-    {
-        PlayerPrefs.SetInt("selected_experiment", dropdown.value);
-    }
 
-    public void OnStartButtonClicked()
+    public void OnExperimentButtonClicked(int experimentIndex)
     {
-        PlayerPrefs.SetInt("selected_experiment", dropdown.value);
+        PlayerPrefs.SetInt("selected_experiment", experimentIndex);
         SceneManager.LoadScene(nextSceneName);
     }
 

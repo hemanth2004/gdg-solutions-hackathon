@@ -10,10 +10,13 @@ namespace ARLabs.AI
     // Handles the ask natural button
     public class AskNaturalButton : MonoBehaviour
     {
+
+        [SerializeField] private GameObject suggestionsPanel;
         public CanvasGroup canvasGroup;
         public bool alsoSaveScreenshot = false;
         public UnityEngine.UI.Button recordButton;
         public Lean.Gui.LeanToggle voiceInputWindowToggle;
+        public Lean.Gui.LeanToggle isRequestHelpToggle;
         public GameObject loadingIcon, mainText;
         public TMPro.TMP_Text transcriptDisplay, recordTimeText;
 
@@ -27,7 +30,7 @@ namespace ARLabs.AI
         {
             ExperimentContext experiment = ExperimentContext.GetExperimentContext();
             _latestExperimentContext = experiment;
-
+            Debug.Log("Setting experiment context");
         }
 
         // When the record button is held down  
@@ -37,6 +40,7 @@ namespace ARLabs.AI
             {
                 _latestImage = base64Image;
             });
+            suggestionsPanel.SetActive(false);
             GoogleSTT.Instance.StartRecording();
         }
 
@@ -77,11 +81,25 @@ namespace ARLabs.AI
 
             // Send only the JSON object
             string aiChatMessageJson = JsonUtility.ToJson(aiChatMessage);
+            Debug.Log("AI Chat Message JSON: " + aiChatMessageJson);
             try
             {
-                string response = await APIHandler.Instance.AskBackend(aiChatMessageJson);
-                Debug.Log("Response: " + response);
-                ResponseManager.Instance.ProcessResponse(response);
+                string response = "";
+                if (isRequestHelpToggle.On)
+                {
+                    // Send the request to the backend
+                    aiChatMessage.base64Image = ""; // Clear the image for help requests
+                    response = await APIHandler.Instance.AskBackendHelp(aiChatMessageJson);
+                    Debug.Log("Response: " + response);
+                    ResponseManager.Instance.ProcessResponse(response);
+                }
+                else
+                {
+                    // Send the request to the backend
+                    response = await APIHandler.Instance.AskBackend(aiChatMessageJson);
+                    Debug.Log("Response: " + response);
+                    ResponseManager.Instance.ProcessResponse(response);
+                }
             }
             catch (Exception e)
             {
@@ -97,8 +115,13 @@ namespace ARLabs.AI
             ResetUI();
         }
 
-        private void ResetUI()
+        public void ResetUI()
         {
+            if (GoogleSTT.Instance.IsRecording)
+            {
+                GoogleSTT.Instance.CancelRecording();
+            }
+            suggestionsPanel.SetActive(true);
             loadingIcon.SetActive(false);
             RecordButtonSetActive(true);
             transcriptDisplay.text = "";

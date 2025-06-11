@@ -12,6 +12,8 @@ namespace ARLabs.UI
 
         public void Initialize(SliderFieldInfo _sliderFieldInfo)
         {
+            sliderInfo.field = this;
+
             sliderInfo = _sliderFieldInfo;
 
             labelText.text = sliderInfo.Label;
@@ -37,7 +39,12 @@ namespace ARLabs.UI
                 value.text = slider.value.ToString("F2");
                 sliderInfo.OnChange?.Invoke(slider.value);
             }
+        }
 
+        public void SetValue(float _value)
+        {
+            slider.value = _value;
+            OnChange();
         }
     }
 }

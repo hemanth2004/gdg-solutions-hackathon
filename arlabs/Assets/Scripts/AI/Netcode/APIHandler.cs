@@ -14,6 +14,7 @@ namespace ARLabs.AI
 
         [SerializeField] private string _apiURL = "localhost:8000";
         [SerializeField] private string _apiEndpoint = "/api/ai/";
+        [SerializeField] private string _helpEndpoint = "/api/help/";
 
         [SerializeField] private bool _saveScreenshot = false;
 
@@ -24,7 +25,12 @@ namespace ARLabs.AI
 
         public async Task<string> AskBackend(string aiChatMessage)
         {
-            return await SendRequestToBackend(aiChatMessage);
+            return await SendRequestToBackend(aiChatMessage, _apiEndpoint);
+        }
+
+        public async Task<string> AskBackendHelp(string aiChatMessage)
+        {
+            return await SendRequestToBackend(aiChatMessage, _helpEndpoint);
         }
 
         // Coroutine to wait for the end of the frame (used for async/await)
@@ -34,9 +40,9 @@ namespace ARLabs.AI
             tcs.SetResult(true);
         }
 
-        private async Task<string> SendRequestToBackend(string jsonBody)
+        private async Task<string> SendRequestToBackend(string jsonBody, string endpoint)
         {
-            string url = $"{_apiURL}{_apiEndpoint}";
+            string url = $"{_apiURL}{endpoint}";
 
 #if !UNITY_EDITOR && UNITY_ANDROID
             // For Android builds, if needed
@@ -50,6 +56,7 @@ namespace ARLabs.AI
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.SetRequestHeader("Accept", "application/json");
+                request.SetRequestHeader("User-Agent", "Mozilla/5.0 (Android) Unity/6000.0.23f1");
 
                 // Add this line to allow self-signed certificates and HTTP
                 request.certificateHandler = new AcceptAllCertificatesHandler();

@@ -84,7 +84,7 @@ namespace ARLabs.Core
         {
             _sessionID = System.Guid.NewGuid().ToString();
             // temp loading mimic
-            Destroy(UIReferences.Instance.LoadingScreen, 2f);
+            Destroy(UIReferences.Instance.LoadingScreen, 3.2f);
 
             GetComponent<VisualizationManager>().Initialize();
         }
@@ -129,10 +129,10 @@ namespace ARLabs.Core
         // Demonstration Purspose Only
         private void Update()
         {
-            if (_instantiatedApparatus.Count == 3)
-            {
-                _experimentMasterSO.CompletionEvent.Raise();
-            }
+            // if (_instantiatedApparatus.Count == 3)
+            // {
+            //     _experimentMasterSO.CompletionEvent.Raise();
+            // }
             curState = _stateMachine.GetCurrentStateName();
         }
 
@@ -147,9 +147,8 @@ namespace ARLabs.Core
         }
 
 
-        public void ClearDetectedPlanes()
-        {
-        }
+        public void ClearDetectedPlanes() { }
+
         public void DonePlaneDetection()
         {
             _stateMachine.GoToState<IdleState>();
@@ -157,6 +156,8 @@ namespace ARLabs.Core
 
         public void StartPlaneDetection()
         {
+            Debug.Log("AR SESSION: Trackable count: " + planeManager.trackables.count);
+            ClearDetectedPlanes();
             _stateMachine.GoToState<PlaneDetectionState>();
         }
         #endregion
@@ -284,10 +285,10 @@ namespace ARLabs.Core
             string base64Image = System.Convert.ToBase64String(imageBytes);
 
 #if UNITY_EDITOR
-    // Optional: save debug screenshot
-    string path = Application.persistentDataPath + "/debug_screenshot.png";
-    System.IO.File.WriteAllBytes(path, imageBytes);
-    Debug.Log("Screenshot saved to: " + path);
+            // Optional: save debug screenshot
+            string path = Application.persistentDataPath + "/debug_screenshot.png";
+            System.IO.File.WriteAllBytes(path, imageBytes);
+            Debug.Log("Screenshot saved to: " + path);
 #endif
 
             DestroyImmediate(screenTexture);

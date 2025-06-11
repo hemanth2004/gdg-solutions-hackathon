@@ -6,11 +6,13 @@ using System.IO;
 using UnityEngine.Networking;
 using NAudio.Wave;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace ARLabs.AI
 {
     public class ResponseManager : MonoBehaviour
     {
+
         public static ResponseManager Instance;
         private void Awake() => Instance = this;
 
@@ -38,6 +40,12 @@ namespace ARLabs.AI
 
                 AIResponse response = JsonUtility.FromJson<AIResponse>(jsonResponse);
 
+                if (!string.IsNullOrEmpty(response.xml))
+                {
+                    ProcessXML(response.xml);
+                    return;
+                }
+
                 if (response == null || response.sequence == null)
                 {
                     Debug.LogError("Failed to parse response: " + jsonResponse);
@@ -58,6 +66,97 @@ namespace ARLabs.AI
             {
                 Debug.LogError($"Error processing response: {e.Message}");
                 Debug.LogException(e);
+            }
+        }
+
+        public void ProcessXML(string xml)
+        {
+            try
+            {
+                Debug.Log("Processing XML response: " + xml);
+                
+                // Parse the XML
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
+                
+                XmlNode responseNode = doc.SelectSingleNode("Response");
+                if (responseNode == null)
+                {
+                    Debug.LogError("No Response element found in XML");
+                    return;
+                }
+                
+                // Extract alternating text segments and actions
+                List<string> textSegments = new List<string>();
+                List<string> actionStrings = new List<string>();
+                
+                ExtractTextAndActions(responseNode, textSegments, actionStrings);
+                
+                Debug.Log($"Extracted {textSegments.Count} audio segments and {actionStrings.Count} actions");
+                
+                // Text segments are actually base64-encoded audio data
+                List<string> base64AudioList = new List<string>();
+                foreach (string base64Audio in textSegments)
+                {
+                    if (!string.IsNullOrWhiteSpace(base64Audio))
+                    {
+                        base64AudioList.Add(base64Audio.Trim());
+                        Debug.Log($"Added base64 audio segment (length: {base64Audio.Trim().Length})");
+                    }
+                }
+                
+                // Create audio clips array and actions array
+                AudioClip[] audioClips = new AudioClip[base64AudioList.Count];
+                string[] actions = actionStrings.ToArray();
+                
+                // Convert base64 audio data to AudioClips
+                if (base64AudioList.Count > 0)
+                {
+                    StartCoroutine(ConvertAllAudio(base64AudioList, audioClips, () =>
+                    {
+                        Debug.Log("All audio clips converted. Starting playback...");
+                        StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, true, (0, 0)));
+                    }));
+                }
+                else
+                {
+                    // No audio segments, just execute actions
+                    Debug.Log("No audio segments found. Executing actions only...");
+                    StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, false, (0, 0)));
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error processing XML: {e.Message}");
+                Debug.LogException(e);
+            }
+        }
+        
+        private void ExtractTextAndActions(XmlNode parentNode, List<string> textSegments, List<string> actionStrings)
+        {
+            foreach (XmlNode childNode in parentNode.ChildNodes)
+            {
+                if (childNode.NodeType == XmlNodeType.Text)
+                {
+                    // This is a text node
+                    string text = childNode.Value?.Trim();
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        textSegments.Add(text);
+                    }
+                }
+                else if (childNode.NodeType == XmlNodeType.Element && childNode.Name == "Action")
+                {
+                    // This is an Action element - convert to string
+                    string actionXml = childNode.OuterXml;
+                    actionStrings.Add(actionXml);
+                    Debug.Log($"Extracted action: {actionXml}");
+                }
+                else if (childNode.NodeType == XmlNodeType.Element)
+                {
+                    // Other elements - recurse to find text and actions
+                    ExtractTextAndActions(childNode, textSegments, actionStrings);
+                }
             }
         }
 
@@ -90,7 +189,7 @@ namespace ARLabs.AI
             }
             else if (!isAudioChance && index.actionIndex < actions.Length)
             {
-                ExecuteAction(actions[index.actionIndex]);
+                ActionHandler.HandleAction(actions[index.actionIndex]);
                 index.actionIndex++;
             }
 
@@ -113,16 +212,6 @@ namespace ARLabs.AI
                     StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, !isAudioChance, index));
                 }
             }
-        }
-
-        public bool ExecuteAction(string action)
-        {
-            string[] actionParts = action.Split(' ');
-            bool vizCall = actionParts[1] == "on";
-
-            VisualizationManager.Instance.ToggleVisualization(actionParts[0], vizCall);
-
-            return true;
         }
 
         // public AudioClip ConvertBase64ToAudioClip(string base64EncodedMp3String)

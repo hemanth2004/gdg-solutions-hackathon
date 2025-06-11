@@ -1,17 +1,19 @@
 <div align="center">
-<h1 align="center">AR Labs</h1>
-   <small>Google Developers Group Solutions Hackathon Entry</small>
+<img src="https://github.com/user-attachments/assets/624fe106-5894-4120-a814-7ffc103e5f98" width=350 />
+   
+<h2>AR Labs - AI assisted AR virtual science lab. </h2>
 </div>
 
-> Problem Statement: Lack of Access to Quality Education in Underserved Communities
-
-AR Labs is a mobile AR app that lets students perform virtual science experiments of class 11 & 12. 
-1. The app provides an intuitive sandbox within which the student can play around with the apparatuses, materials and receive accurate readings. This encourages the student to explore beyond the experiment, in the true spirit of science. 
-2. We also have an AI Lab assistant as a replacement for instructors in a real lab. This is because the AI Lab Assistant is 
-   - Context-aware, aware of the not just the state of the experiment but also what the user is currently looking at.
-   - It can respond to queries from the user on how to use the app or a question about the topic at hand
-   - Can perform actions and hence exert its control over the experiment. It can toggle on/off visualizations or performan actions like placing an apparatus.
-
+AR Labs is a mobile AR app that lets students perform virtual science experiments of class 11 & 12.
+- The app provides an **intuitive sandbox** within which the student can play around with the apparatuses, materials and receive accurate readings. This encourages the student to explore beyond the experiment, in the true spirit of science.
+- We also have an AI Lab assistant as a replacement for instructors in a real lab. This is because the AI Lab Assistant is 
+   - **Context-aware**, aware of the not just the state of the experiment but also what the user is currently looking at.
+   - It can **respond to queries** from the user on how to use the app or a question about the topic at hand
+   - Can **perform actions** and hence exert its control over the experiment. It can toggle on/off visualizations or performan actions like placing an apparatus.
+  
+> Built during **GDG Solutions Challenge 2025** <br />
+> **Problem Statement**: Lack of Access to Quality Education in Underserved Communities <br />
+> [**🎥 Demo Video**](https://drive.google.com/file/d/17Ty9NEnbflPDTq4GBnbKuo6v__rLeNUN/view?usp=sharing)
 ---
 
 ## Table of Contents
@@ -43,7 +45,8 @@ AR Labs is a mobile AR app that lets students perform virtual science experiment
 ## Architecture
 The project follows a modular architecture:
 
-![IMG-20250401-WA0009 1](https://gist.github.com/user-attachments/assets/08a04004-229b-4d3c-8f10-19558033e175)
+![architecture_image](https://github.com/user-attachments/assets/43619026-a20b-48d4-9a70-dfb0b6b64eed)
+
 
 ---
 
@@ -144,3 +147,11 @@ python api.py
    - 3D rendering, web requests and AR simultaneously on mobile seemed like they might cause performance issues. But with optimization in the models and lighting, even a 5 year old android can have a decent performance.
 
 ---
+
+## Team
+[Hemanth Elangovan](https://www.github.com/hemanth2004) <br />
+[Kaavay Gupta](https://www.github.com/KaavayGupta) <br />
+[Shivam Kumar A](https://www.github.com/Shivam-kum-mhta) <br />
+
+
+Built with ❤️ by Team Isometric.
