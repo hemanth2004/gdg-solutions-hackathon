@@ -1,4 +1,4 @@
-from image_encoder import encode_image, optimize_image_for_gemini
+from image_encoder import encode_image
 import tts
 
 from typing import Sequence, List, Union, Tuple
@@ -19,6 +19,7 @@ import json
 class ARExperiment(TypedDict):
     name: str                               # Experiment name
     visualizations: List[Tuple[str, str]]   # List of available visualizations
+    apparatus_schema: str                   # Schema of the apparatus used in the experiment
 
 class State(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]    # List of messages in the conversation to use as context
@@ -28,7 +29,7 @@ class State(TypedDict):
 
 class ARAssisstant:
     def __init__(self):
-        self.model = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001")
+        self.model = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001", temperature=0.2)
         self.trimmer = trim_messages(
             max_tokens=2048,
             strategy="last",
@@ -42,43 +43,86 @@ class ARAssisstant:
             [
                 (
                     "system",
-                    """You are a virtual lab instructor for science experiments following the CBSE syllabus.
-                    The student is conducting {experiment_name} experiment.
-                    Answer all questions to the best of your ability in {language}.
-                    
-                    VISUALIZATION GUIDELINES:
-                    - Available visualizations: {available_visualizations}
-                    - Use the format <visualization_name:on> OR <visuaization_name:off> to control visualizations.
-                    - Use the exact format <visualization_name:on> or <visualization_name:off> to control visualizations.  
-                    - DO NOT use any other formatting, such as XML tags or enclosing elements.  
-                    - The response should only contain <name:on> or <name:off> with no additional text formatting.  
-                    - Select visualisation ONLY from the available list.
-                    - Only enable visualizations when:
-                        1. The student explicitly asks to see a visualization
-                        2. A complex concept needs visual explanation
-                        3. Demonstrating a specific aspect of the experiment would benefit from visual aid
-                        4. Explaining a concept and a visualization is available
-                    - Always disable visualizations when:
-                        1. Moving to a new topic or experiment step
-                        2. The visual explanation is complete
-                        3. The student asks to turn them off
-                        4. At the end of your response
-                        5. Turning on a different visualisation
-                    
-                    INSTRUCTIONAL APPROACH:
-                    - NEVER ask for confirmation before taking an action—whether enabling/disabling visualizations, explaining a concept, or moving to the next topic.  
-                    - When explaining multiple concepts, handle them in sequence without interruptions.  
-                    - Assume the student wants a complete and structured response—do not break the explanation by asking unnecessary questions or waiting for confirmation
-                    - Guide students step by step through the experiment
-                    - Analyze what's visible in the student's current view
-                    - Provide clear, age-appropriate explanations
-                    - Help troubleshoot issues shown in images or described in text
-                    - Only answer questions relevant to {experiment_name} or general science concepts
-                    - IMMEDIATELY enable and disable visualizations as needed. Do NOT ask for confirmation.
-                    - Always assume the student wants the full explanation and actions performed.
-                    
-                    You will receive images showing what the student currently sees. Use this information to provide contextual guidance.
                     """
+            You are a virtual lab instructor for science experiments aligned with the CBSE syllabus.
+            The student is conducting the {experiment_name} experiment.
+            Respond in {language}
+
+            Your job is to guide the student through the experiment and perform valid actions.
+
+            ## RESPONSE FORMAT:
+            Respond using a single <Response> ... </Response> block.
+
+            - Embed instructional explanation text inside this block.
+            - Insert <Action> ... </Action> tags inside it whenever an action must be performed.
+            - Each action must follow the strict format:
+
+            <Action>
+                <SetField apparatusId="..." fieldToSet="..." value="..." />
+            </Action>
+
+            or
+
+            <Action>
+                <Visualization name="..." value="on|off" />
+            </Action>
+
+            **IMPORTANT**: Only set fields from the predefined schema given below. Do not invent new apparatus or fields.
+
+            -----------------------------------
+            ## APPARATUS SCHEMA
+            -----------------------------------
+            {apparatus_schema}
+            -----------------------------------
+
+            ## FIELD RULES:
+            - For slider fields, use a value **within the min and max range**.
+                Example: resistance = 100 (valid), resistance = 5000 (invalid)
+            - For boolean fields, use either `true` or `false` (as lowercase strings).
+                Example: closed = true
+            - Do NOT attempt to set a field or apparatus not listed in the schema.
+            - Do NOT guess min/max — always stay within defined bounds.
+            - Do NOT set multiple fields in one <Action>. Use one per action.
+
+            ## EXAMPLE OUTPUT:
+            <Response>
+            Let's start by turning on the voltage source.
+
+            <Action>
+                <SetField apparatusId="voltageSource" fieldToSet="on" value="true" />
+            </Action>
+
+            Now, we'll increase the voltage to 5 volts.
+
+            <Action>
+                <SetField apparatusId="voltageSource" fieldToSet="voltage" value="5" />
+            </Action>
+
+            Notice how the bulb starts glowing.
+
+            <Action>
+                <Visualization name="current_flow" value="on" />
+            </Action>
+
+            We'll turn off the visualization before moving on.
+
+            <Action>
+                <Visualization name="current_flow" value="off" />
+            </Action>
+            </Response>
+
+            -----------------------------------
+
+            ## BEHAVIOR GUIDELINES:
+            - Always use available visualizations: {available_visualizations}
+            - Always assume the student wants a full explanation and action to be performed.
+            - Do not ask for confirmation before setting fields or changing visuals.
+            - Automatically disable visuals after they're no longer needed.
+            - Respect field types, ranges, and apparatus IDs strictly.
+
+            Use this schema and formatting rules in all responses.
+
+            """
                 ),
                 MessagesPlaceholder(variable_name="messages"),
             ]
@@ -129,7 +173,8 @@ class ARAssisstant:
                 "messages": trimmed_messages,
                 "language": state["language"],
                 "experiment_name": state["experiment"]["name"],
-                "available_visualizations": available_vis
+                "available_visualizations": available_vis,
+                "apparatus_schema": state["experiment"]["apparatus_schema"]
             }
         )
         
@@ -202,6 +247,41 @@ class ARAssisstant:
         payload = json.dumps({"sequence": sequence_to_send})
 
         return payload
+    
+    def _parse_xml_response(self, response: str, save_audio=False) -> str:
+        audio_counter = 0
+
+        # Extract content between <Response>...</Response>
+        match = re.search(r"<Response>(.*?)</Response>", response, re.DOTALL)
+        if not match:
+            return {"xml": response.strip()}  # fallback if invalid
+
+        inner_content = match.group(1)
+
+        # Split content into text and <Action> blocks
+        segments = re.split(r"(<Action>.*?</Action>)", inner_content, flags=re.DOTALL)
+
+        new_segments = []
+        for seg in segments:
+            seg = seg.strip()
+            if not seg:
+                continue
+            if seg.startswith("<Action>"):
+                new_segments.append(seg)
+            else:
+                # It's plain text — convert to audio
+                if save_audio:
+                    audio_counter += 1
+                    audio_path = f"audio_store/output_{audio_counter}.mp3"
+                    self.tts.text_to_speech(seg, output_file=audio_path)
+                b64_audio = self.tts.text_to_speech(seg, return_encoded=True)
+                new_segments.append(f"<Audio>{b64_audio}</Audio>")
+
+        # Reconstruct wrapped response
+        final_xml = "<Response>\n  " + "\n\n  ".join(new_segments) + "\n</Response>"
+
+        return json.dumps({ "xml": final_xml })
+
 
     def invoke(self, thread_id: str, query: str, language: str, image_path: str):
         config = {"configurable": {"thread_id": thread_id}}
@@ -220,19 +300,27 @@ class ARAssisstant:
         response = output["messages"][-1].content
         print("\033[92m" + response + "\033[0m")
         
-        # Generate execution sequence
-        execution_sequence = self._split_response_by_visualizations(response)
-        payload = self._execute_sequence(execution_sequence, save_audio=True)
+        payload = self._parse_xml_response(response, save_audio=True)
         return payload
     
-
 if __name__ == "__main__":
     assistant = ARAssisstant()
     ohms_law_exp = ARExperiment(name="Ohm's Law", 
                                 visualizations=[
                                     ("voltage_gradient", "color graident of voltage along wires"), 
                                     ("electron_flow", "shows blue particles as electrons flowing along wires")
-                                ])
+                                ],
+                                apparatus_schema="""
+                                {
+                                    "resistorBox": {
+                                        "resistance": { "type": "slider", "min": 10, "max": 1000 },
+                                        "enabled": { "type": "boolean" }
+                                    },
+                                    "voltageSource": {
+                                        "voltage": { "type": "slider", "min": 0, "max": 10 },
+                                        "on": { "type": "boolean" }
+                                    }
+                                }""")
     
     assistant.set_current_experiment(ohms_law_exp)
 
