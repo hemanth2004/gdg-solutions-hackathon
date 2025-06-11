@@ -68,6 +68,17 @@ namespace ARLabs.UI
             get => onChange;
             set => onChange = value;
         }
+
+        public void SetValue(float value)
+        {
+            if (value > rangeMax || value < rangeMin)
+            {
+                Debug.LogError($"Value {value} is out of range for field {label}");
+                return;
+            }
+            this.value = value;
+            field?.SetValue(value);
+        }
     }
 
     [Serializable]
@@ -102,6 +113,17 @@ namespace ARLabs.UI
         {
             get => onChange;
             set => onChange = value;
+        }
+
+        public void SetValue(int value)
+        {
+            if (value < 0 || value >= options.Count)
+            {
+                Debug.LogError($"Value {value} is out of range for field {label}");
+                return;
+            }
+            this.value = value;
+            field?.SetValue(value);
         }
     }
 
@@ -138,6 +160,12 @@ namespace ARLabs.UI
             get => onChange;
             set => onChange = value;
         }
+
+        public void SetValue(string value)
+        {
+            this.value = value;
+            field?.SetValue(value);
+        }
     }
 
     [Serializable]
@@ -171,6 +199,12 @@ namespace ARLabs.UI
         {
             get => onChange;
             set => onChange = value;
+        }
+
+        public void SetValue(bool value)
+        {
+            this.value = value;
+            field?.SetValue(value);
         }
     }
 
@@ -213,7 +247,7 @@ namespace ARLabs.UI
         {
             OnChange?.Invoke(0);
         }
-    }
+    }   
 
 
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using ARLabs.Core;
 using ARLabs.UI;
+using System;
 
 namespace ARLabs.AI
 {
@@ -25,50 +26,67 @@ namespace ARLabs.AI
         {
             try
             {
+                Debug.Log($"Looking for apparatus with ID: {apparatusId}");
                 Apparatus apparatus = FindApparatusToApply(apparatusId);
+                
+                if (apparatus == null)
+                {
+                    Debug.LogError($"No apparatus found with ID: {apparatusId}");
+                    return false;
+                }
+
 
                 FieldsList fieldsList = apparatus.Fields;
 
                 foreach (var pair in fieldsList.SliderFields)
                 {
-                    if (pair.Key == fieldToSet)
+                    Debug.Log($"Slider field key: {pair.Key}");
+                    
+                    if (pair.Key.Equals(fieldToSet, StringComparison.OrdinalIgnoreCase))
                     {
-                        pair.Value.field.SetValue(int.Parse(value));
+                        int parsedValue = int.Parse(value);
+                        pair.Value.SetValue(parsedValue);
+                        return true;
                     }
                 }
                 foreach (var pair in fieldsList.DropdownFields)
                 {
-                    if (pair.Key == fieldToSet)
+                    if (pair.Key.Equals(fieldToSet, StringComparison.OrdinalIgnoreCase))
                     {
-                        pair.Value.field.SetValue(int.Parse(value));
+                        pair.Value.SetValue(int.Parse(value));
+                        return true;
                     }
                 }
                 foreach (var pair in fieldsList.TextFields)
                 {
-                    if (pair.Key == fieldToSet)
+                    if (pair.Key.Equals(fieldToSet, StringComparison.OrdinalIgnoreCase))
                     {
-                        pair.Value.field.SetValue(value);
+                        pair.Value.SetValue(value);
+                        return true;
                     }
                 }
                 foreach (var pair in fieldsList.BoolFields)
                 {
-                    if (pair.Key == fieldToSet)
+                    if (pair.Key.Equals(fieldToSet, StringComparison.OrdinalIgnoreCase))
                     {
-                        pair.Value.field.SetValue(bool.Parse(value));
+                        pair.Value.SetValue(bool.Parse(value));
+                        return true;
                     }
                 }
                 foreach (var pair in fieldsList.ButtonFields)
                 {
-                    if (pair.Key == fieldToSet)
+                    if (pair.Key.Equals(fieldToSet, StringComparison.OrdinalIgnoreCase))
                     {
-                        pair.Value.field.Call();
+                        pair.Value.Invoke();
+                        return true;
                     }
                 }
 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                Debug.LogError($"Error setting field {fieldToSet} to {value} for apparatus {apparatusId}: {e.Message} \n{e.StackTrace}");
                 return false;
             }
 

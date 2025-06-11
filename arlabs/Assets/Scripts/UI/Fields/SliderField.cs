@@ -41,7 +41,7 @@ namespace ARLabs.UI
             }
         }
 
-        public void SetValue(int _value)
+        public void SetValue(float _value)
         {
             slider.value = _value;
             OnChange();
