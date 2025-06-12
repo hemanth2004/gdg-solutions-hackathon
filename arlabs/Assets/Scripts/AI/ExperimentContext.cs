@@ -56,7 +56,7 @@ namespace ARLabs.AI
             List<string> apparatusNames = new();
             foreach (Apparatus apparatus in expManager.ExperimentMasterSO.RequiredApparatus)
             {
-                apparatusNames.Add(apparatus.name);
+                apparatusNames.Add(apparatus.Head);
             }
             experiment.requiredApparatus = apparatusNames.ToArray();
 

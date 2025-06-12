@@ -6,7 +6,7 @@ namespace ARLabs.AI
     [Serializable]
     public class AIResponse
     {
-        public Sequence sequence;
+        // public Sequence sequence;
         public string xml;
     }
 

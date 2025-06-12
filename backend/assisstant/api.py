@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 
 from handler import handle_chat_request
-from models import ChatRequest
-
+from models import ChatRequest, ApparatusInstance
+from storage_service import compose_request_apparatus_schema
 
 app = FastAPI()
 

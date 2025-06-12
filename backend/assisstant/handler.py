@@ -1,18 +1,27 @@
 from assisstant import ARAssisstant, ARExperiment
+from storage_service import compose_request_apparatus_schema
+import os
+
 import base64
 import tempfile
 import os
 from datetime import datetime
 
 def handle_chat_request(request):
-    print("Image b64: ", request.base64Image)
+    # print("Image b64: ", request.base64Image)
     image_path = base64_to_image_path(request.base64Image, thread_id=request.sessionID)
 
+    print("Composing schema")
     assisstant = ARAssisstant()
     exp = ARExperiment(
         name=request.experimentContext.name,
-        visualizations=[(v.name, v.desc) for v in request.experimentContext.visualizations]
+        visualizations=[(v.name, v.desc) for v in request.experimentContext.availableVisualizations],
+        apparatus_schema=compose_request_apparatus_schema(
+            request.experimentContext.instantiatedApparatus,
+            request.experimentContext.requiredApparatus
+        )
     )
+    
 
     assisstant.set_current_experiment(exp)
     response = assisstant.invoke(

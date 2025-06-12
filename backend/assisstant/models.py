@@ -19,7 +19,7 @@ class ExperimentContext(BaseModel):
     procedure: str
     requiredApparatus: List[str]
     instantiatedApparatus: List[ApparatusInstance]
-    visualizations: List[Visualization]
+    availableVisualizations: List[Visualization]
 
 class ChatRequest(BaseModel):
     sessionID: str

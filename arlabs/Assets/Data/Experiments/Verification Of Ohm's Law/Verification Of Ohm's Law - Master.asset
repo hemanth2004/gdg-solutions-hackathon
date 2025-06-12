@@ -15,62 +15,8 @@ MonoBehaviour:
   _subject: 1
   _topic: 1
   _experimentName: Verification of Ohm's Law
-  _theory: "<size=120%><b>Theory</b></size>\r\n\r\nOhm\u2019s Law states that the
-    current (<b>I</b>) flowing through a conductor is directly proportional to the
-    potential difference (<b>V</b>) across its ends, provided that the physical conditions
-    (such as temperature and dimensions) remain constant. This relationship is given
-    by:\r\n\r\n<indent=20%><size=110%><b>V = I \xD7 R</b></size></indent>\r\n\r\nwhere
-    <b>R</b> is the resistance of the conductor.\r\n\r\n<size=110%><b>Key Points:</b></size>\r\n-
-    <b>Direct Proportionality:</b> Increasing the voltage results in a proportional
-    increase in current if the resistance remains unchanged.\r\n- <b>Graphical Representation:</b>
-    When plotting voltage (<b>V</b>) versus current (<b>I</b>), the resulting straight
-    line passes through the origin. The slope of this line (<b>V/I</b>) is equal
-    to the resistance <b>R</b>.\r\n- <b>Dependence on Material and Geometry:</b>
-    The resistance depends on factors like the material's resistivity, the length
-    of the conductor, its cross-sectional area, and temperature.\r\n- <b>Experimental
-    Verification:</b> In the experiment, several sets of voltage and current measurements
-    are recorded. The nearly constant ratio of <b>V/I</b> across these sets confirms
-    the validity of Ohm\u2019s Law.\r\n\r\nThis theory forms the basis for verifying
-    the linear relationship between <b>V</b> and <b>I</b> in the experiment and for
-    determining the resistance of the conductor.\r\n"
-  _procedure: '<size=120%><b>Procedure</b></size>
-
-
-
-    1. Initially, the key (<b>K</b>)
-    is closed, and the rheostat is adjusted to get the minimum reading in the ammeter
-    (<b>A</b>) and voltmeter (<b>V</b>).
-
-
-
-    2. The current in the circuit is
-    increased gradually by moving the sliding terminal of the rheostat. During the
-    process, the current flowing in the circuit and the corresponding value of potential
-    difference across the resistance wire (<b>R</b>) are recorded.
-
-
-
-    3. This
-    way, different sets of values of voltage and current are obtained.
-
-
-
-    4.
-    For each set of values of <b>V</b> and <b>I</b>, the ratio <b>V/I</b> is calculated.
-
-
-
-    5.
-    When you calculate the ratio <b>V/I</b> for each case, you will notice that it
-    is almost the same. So <b>V/I = R</b>, which is a constant.
-
-
-
-    6. Plot a
-    graph of the current against the potential difference; it will be a straight
-    line. This shows that the current is proportional to the potential difference.
-
-'
+  _theory: placeholder
+  _procedure: placeholder
   _class: 12
   _visualizations:
   - {fileID: 4224009628787562476, guid: 873885181d375cc47a317873bce11c01, type: 3}

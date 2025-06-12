@@ -36,9 +36,13 @@ namespace ARLabs.AI
                 }
                 jsonResponse = jsonResponse.Replace("\\\"", "\"");
 
+                // Clean and fix JSON formatting issues
+                jsonResponse = CleanJsonResponse(jsonResponse);
+
                 Debug.Log("Processed JSON: " + jsonResponse);
 
                 AIResponse response = JsonUtility.FromJson<AIResponse>(jsonResponse);
+                Debug.Log("Parsed JSON");
 
                 if (!string.IsNullOrEmpty(response.xml))
                 {
@@ -46,6 +50,7 @@ namespace ARLabs.AI
                     return;
                 }
 
+                /*
                 if (response == null || response.sequence == null)
                 {
                     Debug.LogError("Failed to parse response: " + jsonResponse);
@@ -60,7 +65,7 @@ namespace ARLabs.AI
                 {
                     Debug.Log("All audio clips converted. Starting playback...");
                     StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, true, (0, 0)));
-                }));
+                }));*/
             }
             catch (Exception e)
             {
@@ -74,6 +79,45 @@ namespace ARLabs.AI
             ExperimentContext context = ExperimentContext.GetExperimentContext();
             Debug.Log(JsonUtility.ToJson(context));
         }
+
+        private string CleanJsonResponse(string jsonResponse)
+        {
+            try
+            {
+                // Find the xml field and its value
+                int xmlIndex = jsonResponse.IndexOf("\"xml\":");
+                if (xmlIndex == -1) return jsonResponse;
+
+                int xmlValueStart = jsonResponse.IndexOf("\"", xmlIndex + 6);
+                if (xmlValueStart == -1) return jsonResponse;
+
+                int xmlValueEnd = jsonResponse.LastIndexOf("\"");
+                if (xmlValueEnd <= xmlValueStart) return jsonResponse;
+
+                // Extract the xml content
+                string before = jsonResponse.Substring(0, xmlValueStart + 1);
+                string xmlContent = jsonResponse.Substring(xmlValueStart + 1, xmlValueEnd - xmlValueStart - 1);
+                string after = jsonResponse.Substring(xmlValueEnd);
+
+                // Escape problematic characters in the XML content
+                xmlContent = xmlContent.Replace("\\", "\\\\"); // Escape backslashes first
+                xmlContent = xmlContent.Replace("\"", "\\\""); // Escape quotes
+                xmlContent = xmlContent.Replace("\n", "\\n");  // Escape newlines
+                xmlContent = xmlContent.Replace("\r", "\\r");  // Escape carriage returns
+                xmlContent = xmlContent.Replace("\t", "\\t");  // Escape tabs
+
+                string cleanedJson = before + xmlContent + after;
+                Debug.Log("Cleaned JSON formatting");
+                return cleanedJson;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error cleaning JSON: {e.Message}");
+                return jsonResponse; // Return original if cleaning fails
+            }
+        }
+
+
         public void ProcessXML(string xml)
         {
             try
@@ -91,22 +135,30 @@ namespace ARLabs.AI
                     return;
                 }
                 
-                // Extract alternating text segments and actions
-                List<string> textSegments = new List<string>();
-                List<string> actionStrings = new List<string>();
+                // Extract audio elements and actions in order
+                List<(string type, string content)> orderedElements = new List<(string, string)>();
                 
-                ExtractTextAndActions(responseNode, textSegments, actionStrings);
+                ExtractOrderedElements(responseNode, orderedElements);
                 
-                Debug.Log($"Extracted {textSegments.Count} audio segments and {actionStrings.Count} actions");
+                Debug.Log($"Extracted {orderedElements.Count} elements in order");
                 
-                // Text segments are actually base64-encoded audio data
+                // Separate audio and actions while preserving order information
                 List<string> base64AudioList = new List<string>();
-                foreach (string base64Audio in textSegments)
+                List<string> actionStrings = new List<string>();
+                List<int> audioIndices = new List<int>();
+                List<int> actionIndices = new List<int>();
+                
+                for (int i = 0; i < orderedElements.Count; i++)
                 {
-                    if (!string.IsNullOrWhiteSpace(base64Audio))
+                    if (orderedElements[i].type == "Audio")
                     {
-                        base64AudioList.Add(base64Audio.Trim());
-                        Debug.Log($"Added base64 audio segment (length: {base64Audio.Trim().Length})");
+                        base64AudioList.Add(orderedElements[i].content);
+                        audioIndices.Add(i);
+                    }
+                    else if (orderedElements[i].type == "Action")
+                    {
+                        actionStrings.Add(orderedElements[i].content);
+                        actionIndices.Add(i);
                     }
                 }
                 
@@ -119,15 +171,15 @@ namespace ARLabs.AI
                 {
                     StartCoroutine(ConvertAllAudio(base64AudioList, audioClips, () =>
                     {
-                        Debug.Log("All audio clips converted. Starting playback...");
-                        StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, true, (0, 0)));
+                        Debug.Log("All audio clips converted. Starting ordered playback...");
+                        StartCoroutine(PlayOrderedAudioAndActions(audioClips, actions, orderedElements, audioIndices, actionIndices));
                     }));
                 }
                 else
                 {
                     // No audio segments, just execute actions
                     Debug.Log("No audio segments found. Executing actions only...");
-                    StartCoroutine(PlayAudioAndExecuteAction(audioClips, actions, false, (0, 0)));
+                    StartCoroutine(PlayOrderedAudioAndActions(audioClips, actions, orderedElements, audioIndices, actionIndices));
                 }
             }
             catch (Exception e)
@@ -137,32 +189,79 @@ namespace ARLabs.AI
             }
         }
         
-        private void ExtractTextAndActions(XmlNode parentNode, List<string> textSegments, List<string> actionStrings)
+        private void ExtractOrderedElements(XmlNode parentNode, List<(string type, string content)> orderedElements)
         {
             foreach (XmlNode childNode in parentNode.ChildNodes)
             {
-                if (childNode.NodeType == XmlNodeType.Text)
+                if (childNode.NodeType == XmlNodeType.Element && childNode.Name == "Audio")
                 {
-                    // This is a text node
-                    string text = childNode.Value?.Trim();
-                    if (!string.IsNullOrWhiteSpace(text))
+                    // This is an Audio element - extract the base64 content
+                    string audioContent = childNode.InnerText?.Trim();
+                    if (!string.IsNullOrWhiteSpace(audioContent))
                     {
-                        textSegments.Add(text);
+                        orderedElements.Add(("Audio", audioContent));
+                        Debug.Log($"Extracted audio segment at position {orderedElements.Count - 1} (length: {audioContent.Length})");
                     }
                 }
                 else if (childNode.NodeType == XmlNodeType.Element && childNode.Name == "Action")
                 {
                     // This is an Action element - convert to string
                     string actionXml = childNode.OuterXml;
-                    actionStrings.Add(actionXml);
-                    Debug.Log($"Extracted action: {actionXml}");
+                    orderedElements.Add(("Action", actionXml));
+                    Debug.Log($"Extracted action at position {orderedElements.Count - 1}: {actionXml}");
                 }
                 else if (childNode.NodeType == XmlNodeType.Element)
                 {
-                    // Other elements - recurse to find text and actions
-                    ExtractTextAndActions(childNode, textSegments, actionStrings);
+                    // Other elements - recurse to find audio and actions
+                    ExtractOrderedElements(childNode, orderedElements);
                 }
             }
+        }
+
+        private IEnumerator PlayOrderedAudioAndActions(AudioClip[] audioClips, string[] actions, List<(string type, string content)> orderedElements, List<int> audioIndices, List<int> actionIndices)
+        {
+            int currentAudioIndex = 0;
+            int currentActionIndex = 0;
+            
+            foreach (var element in orderedElements)
+            {
+                // Check if processing is allowed
+                if (!canProcessResponse)
+                {
+                    Debug.Log("Response processing stopped due to canProcessResponse being false");
+                    yield break;
+                }
+                
+                if (element.type == "Audio")
+                {
+                    if (currentAudioIndex < audioClips.Length && audioClips[currentAudioIndex] != null)
+                    {
+                        Debug.Log($"Playing audio segment {currentAudioIndex}");
+                        _audioSource.clip = audioClips[currentAudioIndex];
+                        _audioSource.Play();
+                        yield return new WaitForSeconds(_audioSource.clip.length);
+                        
+                        // Check again after audio finishes
+                        if (!canProcessResponse)
+                        {
+                            _audioSource.Stop();
+                            yield break;
+                        }
+                    }
+                    currentAudioIndex++;
+                }
+                else if (element.type == "Action")
+                {
+                    if (currentActionIndex < actions.Length)
+                    {
+                        Debug.Log($"Executing action {currentActionIndex}: {actions[currentActionIndex]}");
+                        ActionHandler.HandleAction(actions[currentActionIndex]);
+                    }
+                    currentActionIndex++;
+                }
+            }
+            
+            Debug.Log("Finished processing all ordered elements");
         }
 
         private IEnumerator PlayAudioAndExecuteAction(AudioClip[] audioClips, string[] actions, bool isAudioChance, (int audioIndex, int actionIndex) index)

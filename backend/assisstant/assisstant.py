@@ -281,7 +281,7 @@ class ARAssisstant:
         # Reconstruct wrapped response
         final_xml = "<Response>\n  " + "\n\n  ".join(new_segments) + "\n</Response>"
 
-        return json.dumps({ "xml": final_xml })
+        return { "xml": final_xml }
 
 
     def invoke(self, thread_id: str, query: str, language: str, image_path: str):
