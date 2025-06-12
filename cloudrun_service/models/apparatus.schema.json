@@ -1,0 +1,34 @@
+{
+    "type": "object",
+    "required": ["name", "desc", "apparatusClass", "fields", "possibleAttachments"],
+    "properties": {
+        "name": {"type": "string"},
+        "desc": {"type": "string"},
+        "apparatusClass": {"type": "string", "description": "Classification of the apparatus (e.g., Circuit, Mechanical, etc.)"},
+        "fields": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["key", "type"],
+                "properties": {
+                    "key": {"type": "string"},
+                    "type": {
+                        "type": "string",
+                        "enum": ["slider", "dropdown", "text", "bool", "button"],
+                        "description": "Type of the field control"
+                    },
+                    "rangeMin": {"type": "number"}, // Minimum value for slider type
+                    "rangeMax": {"type": "number"}, // Maximum value for slider type
+                    "integerOnly": {"type": "boolean"}, // Whether slider should only use integer values
+                    "options": {"type": "array", "items": {"type": "string"}}, // Options for dropdown type
+                    "placeholder": {"type": "string"} // Placeholder text for text type
+                }
+            }
+        },
+        "possibleAttachments": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of apparatus names that can be attached to this apparatus"
+        }
+    }
+} 

@@ -1,0 +1,16 @@
+{
+    "name": "Stop Clock",
+    "desc": "A stop clock is a tool used to measure the time taken for an object to travel a certain distance",
+    "apparatusClass": "Mechanical",
+    "fields": [
+            {
+                "key": "start/stop",
+                "type": "button"
+            },
+            {
+                "key": "reset",
+                "type": "button"
+            }
+    ],
+    "possibleAttachments": []
+}

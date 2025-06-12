@@ -1,0 +1,13 @@
+{
+    "name": "Ammeter",
+    "desc": "An Ammeter measures the current in the circuit",
+    "apparatusClass": "Circuit",
+    "fields": [
+            {
+                "key": "displayType",
+                "type": "dropdown",
+                "options": ["Analog", "Digital"]
+            }
+    ],
+    "possibleAttachments": []
+}

@@ -2079,6 +2079,7 @@ MonoBehaviour:
       _serializedList:
       - Key: voltage
         Value:
+          field: {fileID: 0}
           label: Voltage
           fieldType: 0
           value: 5
@@ -2090,6 +2091,7 @@ MonoBehaviour:
       _serializedList:
       - Key: onOff
         Value:
+          field: {fileID: 0}
           label: On/Off
           fieldType: 0
           options:
@@ -2107,7 +2109,7 @@ MonoBehaviour:
   _isRepositioning: 0
   _isPlacing: 0
   _isGrabbing: 0
-  SwayWhileGrabbed: 1
+  SwayWhileGrabbed: 0
   _interactEvents: []
   _possibleAttachments:
     _serializedList: []
@@ -2478,6 +2480,7 @@ MonoBehaviour:
   fieldType: 3
   dropdown: {fileID: 3461977838975704741}
   dropdownInfo:
+    field: {fileID: 0}
     label: 
     fieldType: 0
     options: []
@@ -3301,6 +3304,7 @@ MonoBehaviour:
   slider: {fileID: 6135457849201234072}
   value: {fileID: 2618071748288819067}
   sliderInfo:
+    field: {fileID: 0}
     label: 
     fieldType: 0
     value: 0

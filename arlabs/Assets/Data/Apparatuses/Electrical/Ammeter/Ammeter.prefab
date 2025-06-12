@@ -1909,6 +1909,7 @@ MonoBehaviour:
       _serializedList:
       - Key: displayType
         Value:
+          field: {fileID: 0}
           label: Display Type
           fieldType: 0
           options:

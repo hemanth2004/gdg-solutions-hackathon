@@ -1,0 +1,15 @@
+{
+    "name": "Rheostat",
+    "desc": "A rheostat is a variable resistor that can be used to control the current in a circuit",
+    "apparatusClass": "Circuit",
+    "fields": [
+            {
+                "key": "resistance",
+                "type": "slider",
+                "rangeMin": 1,
+                "rangeMax": 10,
+                "integerOnly": false
+            }
+    ],
+    "possibleAttachments": []
+}

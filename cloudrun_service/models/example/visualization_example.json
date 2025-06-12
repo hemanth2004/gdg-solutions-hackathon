@@ -1,0 +1,4 @@
+{
+    "name": "electron_flow",
+    "desc": "Visualizing flow of electrons in a wire in a ciruit. Circuit must have some power in order to show electron flow."
+}

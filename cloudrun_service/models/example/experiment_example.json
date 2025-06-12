@@ -1,0 +1,33 @@
+{
+    "name": "Verification of Ohm's Law",
+    "subject": "physics",
+    "topic": "electromagnetism",
+    "class": 12,
+    "theory": "Ohm’s Law states that the current (I) flowing through a conductor is directly proportional to the potential difference (V) across its ends, provided that the physical conditions (such as temperature and dimensions) remain constant. This relationship is given by: <indent=20%><size=110%><b>V = I × R</b></size></indent> where R is the resistance of the conductor. <size=110%><b>Key Points:</b></size> - <b>Direct Proportionality:</b> Increasing the voltage results in a proportional increase in current if the resistance remains unchanged. - <b>Graphical Representation:</b> When plotting voltage (V) versus current (I), the resulting straight line passes through the origin. The slope of this line (V/I) is equal to the resistance R. - <b>Dependence on Material and Geometry:</b> The resistance depends on factors like the material's resistivity, the length of the conductor, its cross-sectional area, and temperature. - <b>Experimental Verification:</b> In the experiment, several sets of voltage and current measurements are recorded. The nearly constant ratio of V/I across these sets confirms the validity of Ohm’s Law. This theory forms the basis for verifying the linear relationship between V and I in the experiment and for determining the resistance of the conductor.",
+    "procedure": "1. Initially, the key (K) is closed, and the rheostat is adjusted to get the minimum reading in the ammeter (A) and voltmeter (V). 2. The current in the circuit is increased gradually by moving the sliding terminal of the rheostat. During the process, the current flowing in the circuit and the corresponding value of potential difference across the resistance wire (R) are recorded. 3. This way, different sets of values of voltage and current are obtained. 4. For each set of values of V and I, the ratio V/I is calculated. 5. When you calculate the ratio V/I for each case, you will notice that it is almost the same. So V/I = R, which is a constant. 6. Plot a graph of the current against the potential difference; it will be a straight line. This shows that the current is proportional to the potential difference.\\n    3. This way, different sets of values of voltage and current are obtained.\\n 4. For each set of values of <b>V</b> and <b>I</b>, the ratio <b>V/I</b> is calculated.\\n 5. When you calculate the ratio <b>V/I</b> for each case, you will notice that it is almost the same. So <b>V/I = R</b>, which is a constant.\\n 6. Plot a graph of the current against the potential difference; it will be a straight line. This shows that the current is proportional to the potential difference.",
+    "visualizationsAvailable": [
+        "electron_flow",
+        "potential_gradient"
+    ],
+    "requiredApparatus": [
+        "Voltmeter",
+        "Ammeter",
+        "Rheostat",
+        "Plug Key",
+        "Battery"
+    ],
+    "instantiatedApparatus": [
+        {
+            "name": "Voltmeter",
+            "apparatusId": 0
+        },
+        {
+            "name": "Ammeter",
+            "apparatusId": 1
+        },
+        {
+            "name": "Rheostat",
+            "apparatusId": 2
+        }
+    ]
+}

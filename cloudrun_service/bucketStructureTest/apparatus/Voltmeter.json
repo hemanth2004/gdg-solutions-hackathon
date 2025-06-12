@@ -1,0 +1,18 @@
+{
+    "name": "Voltmeter",
+    "desc": "A voltmeter measures the voltage in the circuit",
+    "apparatusClass": "Circuit",
+    "fields": [
+            {
+                "key": "displayType",
+                "type": "dropdown",
+                "options": ["Analog", "Digital"]
+            },
+            {
+                "key": "wireType",
+                "type": "dropdown",
+                "options": ["None", "Gold", "Silver"]
+            }
+    ],
+    "possibleAttachments": []
+}

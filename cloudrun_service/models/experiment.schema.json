@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "required": ["name", "subject", "topic", "class", "theory", "procedure", "availableVisualizations", "requiredApparatus"],
+    "properties": {
+        "name": {"type": "string"},
+        "subject": {"type": "string"},
+        "topic": {"type": "string"},
+        "class": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 12
+        },
+        "theory": {"type": "string"},
+        "procedure": {"type": "string"},
+        "availableVisualizations": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "requiredApparatus": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "instantiatedApparatus": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["name", "apparatusId"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "apparatusId": {"type": "integer"}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "name": "Pendulum",
+    "desc": "A pendulum is a weight on the end of a string that swings back and forth",
+    "apparatusClass": "Mechanical",
+    "fields": [
+            {
+                "key": "length",
+                "type": "slider",
+                "rangeMin": 1,
+                "rangeMax": 100,
+                "integerOnly": true
+            },
+            {
+                "key": "gravity",
+                "type": "slider",
+                "rangeMin": -20,
+                "rangeMax": 20,
+                "integerOnly": false
+            },
+            {
+                "key": "angle",
+                "type": "slider",
+                "rangeMin": -180,
+                "rangeMax": 180,
+                "integerOnly": true
+            },
+            {
+                "key": "bobRadius",
+                "type": "slider",
+                "rangeMin": 1,
+                "rangeMax": 10,
+                "integerOnly": true
+            },
+            {
+                "key": "reset",
+                "type": "button"
+            }
+    ],
+    "possibleAttachments": []
+}

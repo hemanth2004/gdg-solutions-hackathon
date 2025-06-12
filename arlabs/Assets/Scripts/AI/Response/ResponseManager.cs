@@ -69,6 +69,11 @@ namespace ARLabs.AI
             }
         }
 
+        public void Test()
+        {
+            ExperimentContext context = ExperimentContext.GetExperimentContext();
+            Debug.Log(JsonUtility.ToJson(context));
+        }
         public void ProcessXML(string xml)
         {
             try

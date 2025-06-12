@@ -1,0 +1,13 @@
+{
+    "name": "Plug Key",
+    "desc": "A plug key is a tool used to connect and disconnect wires",
+    "apparatusClass": "Circuit",
+    "fields": [
+            {
+                "key": "plugged",
+                "type": "dropdown",
+                "options": ["Unplugged", "Plugged"]
+            }
+    ],
+    "possibleAttachments": []
+}

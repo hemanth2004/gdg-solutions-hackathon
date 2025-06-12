@@ -1,0 +1,20 @@
+{
+    "name": "Battery",
+    "desc": "A Battery with controllable voltage",
+    "apparatusClass": "Circuit",
+    "fields": [
+            {
+                "key": "voltage",
+                "type": "slider",
+                "rangeMin": 0,
+                "rangeMax": 10,
+                "integerOnly": true
+            },
+            {
+                "key": "onOff",
+                "type": "dropdown",
+                "options": ["Off", "On"]
+            }
+    ],
+    "possibleAttachments": []
+}

@@ -25,9 +25,19 @@ namespace ARLabs.AI
         public string name;
         public string theory;
         public string procedure;
-        public string[] requiredApparatus;
-        public string[] instantiatedApparatus;
-        public Visualization[] visualizations;
+
+
+        /**
+        * Apparatus
+        */
+        public string[] requiredApparatus; // backend will request gcs using the string name
+        public ApparatusInstance[] instantiatedApparatus; // backend will request gcs using the string name
+
+
+        /**
+        * Visualizations
+        */
+        public Visualization[] availableVisualizations;
 
         public static ExperimentContext GetExperimentContext()
         {
@@ -41,6 +51,7 @@ namespace ARLabs.AI
             experiment.topic = expManager.ExperimentMasterSO.Topic.ToString();
             experiment.schoolClass = expManager.ExperimentMasterSO.Class.ToString();
 
+
             // Get the required apparatus names
             List<string> apparatusNames = new();
             foreach (Apparatus apparatus in expManager.ExperimentMasterSO.RequiredApparatus)
@@ -49,13 +60,15 @@ namespace ARLabs.AI
             }
             experiment.requiredApparatus = apparatusNames.ToArray();
 
+
             // Get the currently placed apparatus names
-            List<string> instantiatedApparatusNames = new();
+            List<ApparatusInstance> instantiatedApparatus = new();
             foreach (var apparatus in expManager.InstantiatedApparatus)
             {
-                instantiatedApparatusNames.Add(apparatus.Head);
+                instantiatedApparatus.Add(new ApparatusInstance(apparatus.Head, apparatus.ApparatusID));
             }
-            experiment.instantiatedApparatus = instantiatedApparatusNames.ToArray();
+            experiment.instantiatedApparatus = instantiatedApparatus.ToArray();
+
 
             // Get the possible visualizations
             List<Visualization> visualizationsPossible = new();
@@ -63,11 +76,8 @@ namespace ARLabs.AI
             {
                 visualizationsPossible.Add(new Visualization(visualization.VisualizationName, visualization.VisualizationDesc));
             }
-            experiment.visualizations = visualizationsPossible.ToArray();
+            experiment.availableVisualizations = visualizationsPossible.ToArray();
 
-            // Get the possible actions
-            // ...
-            // todo
 
             return experiment;
         }
@@ -84,6 +94,20 @@ namespace ARLabs.AI
                 this.desc = desc;
             }
         }
+
+        [System.Serializable]
+        public struct ApparatusInstance
+        {
+            public string name;
+            public ushort apparatusId;
+
+            public ApparatusInstance(string name, ushort id)
+            {
+                this.name = name;
+                this.apparatusId = id;
+            }
+        }
+
 
     }
 }

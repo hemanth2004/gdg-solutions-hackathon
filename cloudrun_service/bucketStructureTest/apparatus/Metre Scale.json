@@ -1,0 +1,15 @@
+{
+    "name": "Metre Scale",
+    "desc": "A metre scale is a tool used to measure length",
+    "apparatusClass": "Mechanical",
+    "fields": [
+            {
+                "key": "colour",
+                "type": "slider",
+                "rangeMin": 0,
+                "rangeMax": 1,
+                "integerOnly": false
+            }
+    ],
+    "possibleAttachments": []
+}
