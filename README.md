@@ -133,8 +133,27 @@ pip install -r requirements.txt
 ```bash
 python api.py
 ```
----
 
+### Service Setup
+1. Navigate to cloudrun_service
+```
+cd cloudrun_service
+```
+2. Use Cloud Build to build your docker image. Make sure you have an artifact registry repo.
+```
+gcloud build submit
+```
+3. Use the Cloud Storage GUI to create a bucket with 3 folders in root
+```
+/
+└--/apparatus/
+└--/experiments/
+└--/visualizations/
+```
+Make sure that your JSONs within follow the schema within /cloudrun_service/models/
+
+4. Use the Cloud Run GUI to create a new service that runs the built image in the registry. Configuure GCS_BUCKET_NAME env variable to be your bucket name.
+---
 ## Challenges We Faced
 
 1. **AI Assistance**
