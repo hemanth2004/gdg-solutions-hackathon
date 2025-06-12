@@ -38,15 +38,18 @@ AR Labs is a mobile AR app that lets students perform virtual science experiment
    - Handles API requests using FastAPI
    - Orchestrates our LLM architecture using LangGraph, 
    - Uses Google Cloud Text-to-Speech features
+   - Includes RAG Troubleshooting for user help requests
 
+2. **Storage Fetch Service (`/cloudrun_service/`)**:
+   - Service running on Golang
+   - Handles fetching apparatus, experiments and visualizations from the storage bucket.
 
 ---
 
 ## Architecture
 The project follows a modular architecture:
 
-![architecture_image](https://github.com/user-attachments/assets/43619026-a20b-48d4-9a70-dfb0b6b64eed)
-
+![arlabs drawio (6)](https://github.com/user-attachments/assets/56bed583-2eff-46ec-9d1a-366111b89676)
 
 ---
 
@@ -76,6 +79,7 @@ The project follows a modular architecture:
 2. **AI-Powered Assistance**:
 
    - Voice-controlled AI assistant for experiment guidance.
+   - Has actual control over the experiment setup - can change battery voltage, pendulum length, rheostat resistance etc.
    - Answers questions related to experiments and concepts.
 
 3. **Seamless API Integration**:
