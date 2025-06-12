@@ -1,16 +1,14 @@
-# Use official Go image
+# Use official Go base image
 FROM golang:1.21
 
 WORKDIR /app
 
-# Copy files and build
 COPY . .
 RUN go mod tidy
 RUN go build -o main .
 
-# Set port for Cloud Run
+# Expose default port for cloud run = 8080
 ENV PORT=8080
 EXPOSE 8080
 
-# Run the app
 CMD ["./main"] 
