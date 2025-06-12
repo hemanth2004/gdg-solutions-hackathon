@@ -271,10 +271,10 @@ class ARAssisstant:
                 new_segments.append(seg)
             else:
                 # It's plain text — convert to audio
-                if save_audio:
-                    audio_counter += 1
-                    audio_path = f"audio_store/output_{audio_counter}.mp3"
-                    self.tts.text_to_speech(seg, output_file=audio_path)
+                # if save_audio:
+                #     audio_counter += 1
+                #     audio_path = f"audio_store/output_{audio_counter}.mp3"
+                #     self.tts.text_to_speech(seg, output_file=audio_path)
                 b64_audio = self.tts.text_to_speech(seg, return_encoded=True)
                 new_segments.append(f"<Audio>{b64_audio}</Audio>")
 
@@ -301,7 +301,7 @@ class ARAssisstant:
         response = output["messages"][-1].content
         print("\033[92m" + response + "\033[0m")
         
-        payload = self._parse_xml_response(response, save_audio=True)
+        payload = self._parse_xml_response(response)  # save_audio=True commented out
         return payload
     
 if __name__ == "__main__":

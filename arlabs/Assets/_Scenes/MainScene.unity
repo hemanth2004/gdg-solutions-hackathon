@@ -202,7 +202,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 967272534}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4067,8 +4067,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 205150991}
   m_HandleRect: {fileID: 205150990}
   m_Direction: 0
-  m_Value: 0.00000024316444
-  m_Size: 0.62360626
+  m_Value: 0.0000002431645
+  m_Size: 0.6254313
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5569,7 +5569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &221759398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13545,8 +13545,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.4545, y: -153.7404}
-  m_SizeDelta: {x: 754.909, y: 0}
+  m_AnchoredPosition: {x: 412.45447, y: -153.7404}
+  m_SizeDelta: {x: 754.90894, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &492946418
 MonoBehaviour:
@@ -14520,8 +14520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412.4545, y: -128.7404}
-  m_SizeDelta: {x: 754.909, y: 0}
+  m_AnchoredPosition: {x: 412.45447, y: -128.7404}
+  m_SizeDelta: {x: 754.90894, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &528934347
 MonoBehaviour:
@@ -21295,7 +21295,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1803917577}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -21828,7 +21828,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2095663304}
   m_Direction: 2
   m_Value: 0.9999998
-  m_Size: 0.32287034
+  m_Size: 0.3228703
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25404,7 +25404,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1577831766}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -31460,7 +31460,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 827578433}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39747,8 +39747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 414, y: -165}
-  m_SizeDelta: {x: 828, y: 0}
+  m_AnchoredPosition: {x: 413.99997, y: -165}
+  m_SizeDelta: {x: 827.99994, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1748276239
 MonoBehaviour:
@@ -40996,7 +40996,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163410629}
   m_HandleRect: {fileID: 163410628}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -41265,7 +41265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00010725338}
+  m_AnchoredPosition: {x: 0, y: -0.00010310671}
   m_SizeDelta: {x: 0, y: 1317.132}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1832000363
@@ -46575,7 +46575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f5e65313530b34c8e7124b876d3717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _apiURL: https://gdg-solutions-hackathon.onrender.com
+  _apiURL: https://gdg-solutions-hackathon-2.onrender.com
   _apiEndpoint: /api/chat
   _helpEndpoint: /api/help
   _saveScreenshot: 0

@@ -15,8 +15,40 @@ MonoBehaviour:
   _subject: 1
   _topic: 1
   _experimentName: Verification of Ohm's Law
-  _theory: placeholder
-  _procedure: placeholder
+  _theory: "<size=120%><b>Theory</b></size>\\r\\n\\r\\nOhm\\u2019s Law states that
+    the\r\n    current (<b>I</b>) flowing through a conductor is directly proportional
+    to the\r\n    potential difference (<b>V</b>) across its ends, provided that
+    the physical conditions\r\n    (such as temperature and dimensions) remain constant.
+    This relationship is given\r\n    by:\\r\\n\\r\\n<indent=20%><size=110%><b>V
+    = I \\xD7 R</b></size></indent>\\r\\n\\r\\nwhere\r\n    <b>R</b> is the resistance
+    of the conductor.\\r\\n\\r\\n<size=110%><b>Key Points:</b></size>\\r\\n-\r\n   
+    <b>Direct Proportionality:</b> Increasing the voltage results in a proportional\r\n   
+    increase in current if the resistance remains unchanged.\\r\\n- <b>Graphical
+    Representation:</b>\r\n    When plotting voltage (<b>V</b>) versus current (<b>I</b>),
+    the resulting straight\r\n    line passes through the origin. The slope of this
+    line (<b>V/I</b>) is equal\r\n    to the resistance <b>R</b>.\\r\\n- <b>Dependence
+    on Material and Geometry:</b>\r\n    The resistance depends on factors like the
+    material's resistivity, the length\r\n    of the conductor, its cross-sectional
+    area, and temperature.\\r\\n- <b>Experimental\r\n    Verification:</b> In the
+    experiment, several sets of voltage and current measurements\r\n    are recorded.
+    The nearly constant ratio of <b>V/I</b> across these sets confirms\r\n    the
+    validity of Ohm\\u2019s Law.\\r\\n\\r\\nThis theory forms the basis for verifying\r\n   
+    the linear relationship between <b>V</b> and <b>I</b> in the experiment and for\r\n   
+    determining the resistance of the conductor.\\r\\n"
+  _procedure: "<size=120%><b>Procedure</b></size>\r\n\r\n\r\n\r\n    1. Initially,
+    the key (<b>K</b>)\r\n    is closed, and the rheostat is adjusted to get the
+    minimum reading in the ammeter\r\n    (<b>A</b>) and voltmeter (<b>V</b>).\r\n\r\n\r\n\r\n   
+    2. The current in the circuit is\r\n    increased gradually by moving the sliding
+    terminal of the rheostat. During the\r\n    process, the current flowing in the
+    circuit and the corresponding value of potential\r\n    difference across the
+    resistance wire (<b>R</b>) are recorded.\r\n\r\n\r\n\r\n    3. This\r\n    way,
+    different sets of values of voltage and current are obtained.\r\n\r\n\r\n\r\n   
+    4.\r\n    For each set of values of <b>V</b> and <b>I</b>, the ratio <b>V/I</b>
+    is calculated.\r\n\r\n\r\n\r\n    5.\r\n    When you calculate the ratio <b>V/I</b>
+    for each case, you will notice that it\r\n    is almost the same. So <b>V/I =
+    R</b>, which is a constant.\r\n\r\n\r\n\r\n    6. Plot a\r\n    graph of the
+    current against the potential difference; it will be a straight\r\n    line.
+    This shows that the current is proportional to the potential difference.\r\n"
   _class: 12
   _visualizations:
   - {fileID: 4224009628787562476, guid: 873885181d375cc47a317873bce11c01, type: 3}
